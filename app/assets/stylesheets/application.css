@@ -191,13 +191,15 @@ html, body {
   /* Fave = Fade N move :D */
   animation: fave .7s both ease-in-out 5.5s, goOut forwards .6s ease 8s;
 }
-
+form{
+  color: red;
+}
 .copyright {
   font-size: 16px;
   color: #666;
   text-shadow: 0 -1px 0 #f1f1f1;
   position: absolute;
-  left: 5%;
+  left: 42%;
   bottom: 5%;
   animation: copyrights .5s ease both 6.5s;
 }
