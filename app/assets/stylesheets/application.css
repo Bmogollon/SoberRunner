@@ -136,7 +136,7 @@ html, body {
 }
 
 .bg {
-  background: grey;
+  background: red;
   width: 50vw;
   height: 50vw;
   border-radius: 50%;
@@ -164,7 +164,7 @@ html, body {
 .anetwork:before {
   content: 'sober runner';
   position: absolute;
-  width: 100%;
+  width: 150%;
   transform: scale( 1.2 );
   height: 100%;
   background: red;
@@ -183,7 +183,7 @@ html, body {
 .text {
   color: orange;
   text-shadow: 0 1px 0 #fff;
-  font-size: 22px;
+  font-size: 29px;
   position: absolute;
   left: 55%;
   top: 50%;
