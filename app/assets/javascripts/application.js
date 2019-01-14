@@ -14,3 +14,24 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+// require phaser
+
+
+var game = new Phaser.Game(1300, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var player;
+var platforms;
+var cursors;
+
+var diamonds;
+
+
+var score = 0;
+var scoreText;
+
+
+function preload() {
+   game.load.image('background', '<%= image_path('background.png') %>');
+   // game.load.image('ground', '<%= image_path('platform.png') %>');
+   game.load.image('diamond', '<%= image_path('vodka.png') %>');
+   game.load.spritesheet('dude', '<%= image_path('dude.png') %>', 45, 48);
+}
