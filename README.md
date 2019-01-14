@@ -2,4 +2,4 @@
 
 Sober Runner Game.
 
-A PSA style game created using phaser and rails.
+A PSA style game created using phaser and rails...
