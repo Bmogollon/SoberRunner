@@ -191,8 +191,20 @@ html, body {
   /* Fave = Fade N move :D */
   animation: fave .7s both ease-in-out 5.5s, goOut forwards .6s ease 8s;
 }
+
+.logo{
+  text-align: center;
+}
+
 form{
-  color: red;
+  height:200px;
+  width:300px;
+  color: white;
+  border-radius: 5%;
+  display: block;
+  background:red;
+  position: absolute;
+  padding-bottom: 120px;
 }
 .copyright {
   font-size: 16px;
@@ -207,7 +219,7 @@ form{
 .finish {
   position: absolute;
   left: 45%;
-  color: #888;
-  font-size: 18px;
+  color: green;
+  font-size: 30px;
   animation: comeIn both .5s ease 8.5s;
 }

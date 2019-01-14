@@ -8,19 +8,24 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+
+  <h1 class="logo"> ▁ ▂ ▄ ▅ ▆ ▇ █ 𝕊𝕠𝕓𝕖𝕣 ℝ𝕦𝕟𝕟𝕖𝕣 █ ▇ ▆ ▅ ▄ ▂ ▁ </h1>
   <div class="bg"></div>
 
   <a href="http://anetwork.ir" class="anetwork"></a>
   <div class="text"><a href="http://anetwork.ir">Welcome to Sober runner</a></div>
 
-  <div class="finish">login
+  <div class="finish">
+    <br>
 
     <%= form_tag login_path do %>
       <%= label_tag :username %>
       <%= text_field_tag :username %>
+      <br>
 
       <%= label_tag :password %>
       <%= password_field_tag :password %>
+      <br>
 
       <%= submit_tag %>
     <% end %>
@@ -30,7 +35,8 @@
 
 
 
-  </a></div>
+
+  </div>
 
 
   <div class="copyright"> Copyright 2019 Brunch Group</div>

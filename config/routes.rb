@@ -13,6 +13,6 @@ Rails.application.routes.draw do
    post '/login' => 'session#create'
    delete '/login' => 'session#destroy'
 
-   get '/faq' => 'pages#faq'
+   get '/user' => 'user#new'
 
  end
