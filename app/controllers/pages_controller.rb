@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   def welcome
   end
 
-  
+
 
   private
     def authorise
