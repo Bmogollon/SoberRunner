@@ -15,11 +15,6 @@ Rails.application.routes.draw do
    delete '/login' => 'session#destroy'
 
    get '/user' => 'user#new'
+   get "games/index"
 
  end
-
-  root to: 'pages#home'
-get "games/index"
-
-end
-

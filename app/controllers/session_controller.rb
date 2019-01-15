@@ -1,5 +1,6 @@
 class SessionController < ApplicationController
   def new
+
   end
 
   def create
@@ -7,9 +8,10 @@ class SessionController < ApplicationController
      if user.present? && user.authenticate(params[:password])
        session[:user_id] = user.id
        #log em in
+
        redirect_to root_path
      else
-       
+
        redirect_to login_path
    end
   end
