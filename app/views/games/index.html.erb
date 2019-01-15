@@ -7,7 +7,12 @@
     text-align:center;
   }
 
-
+ #health {
+   margin-top: 13%;
+   margin-left: 70%;
+   position: relative;
+   
+ }
 
 
 </style>
@@ -15,6 +20,10 @@
 <%= link_to "Home Page", root_path %>
 <!-- <h1> ▁ ▂ ▄ ▅ ▆ ▇ █ 𝕊𝕠𝕓𝕖𝕣 ℝ𝕦𝕟𝕟𝕖𝕣 █ ▇ ▆ ▅ ▄ ▂ ▁</h1> -->
 <!-- <h1>Health Bar</h1> -->
+<div class="container">
+<div id="health">
 <progress id="energy" value="50" max="50"></progress>
+</div>
+</div>
 
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
