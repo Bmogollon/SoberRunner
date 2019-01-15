@@ -157,10 +157,9 @@ function update() {
     //  }
 
      if (score === 3) {
-            game.world.setBounds(500, 0);
             // alert('You are drunk! Go Home!!')
             score = 0
-             game.camera.shake(0.01, 3000000);
+             game.camera.shake(0.005, 3000000);
 
 
           }
@@ -173,15 +172,17 @@ function update() {
 // *****************************************
 function collectDiamond (player, bottle) {
   bottle.kill()
-
-  score += 1
-  scoreText.text = 'Drinks: ' + score
-  let energy = document.getElementById("energy")
+  if(score += 1){
+  scoreText.text = 'Drinks: ' + score; 
+} else if (score -= 1){
+    scoreText.text = "YERRRRRR";
+}
+  let energy = document.getElementById("energy");
 
   energy.value -= 1;
   if (energy.value === 0){
     alert('game over!!')
-  }
+  } 
 
 }
 
