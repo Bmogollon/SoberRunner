@@ -23,9 +23,12 @@ function preload() {
   game.load.image('background', '<%= image_path('background.png') %>');
   game.load.image('coffee', '<%= image_path('coffee.png') %>');
   game.load.image('ground', '<%= image_path('barrel.png') %>');
-
+  game.load.image('tiles', '<%= image_path('super_mario.png') %>');
+  game.load.tilemap('supermario', '<%= asset_path('super_mario.json') %>');
   game.load.image('diamond', '<%= image_path('vodka.png') %>');
   game.load.spritesheet('dude', '<%= image_path('dude.png') %>', 45, 48);
+  game.load.script('BlurX', 'https://cdn.rawgit.com/photonstorm/phaser-ce/master/filters/BlurX.js');
+  game.load.script('BlurY', 'https://cdn.rawgit.com/photonstorm/phaser-ce/master/filters/BlurY.js');
 }
 
 var player;
@@ -44,9 +47,12 @@ var scoreText;
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
 
+    var blurX = game.add.filter('BlurX');
+	var blurY = game.add.filter('BlurY');
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-game.world.setBounds(110, 0);
+    game.world.setBounds(110, 0);
 
     game.add.sprite(0, 0, 'background');
 
@@ -163,9 +169,9 @@ function update() {
     }
 
     if (score === 3) {
-      game.world.setBounds(500, 0);
-       alert('You are drunk! Go Home!!')
-       score = 0
+        game.camera.shake(0.03, 500000000000000);
+       
+       
      }
 
 }
@@ -182,3 +188,4 @@ function collectCoffee (player, coffee) {
   score -= 1
   scoreText.text = 'Drinks' - score
 }
+110, 0
