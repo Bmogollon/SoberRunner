@@ -81,15 +81,15 @@ game.world.setBounds(110, 0);
     player.body.collideWorldBounds = true;
 
     player.animations.add('left', [3,4, 5], 10, true);
-    player.animations.add('right', [ 6, 7, 8], 10, true);
+    player.animations.add('right', [ 6,7,8], 10, true);
 
 
   coffees = game.add.group();
 
   coffees.enableBody = true;
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 10; i++)
         {
-          var coffee = coffees.create(i * 80, 0, 'coffee');
+          var coffee = coffees.create(i * 70, 20, 'coffee');
 
           coffee.body.gravity.y = 700;
 
