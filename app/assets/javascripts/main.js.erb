@@ -2,14 +2,16 @@
 var game = new Phaser.Game(1000, 500,Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
-  // game.load.image('background', '<%= image_path('background.png') %>');
+  game.load.image('background', '<%= image_path('background.png') %>');
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
-  // game.load.image('ground', '<%= image_path('barrel.png') %>');
+  game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.spritesheet('dude', '<%= image_path('dude.png') %>', 45, 48);
   game.scale.pageAlignHorizontally = true;
 game.scale.pageAlignVertically = true;
+
 }
+
 
 var player;
 var platforms;
@@ -26,8 +28,8 @@ var scoreText;
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
-
     game.physics.startSystem(Phaser.Physics.ARCADE);
+
 
 game.world.setBounds(110, 0);
 
@@ -54,7 +56,7 @@ game.world.setBounds(110, 0);
 
     ledge.body.immovable = true;
 
-    player = game.add.sprite(32, game.world.height - 150, 'dude');
+    player = game.add.sprite(0, game.world.height - 150, 'dude');
 
     game.physics.arcade.enable(player);
 
@@ -70,9 +72,9 @@ game.world.setBounds(110, 0);
   coffees = game.add.group();
 
   coffees.enableBody = true;
-        for (var i = 0; i < 10; i++)
+        for (var i = 0; i < 15; i++)
         {
-          var coffee = coffees.create(i * 70, 20, 'coffee');
+          var coffee = coffees.create(i * 80, 0, 'coffee');
 
           coffee.body.gravity.y = 700;
 
@@ -86,7 +88,7 @@ game.world.setBounds(110, 0);
         bottles.enableBody = true;
     for (var i = 0; i < 20; i++)
     {
-        var bottle = bottles.create(i * 80, 0, 'bottle');
+        var bottle = bottles.create(i * 84, 0, 'bottle');
 
         bottle.body.gravity.y = 900;
 
@@ -104,9 +106,11 @@ game.world.setBounds(110, 0);
 
 
 // SCORE TEXT
-    scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'black' });
+    scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
     // healthText = game.add.text(500,0, Health:)
     cursors = game.input.keyboard.createCursorKeys();
+
+
 }
 
 // *********************************************
@@ -151,19 +155,19 @@ function update() {
     }
 
     // if (score === 4) {
-    //   game.world.setBounds(500, 0);
     //    alert('You are drunk! Go Home!!')
     //    score = 0
     //  }
 
-     if (score === 3) {
-            game.world.setBounds(500, 0);
+     if (score === 1 ) {
             // alert('You are drunk! Go Home!!')
-            score = 0
-             game.camera.shake(0.01, 3000000);
+            // score = 0
+             game.camera.shake(0.01, 500);
+           }
+           else if (score === 3){
 
-
-          }
+               game.world.setBounds(500, 0);
+           }
 
 }
 // ******************************
@@ -178,9 +182,11 @@ function collectDiamond (player, bottle) {
   scoreText.text = 'Drinks: ' + score
   let energy = document.getElementById("energy")
 
-  energy.value -= 1;
+  energy.value -= 7;
   if (energy.value === 0){
-    alert('game over!!')
+
+    alert('game over!! Your are way to drunk');
+window.location.reload(false);
   }
 
 }
@@ -188,8 +194,13 @@ function collectDiamond (player, bottle) {
 function collectCoffee (player, coffee) {
   coffee.kill()
   score -= 1
-  let energy = document.getElementById("energy")
 
   energy.value += 5;
-  scoreText.text = 'Drinks' - score
+  scoreText.text = 'Drinks:' - score
 }
+
+
+
+// ************************************
+
+// POP UP
