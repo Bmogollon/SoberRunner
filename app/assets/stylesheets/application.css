@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
  @font-face {
 				font-family: "open";
 				font-style: normal;
@@ -223,3 +224,12 @@ form{
   font-size: 30px;
   animation: comeIn both .5s ease 8.5s;
 }
+
+body{
+  background: rgba(211, 251, 78, 0.66);
+}
+
+h1{
+  text-align: center;
+}
+
