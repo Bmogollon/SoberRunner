@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root :to => 'pages#welcome'
    resources :users, :only => [:new, :create, :index, :update]
@@ -18,23 +15,6 @@ Rails.application.routes.draw do
    get '/user' => 'user#new'
    get "games/index"
 
- end
-=======
+
   resources :poppers
- 
-
-   get '/poppers/new', to: 'poppers#index' 
-  
-  
-  
-  # get 'poppers/delete'
-  
-
-    # get 'poppers/new'
-  # get 'poppers/show'
-  # get 'poppers/create'
-
-
-
-end
->>>>>>> origin/junes_branch
+end 

@@ -1,6 +1,7 @@
 class PoppersController < ApplicationController
   def new
-  
+    render :layout => false
+
   end
 
   def show
@@ -12,10 +13,10 @@ class PoppersController < ApplicationController
   end
 
   def index
-  
+
   end
 
   def delete
-  
+
   end
 end
