@@ -1,5 +1,8 @@
 {
   "name": "SoberRunner",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "popper.js": "^1.14.6",
+    "tooltip.js": "^1.3.1"
+  }
 }

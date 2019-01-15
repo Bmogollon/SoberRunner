@@ -14,3 +14,21 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+function myFunction() {
+    var x = document.getElementById("Cover-pops");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  function myPop() {
+    var x = document.getElementById("pulse-pops");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
