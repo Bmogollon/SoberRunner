@@ -14,6 +14,217 @@
  *= require_self
  */
 
+ @font-face {
+				font-family: "open";
+				font-style: normal;
+				font-weight: 300;
+				src: local("Open Sans Light"), local("OpenSans-Light"), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTZ1r3JsPcQLi8jytr04NNhU.woff) format('woff');
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+@keyframes empty {
+
+  0% {
+    transform: scale( 3 );
+  }
+
+  100% {
+    transform: scale( 0 );
+  }
+
+}
+
+@keyframes shake {
+
+  0%, 100% {
+    transform: rotate( 0 );
+  }
+
+  10%, 50%, 90% {
+    transform: rotate( 4deg );
+  }
+
+  30%, 70% {
+    transform: rotate( -4deg );
+  }
+
+}
+
+@keyframes moveLeft {
+
+  100% {
+    left: 40%;
+  }
+
+}
+
+@keyframes fave {
+
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    left: 45%;
+    opacity: 1;
+  }
+
+}
+
+@keyframes fill {
+
+  0% {
+    bottom: -100%;
+  }
+
+  100% {
+    bottom: 0%;
+  }
+
+}
+
+@keyframes goOut {
+
+  100% {
+    opacity: 0;
+    top: 45%;
+  }
+
+}
+
+@keyframes comeIn {
+
+  0% {
+   opacity: 0;
+   top: 55%;
+  }
+  100% {
+    opacity: 1;
+    top: 45%;
+  }
+
+}
+
+@keyframes copyrights {
+
+  0% {
+   opacity: 0;
+   bottom: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: 5%;
+  }
+
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: open, 'sans-serif', sans;
+  background: yellow;
+  overflow: hidden;
+}
+
+.bg {
+  background: red;
+  width: 50vw;
+  height: 50vw;
+  border-radius: 50%;
+  top: 50%;
+  margin-top: -25vw;
+  margin-left: -25vw;
+  left: 50%;
+  position: absolute;
+  animation: empty both 5s linear;
+}
+
+.anetwork {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -23px;
+  margin-left: -23px;
+  width: 46px;
+  box-shadow: 0 2px 2px rgba( 0, 0, 0, .5 );
+  height: 46px;
+  background: green;
+  overflow: hidden;
+  animation: shake .25s linear 20, moveLeft both .7s ease-in-out 5.5s, goOut forwards .6s ease 8s;
+}
+.anetwork:before {
+  content: 'sober runner';
+  position: absolute;
+  width: 150%;
+  transform: scale( 1.2 );
+  height: 100%;
+  background: red;
+  border-radius: 75px 75px 0 0 / 30px 30px 0 0;
+  animation: fill both 5s linear;
+}
+.anetwork:after {
+  content: 'SB';
+  color: white;
+  font: 42px tahoma, arial, sans-serif;
+  position: absolute;
+  right: -2px;
+  bottom: -12px;
+}
+
+.text {
+  color: orange;
+  text-shadow: 0 1px 0 #fff;
+  font-size: 29px;
+  position: absolute;
+  left: 55%;
+  top: 50%;
+  margin-top: -2%;
+  /* Fave = Fade N move :D */
+  animation: fave .7s both ease-in-out 5.5s, goOut forwards .6s ease 8s;
+}
+
+.logo{
+  text-align: center;
+}
+
+form{
+  height:200px;
+  width:300px;
+  color: white;
+  border-radius: 5%;
+  display: block;
+  background:red;
+  position: absolute;
+  padding-bottom: 120px;
+}
+.copyright {
+  font-size: 16px;
+  color: #666;
+  text-shadow: 0 -1px 0 #f1f1f1;
+  position: absolute;
+  left: 42%;
+  bottom: 5%;
+  animation: copyrights .5s ease both 6.5s;
+}
+
+.finish {
+  position: absolute;
+  left: 45%;
+  color: green;
+  font-size: 30px;
+  animation: comeIn both .5s ease 8.5s;
+}
+
 body{
   background: rgba(211, 251, 78, 0.66);
 }
@@ -21,3 +232,4 @@ body{
 h1{
   text-align: center;
 }
+

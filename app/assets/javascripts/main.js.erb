@@ -1,42 +1,20 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
-// vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
-//= require rails-ujs
-//= require activestorage
-//= require turbolinks
-//= require_tree .
 //= require phaser
-<<<<<<< HEAD
-
-
 var game = new Phaser.Game(1000, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
   game.load.image('background', '<%= image_path('background.png') %>');
   game.load.image('coffee', '<%= image_path('coffee.png') %>');
   game.load.image('ground', '<%= image_path('barrel.png') %>');
-  game.load.image('tiles', '<%= image_path('super_mario.png') %>');
-  game.load.tilemap('supermario', '<%= asset_path('super_mario.json') %>');
-  game.load.image('diamond', '<%= image_path('vodka.png') %>');
+
+  game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.spritesheet('dude', '<%= image_path('dude.png') %>', 45, 48);
-  game.load.script('BlurX', 'https://cdn.rawgit.com/photonstorm/phaser-ce/master/filters/BlurX.js');
-  game.load.script('BlurY', 'https://cdn.rawgit.com/photonstorm/phaser-ce/master/filters/BlurY.js');
 }
 
 var player;
 var platforms;
 var cursors;
 var coffees;
-var diamonds;
+var bottles;
 var score = 0;
 var scoreText;
 
@@ -48,12 +26,9 @@ var scoreText;
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
 
-    var blurX = game.add.filter('BlurX');
-	var blurY = game.add.filter('BlurY');
-
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.world.setBounds(110, 0);
+game.world.setBounds(110, 0);
 
     game.add.sprite(0, 0, 'background');
 
@@ -103,16 +78,16 @@ function create() {
           coffee.body.bounce.y = 0.5 + Math.random() * 0.5;
         }
 
-        diamonds = game.add.group();
+        bottles = game.add.group();
 
-        diamonds.enableBody = true;
+        bottles.enableBody = true;
     for (var i = 0; i < 20; i++)
     {
-        var diamond = diamonds.create(i * 80, 0, 'diamond');
+        var bottle = bottles.create(i * 80, 0, 'bottle');
 
-        diamond.body.gravity.y = 900;
+        bottle.body.gravity.y = 900;
 
-        diamond.body.bounce.y = 0.2 + Math.random() * 0.2;
+        bottle.body.bounce.y = 0.2 + Math.random() * 0.2;
     }
 
     for (var i = 0; i < 20; i++)
@@ -133,9 +108,9 @@ function create() {
 
 function update() {
     var hitPlatform = game.physics.arcade.collide(player, platforms);
-    game.physics.arcade.collide(diamonds, platforms);
+    game.physics.arcade.collide(bottles, platforms);
 
-    game.physics.arcade.overlap(player, diamonds, collectDiamond, null, this)
+    game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
 
     game.physics.arcade.collide(coffees, platforms);
     game.physics.arcade.overlap(player, coffees, collectCoffee, null, this)
@@ -169,16 +144,16 @@ function update() {
         player.body.velocity.y = -350;
     }
 
-    if (score === 3) {
-        game.camera.shake(0.03, 500000000000000);
-       
-       
+    if (score === 4) {
+      game.world.setBounds(500, 0);
+       alert('You are drunk! Go Home!!')
+       score = 0
      }
 
 }
 
-function collectDiamond (player, diamond) {
-  diamond.kill()
+function collectDiamond (player, bottle) {
+  bottle.kill()
 
   score += 1
   scoreText.text = 'Drinks: ' + score
@@ -189,6 +164,3 @@ function collectCoffee (player, coffee) {
   score -= 1
   scoreText.text = 'Drinks' - score
 }
-110, 0
-=======
->>>>>>> 5d6987b9bc0f1f67b96853a520c97ac8c5ba05ca
