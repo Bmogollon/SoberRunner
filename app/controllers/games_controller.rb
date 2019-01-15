@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
   def index
-  end 
+    render :layout => false
+  end
 end
