@@ -1,13 +1,14 @@
 //= require phaser
-var game = new Phaser.Game(1000, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(1000, 500,Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
   game.load.image('background', '<%= image_path('background.png') %>');
-  game.load.image('coffee', '<%= image_path('coffee.png') %>');
+  game.load.image('coffee', '<%= image_path('firstaid.png') %>');
   game.load.image('ground', '<%= image_path('barrel.png') %>');
-
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.spritesheet('dude', '<%= image_path('dude.png') %>', 45, 48);
+  game.scale.pageAlignHorizontally = true;
+game.scale.pageAlignVertically = true;
 }
 
 var player;
@@ -33,21 +34,20 @@ game.world.setBounds(110, 0);
     game.add.sprite(0, 0, 'background');
 
 
-    platforms = game.add.group();
 
+    platforms = game.add.group();
 
     platforms.enableBody = true;
 
 
 
+    var ground = platforms.create(0, game.world.height - 0, 'ground');
 
-    var ground = platforms.create(0, game.world.height - 100, 'ground');
-
-    ground.scale.setTo(2, 2);
+    ground.scale.setTo(0, 0);
 
     ground.body.immovable = true;
 
-    var ledge = platforms.create(-250,200, 'ground');
+    var ledge = platforms.create(100, 'ground');
     ledge.body.immovable = true;
 
     ledge = platforms.create(250,300, 'ground');
@@ -59,12 +59,13 @@ game.world.setBounds(110, 0);
     game.physics.arcade.enable(player);
 
     player.body.bounce.y = 0.2;
-    player.body.gravity.y = 400;
+    player.body.gravity.y = 1100;
     player.body.collideWorldBounds = true;
 
     player.animations.add('left', [3,4, 5], 10, true);
     player.animations.add('right', [ 6,7,8], 10, true);
 
+// COFFEE ITEMS?
 
   coffees = game.add.group();
 
@@ -78,6 +79,8 @@ game.world.setBounds(110, 0);
           coffee.body.bounce.y = 0.5 + Math.random() * 0.5;
         }
 
+// BOTTLE ITEMS
+
         bottles = game.add.group();
 
         bottles.enableBody = true;
@@ -90,16 +93,19 @@ game.world.setBounds(110, 0);
         bottle.body.bounce.y = 0.2 + Math.random() * 0.2;
     }
 
+// PLATFORMS ITEMS
     for (var i = 0; i < 20; i++)
     {
-        var ledge = platforms.create(i * 125, 180, 'ground');
+        var ledge = platforms.create(i * 105, 180, 'ground');
         ledge.body.immovable = true;
 
         ground.body.bounce.y = 0.2 + Math.random() * 0.2;
     }
 
-    scoreText = game.add.text(16, 16, 'Drinks: 0', { fontSize: '32px', fill: 'black' });
 
+// SCORE TEXT
+    scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'black' });
+    // healthText = game.add.text(500,0, Health:)
     cursors = game.input.keyboard.createCursorKeys();
 }
 
@@ -151,16 +157,30 @@ function update() {
      }
 
 }
+// ******************************
+// Health Bar
 
+
+// *****************************************
 function collectDiamond (player, bottle) {
   bottle.kill()
 
   score += 1
   scoreText.text = 'Drinks: ' + score
+  let energy = document.getElementById("energy")
+
+  energy.value -= 10;
+  if (energy.value === 0){
+    alert('game over!!')
+  }
+
 }
 
 function collectCoffee (player, coffee) {
   coffee.kill()
   score -= 1
+  let energy = document.getElementById("energy")
+
+  energy.value += 5;
   scoreText.text = 'Drinks' - score
 }

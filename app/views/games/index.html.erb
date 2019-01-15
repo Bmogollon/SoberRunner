@@ -1,5 +1,20 @@
-<%= link_to "Home Page", root_path %>
+<style >
+  body{
+    background:lightblue;
+  }
 
-<h1>THE SOBBER RUNNER!!</h1>
+  h1{
+    text-align:center;
+  }
+
+
+
+
+</style>
+
+<%= link_to "Home Page", root_path %>
+<!-- <h1> ▁ ▂ ▄ ▅ ▆ ▇ █ 𝕊𝕠𝕓𝕖𝕣 ℝ𝕦𝕟𝕟𝕖𝕣 █ ▇ ▆ ▅ ▄ ▂ ▁</h1> -->
+<!-- <h1>Health Bar</h1> -->
+<progress id="energy" value="50" max="50"></progress>
 
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
