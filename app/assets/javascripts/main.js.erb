@@ -9,8 +9,14 @@ function preload() {
   game.load.spritesheet('dude', '<%= image_path('dude.png') %>', 45, 48);
   game.load.tilemap('map', '<%= asset_path('super_mario.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
+<<<<<<< HEAD
   game.scale.pageAlignVertically = true;
+=======
+game.scale.pageAlignVertically = true;
+
+>>>>>>> master
 }
+
 
 var player;
 var platforms;
@@ -29,6 +35,7 @@ var layer;
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
+<<<<<<< HEAD
 
     map = game.add.tilemap('map');
     map.addTilesetImage('ground');
@@ -38,6 +45,12 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     game.world.setBounds(110, 0);
+=======
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+
+game.world.setBounds(110, 0);
+>>>>>>> master
 
     game.add.sprite(0, 0, 'background');
 
@@ -62,7 +75,7 @@ function create() {
 
     ledge.body.immovable = true;
 
-    player = game.add.sprite(32, game.world.height - 150, 'dude');
+    player = game.add.sprite(0, game.world.height - 150, 'dude');
 
     game.physics.arcade.enable(player);
 
@@ -80,9 +93,9 @@ function create() {
   coffees = game.add.group();
 
   coffees.enableBody = true;
-        for (var i = 0; i < 10; i++)
+        for (var i = 0; i < 15; i++)
         {
-          var coffee = coffees.create(i * 70, 20, 'coffee');
+          var coffee = coffees.create(i * 80, 0, 'coffee');
 
           coffee.body.gravity.y = 700;
 
@@ -96,7 +109,7 @@ function create() {
         bottles.enableBody = true;
     for (var i = 0; i < 20; i++)
     {
-        var bottle = bottles.create(i * 80, 0, 'bottle');
+        var bottle = bottles.create(i * 84, 0, 'bottle');
 
         bottle.body.gravity.y = 900;
 
@@ -114,10 +127,16 @@ function create() {
 
 
 // SCORE TEXT
+<<<<<<< HEAD
     scoreText = game.add.text(500, 0, 'Hello', { fontSize: '32px', fill: 'black' });
     console.log(scoreText);
+=======
+    scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
+>>>>>>> master
     // healthText = game.add.text(500,0, Health:)
     cursors = game.input.keyboard.createCursorKeys();
+
+
 }
 
 // *********************************************
@@ -162,18 +181,27 @@ function update() {
     }
 
     // if (score === 4) {
-    //   game.world.setBounds(500, 0);
     //    alert('You are drunk! Go Home!!')
     //    score = 0
     //  }
 
+<<<<<<< HEAD
      if (score === 3) {
             // alert('You are drunk! Go Home!!')
             score = 0
              game.camera.shake(0.005, 3000000);
 
+=======
+     if (score === 1 ) {
+            // alert('You are drunk! Go Home!!')
+            // score = 0
+             game.camera.shake(0.01, 500);
+           }
+           else if (score === 3){
+>>>>>>> e7b4abd5304634f8492edda644e9d5b869909451
 
-          }
+               game.world.setBounds(500, 0);
+           }
 
 }
 // ******************************
@@ -188,18 +216,35 @@ function collectDiamond (player, bottle) {
 
   let energy = document.getElementById("energy");
 
-  energy.value -= 1;
+  energy.value -= 7;
   if (energy.value === 0){
+<<<<<<< HEAD
     alert('game over!!')
   } 
+=======
+
+    alert('game over!! Your are way to drunk');
+window.location.reload(false);
+  }
+>>>>>>> e7b4abd5304634f8492edda644e9d5b869909451
 
 }
 
 function collectCoffee (player, coffee) {
   coffee.kill()
   score -= 1
-  let energy = document.getElementById("energy")
 
   energy.value += 5;
+<<<<<<< HEAD
   scoreText.text = 'Drinks: ' + score
 }
+=======
+  scoreText.text = 'Drinks:' - score
+}
+
+
+
+// ************************************
+
+// POP UP
+>>>>>>> master
