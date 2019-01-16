@@ -9,12 +9,12 @@ function preload() {
   game.load.spritesheet('dude', '<%= image_path('dude.png') %>', 45, 48);
   game.load.tilemap('map', '<%= asset_path('super_mario.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
-<<<<<<< HEAD
-  game.scale.pageAlignVertically = true;
-=======
-game.scale.pageAlignVertically = true;
 
->>>>>>> master
+  game.scale.pageAlignVertically = true;
+
+// game.scale.pageAlignVertically = true;
+
+
 }
 
 
@@ -35,22 +35,22 @@ var layer;
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
-<<<<<<< HEAD
 
-    map = game.add.tilemap('map');
-    map.addTilesetImage('ground');
-    map.addTilesetImage('background');
-    
+
+    // map = game.add.tilemap('map');
+    // map.addTilesetImage('ground');
+    // map.addTilesetImage('background');
+
+
+    // game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    // game.world.setBounds(110, 0);
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.world.setBounds(110, 0);
-=======
-    game.physics.startSystem(Phaser.Physics.ARCADE);
 
+game.world.setBounds(100,0);
 
-game.world.setBounds(110, 0);
->>>>>>> master
 
     game.add.sprite(0, 0, 'background');
 
@@ -95,7 +95,7 @@ game.world.setBounds(110, 0);
   coffees.enableBody = true;
         for (var i = 0; i < 15; i++)
         {
-          var coffee = coffees.create(i * 80, 0, 'coffee');
+          var coffee = coffees.create(i * 250, 0, 'coffee');
 
           coffee.body.gravity.y = 700;
 
@@ -125,19 +125,42 @@ game.world.setBounds(110, 0);
         ground.body.bounce.y = 0.2 + Math.random() * 0.2;
     }
 
+    game.camera.onFadeComplete.add(resetFade, this);
 
-// SCORE TEXT
-<<<<<<< HEAD
-    scoreText = game.add.text(500, 0, 'Hello', { fontSize: '32px', fill: 'black' });
-    console.log(scoreText);
-=======
+ game.input.onDown.add(fade, this);
+
+
+            // SCORE TEXT
+
+
     scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
->>>>>>> master
-    // healthText = game.add.text(500,0, Health:)
-    cursors = game.input.keyboard.createCursorKeys();
 
+    cursors = game.input.keyboard.createCursorKeys();
+    this.add
+        .text(100, 0, "run ⇨ jump ⇧ back ⇦ \nDon't Fall ",{
+          font: "18px monospace",
+          fill: "#000000",
+          // padding: { x: 20, y: 10 },
+          backgroundColor: "#ffffff"
+        })
 
 }
+
+
+
+function fade() {
+
+    //  You can set your own flash color and duration
+    game.camera.fade(0x000000, 1000);
+}
+
+
+function resetFade() {
+
+    game.camera.resetFX();
+
+}
+
 
 // *********************************************
  // UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
@@ -180,66 +203,51 @@ function update() {
         player.body.velocity.y = -350;
     }
 
-    // if (score === 4) {
-    //    alert('You are drunk! Go Home!!')
-    //    score = 0
-    //  }
 
-<<<<<<< HEAD
-     if (score === 3) {
-            // alert('You are drunk! Go Home!!')
-            score = 0
-             game.camera.shake(0.005, 3000000);
 
-=======
-     if (score === 1 ) {
-            // alert('You are drunk! Go Home!!')
-            // score = 0
-             game.camera.shake(0.01, 500);
-           }
-           else if (score === 3){
->>>>>>> e7b4abd5304634f8492edda644e9d5b869909451
-
-               game.world.setBounds(500, 0);
-           }
-
+     // if (score > 3 ) {
+     //        // alert('You are drunk! Go Home!!')
+     //        // score = 0
+     //        game.camera.fade(0x000000, 1000);
+     //       }
+     //       else if (score < 3){
+     //         game.camera.resetFX();
+     //
+     //
+     //     }
 }
 // ******************************
 // Health Bar
-_text
+// _text
 
 // *****************************************
 function collectDiamond (player, bottle) {
   bottle.kill()
   score += 1
-  scoreText.text = 'Drinks: ' + score; 
+  scoreText.text = 'Drinks: ' + score;
+  game.camera.fade(0x000000, 4000);
 
   let energy = document.getElementById("energy");
 
-  energy.value -= 7;
+  energy.value -= 2;
   if (energy.value === 0){
-<<<<<<< HEAD
     alert('game over!!')
-  } 
-=======
-
-    alert('game over!! Your are way to drunk');
-window.location.reload(false);
+    window.location.reload(false);
   }
->>>>>>> e7b4abd5304634f8492edda644e9d5b869909451
+
+
+    // alert('game over!! Your are way to drunk');
+
 
 }
 
 function collectCoffee (player, coffee) {
   coffee.kill()
   score -= 1
+  game.camera.resetFX();
 
   energy.value += 5;
-<<<<<<< HEAD
   scoreText.text = 'Drinks: ' + score
-}
-=======
-  scoreText.text = 'Drinks:' - score
 }
 
 
@@ -247,4 +255,3 @@ function collectCoffee (player, coffee) {
 // ************************************
 
 // POP UP
->>>>>>> master
