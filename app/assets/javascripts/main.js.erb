@@ -224,12 +224,17 @@ function update() {
 function collectDiamond (player, bottle) {
   bottle.kill()
   score += 1
+
+  game.camera.fade(0x000000, 500);
+
+
+// SCORE
   scoreText.text = 'Drinks: ' + score;
-  game.camera.fade(0x000000, 4000);
-
+// ENERGY
   let energy = document.getElementById("energy");
-
   energy.value -= 2;
+
+
   if (energy.value === 0){
     alert('game over!!')
     window.location.reload(false);
