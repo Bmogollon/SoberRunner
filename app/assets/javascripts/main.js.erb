@@ -2,19 +2,17 @@
 var game = new Phaser.Game(1000, 500,Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
-  game.load.image('background', '<%= image_path('background.png') %>');
+  game.load.image('background', '<%= image_path('mariobros.png') %>');
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
   game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.spritesheet('dude', '<%= image_path('dude.png') %>', 45, 48);
-  game.load.tilemap('map', '<%= asset_path('super_mario.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
-<<<<<<< HEAD
-  game.scale.pageAlignVertically = true;
-=======
-game.scale.pageAlignVertically = true;
 
->>>>>>> master
+  game.scale.pageAlignVertically = true;
+  game.scale.pageAlignVertically = true;
+
+
 }
 
 
@@ -35,22 +33,17 @@ var layer;
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
-<<<<<<< HEAD
 
-    map = game.add.tilemap('map');
-    map.addTilesetImage('ground');
-    map.addTilesetImage('background');
+    
     
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     game.world.setBounds(110, 0);
-=======
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
 
 game.world.setBounds(110, 0);
->>>>>>> master
 
     game.add.sprite(0, 0, 'background');
 
@@ -127,12 +120,8 @@ game.world.setBounds(110, 0);
 
 
 // SCORE TEXT
-<<<<<<< HEAD
-    scoreText = game.add.text(500, 0, 'Hello', { fontSize: '32px', fill: 'black' });
-    console.log(scoreText);
-=======
+   
     scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
->>>>>>> master
     // healthText = game.add.text(500,0, Health:)
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -185,20 +174,17 @@ function update() {
     //    score = 0
     //  }
 
-<<<<<<< HEAD
      if (score === 3) {
             // alert('You are drunk! Go Home!!')
             score = 0
              game.camera.shake(0.005, 3000000);
 
-=======
      if (score === 1 ) {
             // alert('You are drunk! Go Home!!')
             // score = 0
              game.camera.shake(0.01, 500);
            }
            else if (score === 3){
->>>>>>> e7b4abd5304634f8492edda644e9d5b869909451
 
                game.world.setBounds(500, 0);
            }
@@ -206,7 +192,6 @@ function update() {
 }
 // ******************************
 // Health Bar
-_text
 
 // *****************************************
 function collectDiamond (player, bottle) {
@@ -218,15 +203,13 @@ function collectDiamond (player, bottle) {
 
   energy.value -= 7;
   if (energy.value === 0){
-<<<<<<< HEAD
     alert('game over!!')
+    window.location.reload(false);
   } 
-=======
 
-    alert('game over!! Your are way to drunk');
-window.location.reload(false);
+   
+
   }
->>>>>>> e7b4abd5304634f8492edda644e9d5b869909451
 
 }
 
@@ -235,16 +218,13 @@ function collectCoffee (player, coffee) {
   score -= 1
 
   energy.value += 5;
-<<<<<<< HEAD
+
   scoreText.text = 'Drinks: ' + score
 }
-=======
   scoreText.text = 'Drinks:' - score
-}
 
 
 
-// ************************************
+
 
 // POP UP
->>>>>>> master
