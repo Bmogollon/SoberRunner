@@ -1,0 +1,133 @@
+<<<<<<< HEAD
+=======
+<style>
+
+#Cover-pops .container {
+      box-sizing: content-box;
+      border: 15px red groove;
+      width: 150px;
+      height: 50px;
+      padding: 1em;
+      justify-items: center;
+   }
+
+   #pulse-pops .container1 {
+      box-sizing: content-box;
+      border: 15px red groove;
+      width: 150px;
+      height: 80px;
+      padding: 1em;
+      justify-items: center;
+
+   }
+
+   .container {
+      padding: 1em;
+      font-family: 'Fontdiner Swanky', cursive;
+      text-transform: uppercase;
+      text-align: center;
+      color: gray;
+      text-shadow: 0px 1px red;
+
+    }
+
+    .container1 {
+      padding: 3em;
+      font-family: 'Fontdiner Swanky', cursive;
+      text-transform: uppercase;
+      text-align: center;
+      color: gray;
+      text-shadow: 0px 1px red;
+
+    }
+
+h1 {
+      font-size: 1rem;
+      animation: glitch-1 1s linear infinite;
+  }
+
+h2 {
+    font-size: 1rem;
+    animation: pulse 1s infinite;
+    -webkit-animation-name: pulse;
+  }
+
+  @keyframes glitch-1 {
+      0%, 2%, 5%, 40%, 45%, 72%, 75% {opacity: 1; transform: scaleX(1) scaleY(1);}
+      3% {opacity: .8; transform: scaleY(2);}
+      43% {opacity: .8; transform: scaleX(1.3);}
+      73% {opacity: 8; transform: rotate(5deg) scale(2);}
+    }
+
+    @keyframes glitch-2 {
+      0%, 12%, 15%, 52%, 55%, 82%, 85% {opacity: 1; transform: scaleX(1) scaleY(1); }
+      13% {opacity: .8; transform: scaleY(2); color: #0ff;}
+      53% {opacity: .8; transform: scaleX(.7);  color: #f0f;}
+      83% {opacity: 8; transform: rotate(-10deg); color: #ff0;}
+    }
+
+    @keyframes pulse {
+      from { -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);}
+      50% { -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);}
+      to { -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);}
+      }
+
+</style>
+
+<!DOCTYPE HTML>
+<html lang="en" dir="ltr">
+<link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Faster+One|Fontdiner+Swanky|Knewave" rel="stylesheet">
+<head>
+<meta charset="UTF-8">
+ <title> </title>
+</head>
+<body>
+
+<div id="Cover-pops">
+
+    <div class="container">
+     <h1>Wasted By All Means!</h1>
+    </div>
+</div>
+
+<button onclick="myFunction()">Sober</button>
+
+
+<div id="pulse-pops">
+    <div class="container1">
+    <h2>Ease Up on the Shots Bruh!</h1>
+    </div>
+</div>
+
+<button onclick="myPop()">Sober</button>
+
+
+
+<script>
+  
+  function myFunction() {
+      var x = document.getElementById("Cover-pops");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+
+    function myPop() {
+      var x = document.getElementById("pulse-pops");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+</script>
+</body>
+
+
+</html>
+>>>>>>> f813890b2e7db430e6d648a6a7b0fbe36cc904d1
