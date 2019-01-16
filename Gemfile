@@ -1,19 +1,15 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-<<<<<<< HEAD
 ruby '2.5.1'
 gem 'phaser-rails'
 
-=======
 
-ruby '2.5.3'
 
 
 gem 'phaser-rails'
 
 
->>>>>>> 80d6128f77e06969b973a03507cbd835d02ead31
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 # Use sqlite3 as the database for Active Record

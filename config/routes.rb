@@ -19,14 +19,3 @@ Rails.application.routes.draw do
 
   resources :poppers
 end
-
-
-
-
-   get '/user' => 'user#new'
-    get "games/index"
-
-
-
-
-  resources :poppers

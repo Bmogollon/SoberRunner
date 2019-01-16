@@ -191,8 +191,7 @@ game.world.setBounds(100,0);
     scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
 
     cursors = game.input.keyboard.createCursorKeys();
-    this.add
-        .text(100, 0, "run ⇨ jump ⇧ back ⇦ \nDon't Fall ",{
+
 
 // SCORE TEXT
 
@@ -208,7 +207,7 @@ game.world.setBounds(100,0);
         })
 
 }
-
+}
 
 
 function fade() {
@@ -300,6 +299,7 @@ function update() {
      //
      //     }
 }
+}
 // ******************************
 // Health Bar
 
@@ -329,13 +329,13 @@ function collectDiamond (player, bottle) {
 
   }
 
-  }
+
 
 
     // alert('game over!! Your are way to drunk');
 
 
-}
+
 
 function collectCoffee (player, coffee) {
   coffee.kill()
@@ -343,20 +343,18 @@ function collectCoffee (player, coffee) {
   game.camera.resetFX();
 
   energy.value += 5;
-<<<<<<< HEAD
-  scoreText.text = 'Drinks: ' + score
+  scoreText.text = 'Drinks: ' + score;
+
 }
+
+
 
 
 
 // ************************************
 
 
-  scoreText.text = 'Drinks: ' + score
-}
-  scoreText.text = 'Drinks:' - score
-  scoreText.text = 'Drinks: ' + score
-}
+
 
 
 // POP UP
