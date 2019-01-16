@@ -1,11 +1,139 @@
+<style>
 
- <!DOCTYPE HTML>
+#Cover-pops .container {
+      
+      width: 150px;
+      height: 50px;
+      padding: 1em;
+      justify-items: center;
+   }
+
+   #pulse-pops .container1 {
+      
+      width: 150px;
+      height: 80px;
+      padding: 1em;
+      justify-items: center;
+
+   }
+
+   #Pulse-pops2 .container3 {
+    width: 150px;
+    height: 80px;
+    padding: 1em;
+    justify-items: center;
+
+   }
+
+
+
+#cover-pops1 .container2 {
+    width: 150px;
+    height: 80px;
+    padding: 1em;
+    justify-items: center;
+
+}
+.container2 {
+    padding: 3em;
+    font-family: 'Fontdiner Swanky', cursive;
+    text-transform: uppercase;
+    text-align: center;
+    color: gray;
+    text-shadow: 0px 1px red;
+
+}
+
+
+
+   .container {
+      padding: 1em;
+      font-family: 'Fontdiner Swanky', cursive;
+      text-transform: uppercase;
+      text-align: center;
+      color: gray;
+      text-shadow: 0px 1px red;
+
+    }
+
+
+
+    .container1 {
+      padding: 3em;
+      font-family: 'Fontdiner Swanky', cursive;
+      text-transform: uppercase;
+      text-align: center;
+      color: gray;
+      text-shadow: 0px 1px red;
+
+    }
+
+    .container3 {
+      padding: 3em;
+      font-family: 'Fontdiner Swanky', cursive;
+      text-transform: uppercase;
+      text-align: center;
+      color: gray;
+      text-shadow: 0px 1px red;
+
+    }
+
+h1 {
+      font-size: 1rem;
+      animation: glitch-1 1s linear infinite;
+  }
+
+h2 {
+    font-size: 1rem;
+    animation: pulse 1s infinite;
+    -webkit-animation-name: pulse;
+  }
+
+  @keyframes glitch-1 {
+      0%, 2%, 5%, 40%, 45%, 72%, 75% {opacity: 1; transform: scaleX(1) scaleY(1);}
+      3% {opacity: .8; transform: scaleY(2);}
+      43% {opacity: .8; transform: scaleX(1.3);}
+      73% {opacity: 8; transform: rotate(5deg) scale(2);}
+    }
+
+    @keyframes glitch-2 {
+      0%, 12%, 15%, 52%, 55%, 82%, 85% {opacity: 1; transform: scaleX(1) scaleY(1); }
+      13% {opacity: .8; transform: scaleY(2); color: #0ff;}
+      53% {opacity: .8; transform: scaleX(.7);  color: #f0f;}
+      83% {opacity: 8; transform: rotate(-10deg); color: #ff0;}
+    }
+
+    @keyframes pulse {
+      from { -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);}
+      50% { -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);}
+      to { -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);}
+      }
+
+</style>
+
+<!DOCTYPE HTML>
 <html lang="en" dir="ltr">
+<link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Faster+One|Fontdiner+Swanky|Knewave" rel="stylesheet">
 <head>
 <meta charset="UTF-8">
  <title> </title>
 </head>
 <body>
+
+<div id="Cover-pops1">
+
+    <div class="container2">
+     <h1>Royal Flushed With a Hint Of Bourbon </h1>
+    </div>
+</div>
+
+<button onclick="myFlush()">Sober</button>
+
+
+
 
 
 <div id="Cover-pops">
@@ -15,7 +143,7 @@
     </div>
 </div>
 
-<button onclick="myFunction()">Try it</button>
+<button onclick="myFunction()">Sober</button>
 
 
 <div id="pulse-pops">
@@ -24,16 +152,58 @@
     </div>
 </div>
 
-<button onclick="myPop()">Try it</button>
+<button onclick="myPop()">Sober</button>
 
+<div id="pulse-pops2">
+    <div class="container3">
+    <h2>Your About To Make the Drunk Call</h1>
+    </div>
+</div>
+
+<button onclick="myCall()">Sober</button>
+
+
+
+<script>
   
+  function myFunction() {
+      var x = document.getElementById("Cover-pops");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
 
+    function myPop() {
+      var x = document.getElementById("pulse-pops");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
 
+    function myFlush() {
+      var x = document.getElementById("Cover-pops1");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+
+    function myCall() {
+      var x = document.getElementById("Pulse-pops2");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+    
+</script>
 </body>
 
-</html>
 
-<%# font-family: 'Bungee Inline', cursive;
-font-family: 'Knewave', cursive;
-font-family: 'Faster One', cursive;
-font-family: 'Fontdiner Swanky', cursive; %>
+</html>
