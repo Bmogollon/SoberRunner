@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   before_action :authorise, only: [:welcome]
 
   def welcome
+
   end
 
 
@@ -12,7 +13,5 @@ class PagesController < ApplicationController
       redirect_to login_path unless (@current_user.present?)
     end
 
-  def home
-  render :layout => false
-  end 
+
 end

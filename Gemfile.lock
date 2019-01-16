@@ -109,6 +109,11 @@ GEM
       mini_portile2 (~> 2.4.0)
     pg (1.1.4)
     phaser-rails (2.6.2.0)
+<<<<<<< HEAD
+=======
+
+    phaser-rails (2.6.2.0)
+>>>>>>> 2e0c3e6eb9ed5a5ebc086a1a302363222343f2ab
       railties (>= 4.0)
     public_suffix (3.0.3)
     puma (3.12.0)
@@ -210,6 +215,7 @@ DEPENDENCIES
   phaser-rails
   puma (~> 3.11)
   rails (~> 5.2.2)
+  rake (~> 12.3, >= 12.3.2)
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
@@ -221,7 +227,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-   ruby 2.5.3p105
+   ruby 2.5.1p57
 
 BUNDLED WITH
    1.17.2
