@@ -12,9 +12,21 @@ Rails.application.routes.draw do
    post '/login' => 'session#create'
    delete '/login' => 'session#destroy'
 
+
    get '/user' => 'user#new'
    get "games/index"
 
 
   resources :poppers
-end 
+end
+
+
+
+
+   get '/user' => 'user#new'
+    get "games/index"
+
+
+
+
+  resources :poppers
