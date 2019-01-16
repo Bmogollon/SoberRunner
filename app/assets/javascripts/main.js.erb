@@ -20,7 +20,7 @@ var bottles;
 var score = 0;
 var scoreText;
 var map;
-
+var layer;
 
 // *********
 // LOADING IMAGES TO SCREEN
@@ -31,6 +31,9 @@ var map;
 function create() {
 
     map = game.add.tilemap('map');
+    map.addTilesetImage('ground');
+    map.addTilesetImage('background');
+    
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
