@@ -104,7 +104,8 @@ game.world.setBounds(110, 0);
 
 
 // SCORE TEXT
-    scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'black' });
+    scoreText = game.add.text(500, 0, 'Hello', { fontSize: '32px', fill: 'black' });
+    console.log(scoreText);
     // healthText = game.add.text(500,0, Health:)
     cursors = game.input.keyboard.createCursorKeys();
 }
@@ -167,16 +168,14 @@ function update() {
 }
 // ******************************
 // Health Bar
-
+_text
 
 // *****************************************
 function collectDiamond (player, bottle) {
   bottle.kill()
-  if(score += 1){
+  score += 1
   scoreText.text = 'Drinks: ' + score; 
-} else if (score -= 1){
-    scoreText.text = "YERRRRRR";
-}
+
   let energy = document.getElementById("energy");
 
   energy.value -= 1;
@@ -192,5 +191,5 @@ function collectCoffee (player, coffee) {
   let energy = document.getElementById("energy")
 
   energy.value += 5;
-  scoreText.text = 'Drinks' - score
+  scoreText.text = 'Drinks: ' + score
 }
