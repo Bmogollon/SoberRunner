@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-=======
 <style>
 
 #Cover-pops .container {
-      box-sizing: content-box;
-      border: 15px red groove;
+      
       width: 150px;
       height: 50px;
       padding: 1em;
@@ -12,14 +9,42 @@
    }
 
    #pulse-pops .container1 {
-      box-sizing: content-box;
-      border: 15px red groove;
+      
       width: 150px;
       height: 80px;
       padding: 1em;
       justify-items: center;
 
    }
+
+   #Pulse-pops2 .container3 {
+    width: 150px;
+    height: 80px;
+    padding: 1em;
+    justify-items: center;
+
+   }
+
+
+
+#cover-pops1 .container2 {
+    width: 150px;
+    height: 80px;
+    padding: 1em;
+    justify-items: center;
+
+}
+.container2 {
+    padding: 3em;
+    font-family: 'Fontdiner Swanky', cursive;
+    text-transform: uppercase;
+    text-align: center;
+    color: gray;
+    text-shadow: 0px 1px red;
+
+}
+
+
 
    .container {
       padding: 1em;
@@ -31,7 +56,19 @@
 
     }
 
+
+
     .container1 {
+      padding: 3em;
+      font-family: 'Fontdiner Swanky', cursive;
+      text-transform: uppercase;
+      text-align: center;
+      color: gray;
+      text-shadow: 0px 1px red;
+
+    }
+
+    .container3 {
       padding: 3em;
       font-family: 'Fontdiner Swanky', cursive;
       text-transform: uppercase;
@@ -86,6 +123,19 @@ h2 {
 </head>
 <body>
 
+<div id="Cover-pops1">
+
+    <div class="container2">
+     <h1>Royal Flushed With a Hint Of Bourbon </h1>
+    </div>
+</div>
+
+<button onclick="myFlush()">Sober</button>
+
+
+
+
+
 <div id="Cover-pops">
 
     <div class="container">
@@ -103,6 +153,14 @@ h2 {
 </div>
 
 <button onclick="myPop()">Sober</button>
+
+<div id="pulse-pops2">
+    <div class="container3">
+    <h2>Your About To Make the Drunk Call</h1>
+    </div>
+</div>
+
+<button onclick="myCall()">Sober</button>
 
 
 
@@ -125,9 +183,27 @@ h2 {
         x.style.display = "none";
       }
     }
+
+    function myFlush() {
+      var x = document.getElementById("Cover-pops1");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+
+    function myCall() {
+      var x = document.getElementById("Pulse-pops2");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+    
 </script>
 </body>
 
 
 </html>
->>>>>>> f813890b2e7db430e6d648a6a7b0fbe36cc904d1
