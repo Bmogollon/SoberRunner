@@ -2,6 +2,7 @@
 var game = new Phaser.Game(1000, 500,Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
+<<<<<<< HEAD
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
   game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
@@ -11,6 +12,21 @@ function preload() {
   game.load.tilemap('map', '<%= asset_path('gangshit.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
+=======
+  game.load.image('background', '<%= image_path('background.png') %>');
+  game.load.image('coffee', '<%= image_path('firstaid.png') %>');
+  game.load.image('ground', '<%= image_path('barrel.png') %>');
+  game.load.image('bottle', '<%= image_path('vodka.png') %>');
+  game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48);
+  game.load.tilemap('map', '<%= asset_path('super_mario.json')%>', null, Phaser.Tilemap.TILED_JSON);
+  game.scale.pageAlignHorizontally = true;
+
+  game.scale.pageAlignVertically = true;
+
+// game.scale.pageAlignVertically = true;
+
+
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 }
 
 var player;
@@ -31,6 +47,7 @@ var layer;
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
 
+<<<<<<< HEAD
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.map = game.add.tilemap('map');
 
@@ -42,10 +59,27 @@ function create() {
     
     
     
+=======
+
+    // map = game.add.tilemap('map');
+    // map.addTilesetImage('ground');
+    // map.addTilesetImage('background');
+
+
+    // game.physics.startSystem(Phaser.Physics.ARCADE);
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 
     
 
+<<<<<<< HEAD
     game.world.setBounds(110, 0);
+=======
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+
+game.world.setBounds(100,0);
+
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 
     game.add.sprite(0, 0, 'background');
 
@@ -122,11 +156,31 @@ function create() {
     }
 
 
+<<<<<<< HEAD
 // SCORE TEXT
     scoreText = game.add.text(500, 0, 'Hello', { fontSize: '32px', fill: 'black' });
     console.log(scoreText);
     // healthText = game.add.text(500,0, Health:)
     cursors = game.input.keyboard.createCursorKeys();
+=======
+ game.input.onDown.add(fade, this);
+
+
+            // SCORE TEXT
+
+
+    scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
+
+    cursors = game.input.keyboard.createCursorKeys();
+    this.add
+        .text(100, 0, "run ⇨ jump ⇧ back ⇦ \nDon't Fall ",{
+          font: "18px monospace",
+          fill: "#000000",
+          // padding: { x: 20, y: 10 },
+          backgroundColor: "#ffffff"
+        })
+
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 }
 
 // *********************************************
@@ -172,6 +226,7 @@ function update() {
         player.body.velocity.y = -350;
     }
 
+<<<<<<< HEAD
     // if (score === 4) {
     //   game.world.setBounds(500, 0);
     //    alert('You are drunk! Go Home!!')
@@ -190,11 +245,30 @@ function update() {
 // ******************************
 // Health Bar
 
+=======
+
+
+     // if (score > 3 ) {
+     //        // alert('You are drunk! Go Home!!')
+     //        // score = 0
+     //        game.camera.fade(0x000000, 1000);
+     //       }
+     //       else if (score < 3){
+     //         game.camera.resetFX();
+     //
+     //
+     //     }
+}
+// ******************************
+// Health Bar
+// _text
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 
 // *****************************************
 function collectDiamond (player, bottle) {
   bottle.kill()
   score += 1
+<<<<<<< HEAD
   scoreText.text = 'Drinks: ' + score; 
 
   let energy = document.getElementById("energy");
@@ -203,6 +277,22 @@ function collectDiamond (player, bottle) {
   if (energy.value === 0){
     alert('game over!!')
   } 
+=======
+  scoreText.text = 'Drinks: ' + score;
+  game.camera.fade(0x000000, 4000);
+
+  let energy = document.getElementById("energy");
+
+  energy.value -= 2;
+  if (energy.value === 0){
+    alert('game over!!')
+    window.location.reload(false);
+  }
+
+
+    // alert('game over!! Your are way to drunk');
+
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 
 }
 
@@ -213,4 +303,14 @@ function collectCoffee (player, coffee) {
 
   energy.value += 5;
   scoreText.text = 'Drinks: ' + score
+<<<<<<< HEAD
 }
+=======
+}
+
+
+
+// ************************************
+
+// POP UP
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2

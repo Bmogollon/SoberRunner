@@ -17,6 +17,9 @@
 
 
 
+
+
+
  @font-face {
 				font-family: "open";
 				font-style: normal;
@@ -31,11 +34,18 @@
 @keyframes empty {
 
   0% {
+
     transform: scale( 3 );
   }
 
   100% {
     transform: scale( 0 );
+
+    transform: scale( 10);
+  }
+
+  100% {
+    transform: scale( 0);
   }
 
 }
@@ -80,7 +90,10 @@
 @keyframes fill {
 
   0% {
+z
     bottom: -100%;
+
+    bottom: -10%;
   }
 
   100% {
@@ -135,12 +148,18 @@ html, body {
   width: 100%;
   height: 100%;
   font-family: open, 'sans-serif', sans;
+
+  background: yellow;
+
   background: lightgreen;
   overflow: hidden;
 }
 
 .bg {
-  background: maroon;
+
+  background: red;
+
+  background:  #0B486B;
   width: 50vw;
   height: 50vw;
   border-radius: 50%;
@@ -161,17 +180,26 @@ html, body {
   width: 46px;
   box-shadow: 0 2px 2px rgba( 0, 0, 0, .5 );
   height: 46px;
+
   background: green;
+
+  background: maroon;
   overflow: hidden;
   animation: shake .25s linear 20, moveLeft both .7s ease-in-out 5.5s, goOut forwards .6s ease 8s;
 }
 .anetwork:before {
+
   content: 'sober runner';
+
+  content: 'sober run';
   position: absolute;
   width: 150%;
   transform: scale( 1.2 );
   height: 100%;
+
   background: red;
+
+  background: black;
   border-radius: 75px 75px 0 0 / 30px 30px 0 0;
   animation: fill both 5s linear;
 }
@@ -185,6 +213,7 @@ html, body {
 }
 
 .text {
+
   color: orange;
   text-shadow: 0 1px 0 #fff;
   font-size: 29px;
@@ -192,6 +221,15 @@ html, body {
   left: 55%;
   top: 50%;
   margin-top: -2%;
+
+
+  color: white ;
+  text-shadow: 0 1px 0 turquoise;
+  font-size: 40px;
+  position: fixed;
+  left: 45%;
+  top: 50%;
+  margin-top: -1%;
   /* Fave = Fade N move :D */
   animation: fave .7s both ease-in-out 5.5s, goOut forwards .6s ease 8s;
 }
@@ -201,21 +239,36 @@ html, body {
 }
 
 
+form{
+  height:200px;
+  width:300px;
+  color: white;
+  border-radius: 5%;
+  display: block;
+  background:red;
+  position: absolute;
+  padding-bottom: 120px;
 
 
 
 
-button {
-  background-color:lightgreen;
+
+
+.btn {
+  background-color:#0B486B;
+  position: relative;
   outline: none;
-  border-radius: 19px;
-  box-shadow: 20px 15px 20px maroon;
+  border-radius: 15px;
+  box-shadow: 20px 15px 20px #3B8686;
   font-size: 24px;
   display: block;
-  margin: 10px auto;
-  min-height: 70px;
-  width: 100%;
+  text-align: center;
+
+  /* margin: 10px auto; */
+  min-height: 80px;
+  width: 170%;
   color: white;
+  /* padding-top: 35px; */
 
 }
 .copyright {
@@ -223,7 +276,7 @@ button {
   color: #666;
   text-shadow: 0 -1px 0 #f1f1f1;
   position: absolute;
-  left: 44%;
+  left: 42%;
   bottom: 5%;
   animation: copyrights .5s ease both 6.5s;
 }
@@ -238,7 +291,24 @@ button {
 
 body{
   background: rgba(211, 251, 78, 0.66);
+
 }
+
+h1{
+  text-align: center;
+}
+
+
+   background-image: url("intro.jpg");
+   background-size: cover;
+
+
+}
+
+
+
+
+
 
 h1{
   text-align: center;
@@ -332,5 +402,3 @@ h2 {
     to { -webkit-transform: scale3d(1, 1, 1);
       transform: scale3d(1, 1, 1);}
     }
-
-

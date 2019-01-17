@@ -16,12 +16,32 @@
   <div class="text"><a href="http://anetwork.ir">Welcome to Sober runner</a></div>
 
   <div class="finish">
+    <br>
+
+    <%= form_tag login_path do %>
+      <%= label_tag :username %>
+      <%= text_field_tag :username %>
+      <br>
+
+      <%= label_tag :password %>
+      <%= password_field_tag :password %>
+      <br>
+
+      <%= submit_tag %>
+    <% end %>
+
+    </div>
+
+
+  <div class="copyright"> Copyright 2019 Brunch Group</div>
+
+
 
 
     <div class="container">
 
-      <button class="btn">START</button>
-     <button class="btn">Instructions</button> 
+      <button class="btn"><a href="#">START</a></button>
+
 
     </div>
 
@@ -36,6 +56,8 @@
 
   <body>
     <%= yield %>
+
+
 
 
   </body>

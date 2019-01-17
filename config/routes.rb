@@ -13,12 +13,8 @@ Rails.application.routes.draw do
    delete '/login' => 'session#destroy'
 
 
-
-
    get '/user' => 'user#new'
-    get "games/index"
-
-   
+   get "games/index"
 
 
   resources :poppers
