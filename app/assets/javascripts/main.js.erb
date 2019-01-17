@@ -7,6 +7,7 @@ function preload() {
   game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48);
+    game.load.spritesheet('dude', '<%= image_path('dude.png') %>', 45, 48);
   game.load.tilemap('map', '<%= asset_path('super_mario.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
 
@@ -19,6 +20,7 @@ function preload() {
 
 
 var player;
+var playertwo;
 var platforms;
 var cursors;
 var coffees;
@@ -76,6 +78,7 @@ game.world.setBounds(100,0);
     ledge.body.immovable = true;
 
     player = game.add.sprite(0, game.world.height - 150, 'dude');
+
 
     game.physics.arcade.enable(player);
 
@@ -227,11 +230,15 @@ function collectDiamond (player, bottle) {
   scoreText.text = 'Drinks: ' + score;
   game.camera.fade(0x000000, 4000);
 
+  if (game.camera.fade === 0){
+
+    alert('game over!!')
+  }
+
   let energy = document.getElementById("energy");
 
   energy.value -= 2;
   if (energy.value === 0){
-    alert('game over!!')
     window.location.reload(false);
   }
 
