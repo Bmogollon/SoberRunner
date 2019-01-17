@@ -1,7 +1,22 @@
 <style >
-  body{
-    background:lightblue;
-  }
+
+    body { font-family: sans-serif;
+      background-color: #0B486B;}
+
+#main-menu .nav-bar {
+  list-style:none; margin-top: 40px; }
+#main-menu .nav-bar li {
+  display:inline; padding:0 170px; }
+
+#main-menu .nav-bar li a {
+  text-decoration: none;
+  padding-left: 25px;
+  text-transform: uppercase;
+  color: white;
+	text-shadow: 1px 1px 1px #ccc;
+}
+
+
 
   h1{
     text-align:center;
@@ -17,7 +32,17 @@
 
 </style>
 
-<%= link_to "Home Page", root_path %>
+<nav id="main-menu">
+     <ul class="nav-bar">
+       <li class="nav-button-home"><%= link_to "Home", root_path %>
+</li>
+
+          <li class="nav-button-services"><a href="#">Player</a></li>
+          <li class="nav-button-products"><a href="#">Score</a></li>
+     </ul>
+</nav>
+
+
 <!-- <h1> ▁ ▂ ▄ ▅ ▆ ▇ █ 𝕊𝕠𝕓𝕖𝕣 ℝ𝕦𝕟𝕟𝕖𝕣 █ ▇ ▆ ▅ ▄ ▂ ▁</h1> -->
 <!-- <h1>Health Bar</h1> -->
 <div class="container">
