@@ -2,14 +2,21 @@
 var game = new Phaser.Game(1000, 500,Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
-  // game.load.image('background', '<%= image_path('background.png') %>');
+  game.load.image('background', '<%= image_path('background.png') %>');
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
-  // game.load.image('ground', '<%= image_path('barrel.png') %>');
+  game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.spritesheet('dude', '<%= image_path('dude.png') %>', 45, 48);
+  game.load.tilemap('map', '<%= asset_path('super_mario.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
-game.scale.pageAlignVertically = true;
+
+  game.scale.pageAlignVertically = true;
+
+// game.scale.pageAlignVertically = true;
+
+
 }
+
 
 var player;
 var platforms;
@@ -18,6 +25,8 @@ var coffees;
 var bottles;
 var score = 0;
 var scoreText;
+var map;
+var layer;
 
 // *********
 // LOADING IMAGES TO SCREEN
@@ -27,9 +36,21 @@ var scoreText;
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
 
+
+    // map = game.add.tilemap('map');
+    // map.addTilesetImage('ground');
+    // map.addTilesetImage('background');
+
+
+    // game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    // game.world.setBounds(110, 0);
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-game.world.setBounds(110, 0);
+
+game.world.setBounds(100,0);
+
 
     game.add.sprite(0, 0, 'background');
 
@@ -54,9 +75,11 @@ game.world.setBounds(110, 0);
 
     ledge.body.immovable = true;
 
-    player = game.add.sprite(32, game.world.height - 150, 'dude');
+    player = game.add.sprite(0, game.world.height - 150, 'dude');
 
     game.physics.arcade.enable(player);
+
+    game.camera.follow(player);
 
     player.body.bounce.y = 0.2;
     player.body.gravity.y = 1100;
@@ -70,9 +93,9 @@ game.world.setBounds(110, 0);
   coffees = game.add.group();
 
   coffees.enableBody = true;
-        for (var i = 0; i < 10; i++)
+        for (var i = 0; i < 15; i++)
         {
-          var coffee = coffees.create(i * 70, 20, 'coffee');
+          var coffee = coffees.create(i * 250, 0, 'coffee');
 
           coffee.body.gravity.y = 700;
 
@@ -86,7 +109,7 @@ game.world.setBounds(110, 0);
         bottles.enableBody = true;
     for (var i = 0; i < 20; i++)
     {
-        var bottle = bottles.create(i * 80, 0, 'bottle');
+        var bottle = bottles.create(i * 84, 0, 'bottle');
 
         bottle.body.gravity.y = 900;
 
@@ -102,12 +125,42 @@ game.world.setBounds(110, 0);
         ground.body.bounce.y = 0.2 + Math.random() * 0.2;
     }
 
+    game.camera.onFadeComplete.add(resetFade, this);
 
-// SCORE TEXT
-    scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'black' });
-    // healthText = game.add.text(500,0, Health:)
+ game.input.onDown.add(fade, this);
+
+
+            // SCORE TEXT
+
+
+    scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
+
     cursors = game.input.keyboard.createCursorKeys();
+    this.add
+        .text(100, 0, "run ⇨ jump ⇧ back ⇦ \nDon't Fall ",{
+          font: "18px monospace",
+          fill: "#000000",
+          // padding: { x: 20, y: 10 },
+          backgroundColor: "#ffffff"
+        })
+
 }
+
+
+
+function fade() {
+
+    //  You can set your own flash color and duration
+    game.camera.fade(0x000000, 1000);
+}
+
+
+function resetFade() {
+
+    game.camera.resetFX();
+
+}
+
 
 // *********************************************
  // UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
@@ -150,46 +203,60 @@ function update() {
         player.body.velocity.y = -350;
     }
 
-    // if (score === 4) {
-    //   game.world.setBounds(500, 0);
-    //    alert('You are drunk! Go Home!!')
-    //    score = 0
-    //  }
-
-     if (score === 3) {
-            game.world.setBounds(500, 0);
-            // alert('You are drunk! Go Home!!')
-            score = 0
-             game.camera.shake(0.01, 3000000);
 
 
-          }
-
+     // if (score > 3 ) {
+     //        // alert('You are drunk! Go Home!!')
+     //        // score = 0
+     //        game.camera.fade(0x000000, 1000);
+     //       }
+     //       else if (score < 3){
+     //         game.camera.resetFX();
+     //
+     //
+     //     }
 }
 // ******************************
 // Health Bar
-
+// _text
 
 // *****************************************
 function collectDiamond (player, bottle) {
   bottle.kill()
-
   score += 1
-  scoreText.text = 'Drinks: ' + score
-  let energy = document.getElementById("energy")
 
-  energy.value -= 1;
+  game.camera.fade(0x000000, 500);
+
+
+// SCORE
+  scoreText.text = 'Drinks: ' + score;
+// ENERGY
+  let energy = document.getElementById("energy");
+  energy.value -= 2;
+
+
   if (energy.value === 0){
     alert('game over!!')
+    window.location.reload(false);
   }
+
+
+    // alert('game over!! Your are way to drunk');
+
 
 }
 
 function collectCoffee (player, coffee) {
   coffee.kill()
   score -= 1
-  let energy = document.getElementById("energy")
+  game.camera.resetFX();
 
   energy.value += 5;
-  scoreText.text = 'Drinks' - score
+  scoreText.text = 'Drinks: ' + score
 }
+
+
+
+// ************************************
+
+// POP UP

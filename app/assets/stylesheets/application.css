@@ -13,7 +13,6 @@
  *= require_tree .
  *= require_self
  */
-<<<<<<< HEAD
 
 
 
@@ -246,6 +245,7 @@ body{
   background: rgba(211, 251, 78, 0.66);
    background-image: url("intro.jpg");
    background-size: cover;
+<<<<<<< HEAD
 
 }
 
