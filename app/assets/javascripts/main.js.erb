@@ -2,26 +2,16 @@
 var game = new Phaser.Game(1000, 500,Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
-  game.load.image('background', '<%= image_path('mariobros.png') %>');
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
   game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
+  game.load.image('tiles', '<%= image_path('Tiles_32x32.png') %>');
+  game.load.image('tiles2', '<%= image_path('sheet.png')%>');
   game.load.spritesheet('dude', '<%= image_path('dude.png') %>', 45, 48);
+  game.load.tilemap('map', '<%= asset_path('gangshit.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
-
-<<<<<<< HEAD
   game.scale.pageAlignVertically = true;
-  game.scale.pageAlignVertically = true;
-
-=======
-  game.scale.pageAlignVertically = true;
-
-// game.scale.pageAlignVertically = true;
-
->>>>>>> 4109e509f91fd56375210d094bd0f3b282e1e7bc
-
 }
-
 
 var player;
 var platforms;
@@ -41,34 +31,21 @@ var layer;
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
 
-<<<<<<< HEAD
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.map = game.add.tilemap('map');
+
+    game.map.addTilesetImage('Tilesheet','tiles');
+    game.map.addTilesetImage('sheet2', 'tiles2');
+    game.groundLayer = game.map.createLayer('Tile Layer 1');
+    
+    game.map.setCollisionBetween(1, 100, true, 'Tile Layer 1');
     
     
-=======
->>>>>>> 4109e509f91fd56375210d094bd0f3b282e1e7bc
+    
 
-    // map = game.add.tilemap('map');
-    // map.addTilesetImage('ground');
-    // map.addTilesetImage('background');
+    
 
-
-    // game.physics.startSystem(Phaser.Physics.ARCADE);
-
-    // game.world.setBounds(110, 0);
-
-<<<<<<< HEAD
     game.world.setBounds(110, 0);
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-
-
-game.world.setBounds(110, 0);
-=======
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-
-
-game.world.setBounds(100,0);
-
->>>>>>> 4109e509f91fd56375210d094bd0f3b282e1e7bc
 
     game.add.sprite(0, 0, 'background');
 
@@ -93,7 +70,7 @@ game.world.setBounds(100,0);
 
     ledge.body.immovable = true;
 
-    player = game.add.sprite(0, game.world.height - 150, 'dude');
+    player = game.add.sprite(32, game.world.height - 150, 'dude');
 
     game.physics.arcade.enable(player);
 
@@ -111,9 +88,9 @@ game.world.setBounds(100,0);
   coffees = game.add.group();
 
   coffees.enableBody = true;
-        for (var i = 0; i < 15; i++)
+        for (var i = 0; i < 10; i++)
         {
-          var coffee = coffees.create(i * 250, 0, 'coffee');
+          var coffee = coffees.create(i * 70, 20, 'coffee');
 
           coffee.body.gravity.y = 700;
 
@@ -127,7 +104,7 @@ game.world.setBounds(100,0);
         bottles.enableBody = true;
     for (var i = 0; i < 20; i++)
     {
-        var bottle = bottles.create(i * 84, 0, 'bottle');
+        var bottle = bottles.create(i * 80, 0, 'bottle');
 
         bottle.body.gravity.y = 900;
 
@@ -137,55 +114,20 @@ game.world.setBounds(100,0);
 // PLATFORMS ITEMS
     for (var i = 0; i < 20; i++)
     {
-        var ledge = platforms.create(i * 105, 180, 'ground');
+        var ledge = platforms.create(i * 105, 180, 'ground');   
+
         ledge.body.immovable = true;
 
         ground.body.bounce.y = 0.2 + Math.random() * 0.2;
     }
 
-    game.camera.onFadeComplete.add(resetFade, this);
 
- game.input.onDown.add(fade, this);
-
-
-            // SCORE TEXT
-
-
-<<<<<<< HEAD
 // SCORE TEXT
-   
-    scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
+    scoreText = game.add.text(500, 0, 'Hello', { fontSize: '32px', fill: 'black' });
+    console.log(scoreText);
     // healthText = game.add.text(500,0, Health:)
-=======
-    scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
-
->>>>>>> 4109e509f91fd56375210d094bd0f3b282e1e7bc
     cursors = game.input.keyboard.createCursorKeys();
-    this.add
-        .text(100, 0, "Run 👉🏼 Jump 👆🏿 Back 👈 \nDon't Get Drunk❗ 🍺😵 ",{
-          font: "18px monospace",
-          fill: "#000000",
-          // padding: { x: 20, y: 10 },
-          backgroundColor: "#ffffff"
-        })
-
 }
-
-
-
-function fade() {
-
-    //  You can set your own flash color and duration
-    game.camera.fade(0x000000, 1000);
-}
-
-
-function resetFade() {
-
-    game.camera.resetFX();
-
-}
-
 
 // *********************************************
  // UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
@@ -197,6 +139,8 @@ function update() {
     game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
 
     game.physics.arcade.collide(coffees, platforms);
+    game.physics.arcade.collide(player, game.groundLayer);
+
     game.physics.arcade.overlap(player, coffees, collectCoffee, null, this)
 
 
@@ -228,8 +172,8 @@ function update() {
         player.body.velocity.y = -350;
     }
 
-<<<<<<< HEAD
     // if (score === 4) {
+    //   game.world.setBounds(500, 0);
     //    alert('You are drunk! Go Home!!')
     //    score = 0
     //  }
@@ -239,89 +183,34 @@ function update() {
             score = 0
              game.camera.shake(0.005, 3000000);
 
-     if (score === 1 ) {
-            // alert('You are drunk! Go Home!!')
-            // score = 0
-             game.camera.shake(0.01, 500);
-           }
-           else if (score === 3){
 
-               game.world.setBounds(500, 0);
-           }
-=======
->>>>>>> 4109e509f91fd56375210d094bd0f3b282e1e7bc
+          }
 
-
-     // if (score > 3 ) {
-     //        // alert('You are drunk! Go Home!!')
-     //        // score = 0
-     //        game.camera.fade(0x000000, 1000);
-     //       }
-     //       else if (score < 3){
-     //         game.camera.resetFX();
-     //
-     //
-     //     }
 }
 // ******************************
 // Health Bar
-<<<<<<< HEAD
-=======
-// _text
->>>>>>> 4109e509f91fd56375210d094bd0f3b282e1e7bc
+
 
 // *****************************************
 function collectDiamond (player, bottle) {
   bottle.kill()
   score += 1
+  scoreText.text = 'Drinks: ' + score; 
 
-  game.camera.fade(0x000000, 500);
-
-
-// SCORE
-  scoreText.text = 'Drinks: ' + score;
-// ENERGY
   let energy = document.getElementById("energy");
-  energy.value -= 2;
 
-
+  energy.value -= 1;
   if (energy.value === 0){
     alert('game over!!')
-    window.location.reload(false);
-<<<<<<< HEAD
   } 
-
-   
-
-  }
-=======
-  }
-
-
-    // alert('game over!! Your are way to drunk');
-
->>>>>>> 4109e509f91fd56375210d094bd0f3b282e1e7bc
 
 }
 
 function collectCoffee (player, coffee) {
   coffee.kill()
   score -= 1
-  game.camera.resetFX();
+  let energy = document.getElementById("energy")
 
   energy.value += 5;
-<<<<<<< HEAD
-
   scoreText.text = 'Drinks: ' + score
 }
-  scoreText.text = 'Drinks:' - score
-=======
-  scoreText.text = 'Drinks: ' + score
-}
->>>>>>> 4109e509f91fd56375210d094bd0f3b282e1e7bc
-
-
-
-
-
-// POP UP
