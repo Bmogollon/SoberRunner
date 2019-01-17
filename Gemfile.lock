@@ -221,13 +221,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-<<<<<<< HEAD
    ruby 2.5.1p57
-=======
-
-   ruby 2.5.1p57
-
->>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 
 BUNDLED WITH
-   1.17.2
+   2.0.1
