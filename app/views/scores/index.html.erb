@@ -1,0 +1,16 @@
+<div class="scorebox">
+<h2>SCORES</h2>
+<% @scores.each do |score| %>
+<div>
+<%if score.user.present? %>
+<p>
+  User:
+<%= score.user.username%>
+  =>
+  Score:
+<%= score.score %>
+</p>
+</div>
+<% end %>
+<% end %>
+</div>
