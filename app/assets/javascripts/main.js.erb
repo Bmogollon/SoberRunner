@@ -2,6 +2,17 @@
 var game = new Phaser.Game(1000, 500,Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
+<<<<<<< HEAD
+  game.load.image('coffee', '<%= image_path('firstaid.png') %>');
+  game.load.image('ground', '<%= image_path('barrel.png') %>');
+  game.load.image('bottle', '<%= image_path('vodka.png') %>');
+  game.load.image('tiles', '<%= image_path('Tiles_32x32.png') %>');
+  game.load.image('tiles2', '<%= image_path('sheet.png')%>');
+  game.load.spritesheet('dude', '<%= image_path('dude.png') %>', 45, 48);
+  game.load.tilemap('map', '<%= asset_path('gangshit.json')%>', null, Phaser.Tilemap.TILED_JSON);
+  game.scale.pageAlignHorizontally = true;
+  game.scale.pageAlignVertically = true;
+=======
   game.load.image('background', '<%= image_path('background.png') %>');
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
   game.load.image('ground', '<%= image_path('barrel.png') %>');
@@ -16,8 +27,8 @@ function preload() {
 // game.scale.pageAlignVertically = true;
 
 
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 }
-
 
 var player;
 var playertwo;
@@ -38,6 +49,19 @@ var layer;
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
 
+<<<<<<< HEAD
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.map = game.add.tilemap('map');
+
+    game.map.addTilesetImage('Tilesheet','tiles');
+    game.map.addTilesetImage('sheet2', 'tiles2');
+    game.groundLayer = game.map.createLayer('Tile Layer 1');
+    
+    game.map.setCollisionBetween(1, 100, true, 'Tile Layer 1');
+    
+    
+    
+=======
 
     // map = game.add.tilemap('map');
     // map.addTilesetImage('ground');
@@ -45,14 +69,19 @@ function create() {
 
 
     // game.physics.startSystem(Phaser.Physics.ARCADE);
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 
-    // game.world.setBounds(110, 0);
+    
 
+<<<<<<< HEAD
+    game.world.setBounds(110, 0);
+=======
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
 
 game.world.setBounds(100,0);
 
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 
     game.add.sprite(0, 0, 'background');
 
@@ -77,7 +106,7 @@ game.world.setBounds(100,0);
 
     ledge.body.immovable = true;
 
-    player = game.add.sprite(0, game.world.height - 150, 'dude');
+    player = game.add.sprite(32, game.world.height - 150, 'dude');
 
 
     game.physics.arcade.enable(player);
@@ -96,9 +125,9 @@ game.world.setBounds(100,0);
   coffees = game.add.group();
 
   coffees.enableBody = true;
-        for (var i = 0; i < 15; i++)
+        for (var i = 0; i < 10; i++)
         {
-          var coffee = coffees.create(i * 250, 0, 'coffee');
+          var coffee = coffees.create(i * 70, 20, 'coffee');
 
           coffee.body.gravity.y = 700;
 
@@ -112,7 +141,7 @@ game.world.setBounds(100,0);
         bottles.enableBody = true;
     for (var i = 0; i < 20; i++)
     {
-        var bottle = bottles.create(i * 84, 0, 'bottle');
+        var bottle = bottles.create(i * 80, 0, 'bottle');
 
         bottle.body.gravity.y = 900;
 
@@ -122,14 +151,21 @@ game.world.setBounds(100,0);
 // PLATFORMS ITEMS
     for (var i = 0; i < 20; i++)
     {
-        var ledge = platforms.create(i * 105, 180, 'ground');
+        var ledge = platforms.create(i * 105, 180, 'ground');   
+
         ledge.body.immovable = true;
 
         ground.body.bounce.y = 0.2 + Math.random() * 0.2;
     }
 
-    game.camera.onFadeComplete.add(resetFade, this);
 
+<<<<<<< HEAD
+// SCORE TEXT
+    scoreText = game.add.text(500, 0, 'Hello', { fontSize: '32px', fill: 'black' });
+    console.log(scoreText);
+    // healthText = game.add.text(500,0, Health:)
+    cursors = game.input.keyboard.createCursorKeys();
+=======
  game.input.onDown.add(fade, this);
 
 
@@ -147,23 +183,8 @@ game.world.setBounds(100,0);
           backgroundColor: "#ffffff"
         })
 
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 }
-
-
-
-function fade() {
-
-    //  You can set your own flash color and duration
-    game.camera.fade(0x000000, 1000);
-}
-
-
-function resetFade() {
-
-    game.camera.resetFX();
-
-}
-
 
 // *********************************************
  // UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
@@ -175,6 +196,8 @@ function update() {
     game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
 
     game.physics.arcade.collide(coffees, platforms);
+    game.physics.arcade.collide(player, game.groundLayer);
+
     game.physics.arcade.overlap(player, coffees, collectCoffee, null, this)
 
 
@@ -206,6 +229,26 @@ function update() {
         player.body.velocity.y = -350;
     }
 
+<<<<<<< HEAD
+    // if (score === 4) {
+    //   game.world.setBounds(500, 0);
+    //    alert('You are drunk! Go Home!!')
+    //    score = 0
+    //  }
+
+     if (score === 3) {
+            // alert('You are drunk! Go Home!!')
+            score = 0
+             game.camera.shake(0.005, 3000000);
+
+
+          }
+
+}
+// ******************************
+// Health Bar
+
+=======
 
 
      // if (score > 3 ) {
@@ -222,11 +265,22 @@ function update() {
 // ******************************
 // Health Bar
 // _text
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 
 // *****************************************
 function collectDiamond (player, bottle) {
   bottle.kill()
   score += 1
+<<<<<<< HEAD
+  scoreText.text = 'Drinks: ' + score; 
+
+  let energy = document.getElementById("energy");
+
+  energy.value -= 1;
+  if (energy.value === 0){
+    alert('game over!!')
+  } 
+=======
   scoreText.text = 'Drinks: ' + score;
   game.camera.fade(0x000000, 4000);
 
@@ -245,16 +299,20 @@ function collectDiamond (player, bottle) {
 
     // alert('game over!! Your are way to drunk');
 
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 
 }
 
 function collectCoffee (player, coffee) {
   coffee.kill()
   score -= 1
-  game.camera.resetFX();
+  let energy = document.getElementById("energy")
 
   energy.value += 5;
   scoreText.text = 'Drinks: ' + score
+<<<<<<< HEAD
+}
+=======
 }
 
 
@@ -262,3 +320,4 @@ function collectCoffee (player, coffee) {
 // ************************************
 
 // POP UP
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
