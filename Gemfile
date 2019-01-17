@@ -5,6 +5,10 @@ ruby '2.5.1'
 gem 'phaser-rails'
 
 
+<<<<<<< HEAD
+ruby '2.5.1'
+=======
+>>>>>>> 0d94af20f03f280542479c2f7ef16295a13053b2
 
 
 gem 'phaser-rails'
