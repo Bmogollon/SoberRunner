@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
-<<<<<<< HEAD
+
 
 
 
@@ -259,7 +259,7 @@ body{
 h1{
   text-align: center;
 }
-=======
+
  @import url('https://fonts.googleapis.com/css?family=Bungee+Inline|Faster+One|Fontdiner+Swanky|Knewave');
 
  #Cover-pops .container {
@@ -348,6 +348,3 @@ h2 {
     to { -webkit-transform: scale3d(1, 1, 1);
       transform: scale3d(1, 1, 1);}
     }
-
-
->>>>>>> origin/junes_branch
