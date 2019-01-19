@@ -4,17 +4,13 @@ var game = new Phaser.Game(1000, 500,Phaser.AUTO, '', { preload: preload, create
 function preload() {
 
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
-  // game.load.image('background', '<%= image_path('background.png') %>');
-
-  // game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
-  game.load.image('objects', '<%= image_path('_Spritesheet_Objects.png') %>');
-  game.load.image('bg', '<%= image_path('Background_Layer_2.png') %>');
-  game.load.image('tiles2', '<%= image_path('sheet.png')%>');
+  game.load.image('tiles3', '<%= image_path('_Spritesheet_Objects.png')%>');
+
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
 
-  game.load.tilemap('map', '<%= asset_path('newsober.json')%>', null, Phaser.Tilemap.TILED_JSON);
+  game.load.tilemap('map', '<%= asset_path('slatt.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
 
@@ -26,6 +22,8 @@ function preload() {
 var player;
 var playertwo;
 var platforms;
+var groundLayer;
+var backgroundLayer;
 var cursors;
 var coffees;
 var bottles;
@@ -46,44 +44,48 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.map = game.add.tilemap('map');
 
-    game.map.addTilesetImage('Tilesheet','tiles');
-    game.map.addTilesetImage('sheet2', 'tiles2');
+    game.map.addTilesetImage('citytiles', 'tiles3');
     game.groundLayer = game.map.createLayer('Tile Layer 1');
+    game.map.setCollisionBetween(1, 200, true, 'Tile Layer 1');
 
-    game.map.setCollisionBetween(1, 100, true, 'Tile Layer 1');
+   
+
+    
 
 
-
+    // platforms = game.add.group();
 
     game.world.setBounds(0, 0);
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    platforms = game.add.group();
 
 
     game.world.setBounds(1,1);
 
 
 
-    // game.add.sprite(0, 0, 'background');
+    game.add.sprite(0, 0, 'Tile Layer 1');
 
 
 
     // platforms = game.add.group();
 
-    // platforms.enableBody = true;
+    platforms.enableBody = true;
 
 
 
-    // var ground = platforms.create(0, game.world.height - 0, 'ground');
+     var ground = platforms.create(0, game.world.height - 0, 'Tile Layer 1');
 
 
-    // ground.scale.setTo(0, 0);
+    ground.scale.setTo(0, 0);
 
-    // ground.body.immovable = true;
-    // var ledge = platforms.create( 'ground');
-    // ledge.body.immovable = true;
+    ground.body.immovable = true;
+    var ledge = platforms.create( 'Tile Layer 1');
+    ledge.body.immovable = true;
 
-    // ledge = platforms.create( 'ground');
+    // ledge = platforms.create( 'Tile Layer 1');
 
     // ledge.body.immovable = true;
 
@@ -93,7 +95,7 @@ function create() {
 
 
     game.physics.arcade.enable(player);
-  game.physics.arcade.enable(playertwo);
+    game.physics.arcade.enable(playertwo);
     game.camera.follow(player);
 
     player.body.bounce.y = 0.2;
@@ -143,7 +145,7 @@ function create() {
 // // PLATFORMS ITEMS
 //     for (var i = 0; i < 20; i++)
 //     {
-//         var ledge = platforms.create(i * 105, 180, 'ground');
+//         var ledge = platforms.create(i * 105, 180, 'GroundLayer');
 //
 //         ledge.body.immovable = true;
 //
@@ -178,13 +180,13 @@ this.keys= game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser
  // UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
 
 function update() {
-    var hitPlatform = game.physics.arcade.collide(player, platforms);
+    var hitPlatform = game.physics.arcade.collide(player, game.groundLayer);
 
     game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
     game.physics.arcade.overlap(player, coffees, collectCoffee, null, this)
 
-    game.physics.arcade.collide(bottles, platforms);
-    game.physics.arcade.collide(coffees, platforms);
+    game.physics.arcade.collide(bottles, game.groundLayer);
+    game.physics.arcade.collide(coffees, game.groundLayer);
 
     game.physics.arcade.collide(bottles, game.groundLayer);
     game.physics.arcade.collide(coffees, game.groundLayer);
@@ -192,11 +194,14 @@ function update() {
 
     game.physics.arcade.collide(player, game.groundLayer);
 
-
-
     player.body.velocity.x = 0;
 
     cursors = game.input.keyboard.createCursorKeys();
+
+
+   
+
+    
 
     if (cursors.left.isDown)
     {
@@ -224,7 +229,7 @@ function update() {
 
 
 
-    var hitPlatform = game.physics.arcade.collide(playertwo, platforms);
+    var hitPlatform = game.physics.arcade.collide(playertwo, game.groundLayer);
     game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this)
 
     game.physics.arcade.collide(playertwo, game.groundLayer);
