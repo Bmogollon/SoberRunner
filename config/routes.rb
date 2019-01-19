@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root :to => 'pages#welcome'
+  root 'pages#welcome'
   resources :users, :only => [:new, :create, :index, :update]
   get '/users/edit' => 'users#edit', :as => 'edit_user'
   post "/scores" => "scores#create"
