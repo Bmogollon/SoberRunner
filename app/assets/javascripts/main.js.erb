@@ -5,12 +5,12 @@ function preload() {
 
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
-  game.load.image('tiles3', '<%= image_path('_Spritesheet_Objects.png')%>');
-
+  game.load.image('tiles', '<%= image_path('Tiles_32x32.png')%>');
+  game.load.image('tiles1', '<%= image_path('sheet.png')%>');
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
 
-  game.load.tilemap('map', '<%= asset_path('slatt.json')%>', null, Phaser.Tilemap.TILED_JSON);
+  game.load.tilemap('map', '<%= asset_path('gangshit.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
 
@@ -44,7 +44,8 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.map = game.add.tilemap('map');
 
-    game.map.addTilesetImage('citytiles', 'tiles3');
+    game.map.addTilesetImage('Tilesheet', 'tiles');
+    game.map.addTilesetImage('sheet2', 'tiles1');
     game.groundLayer = game.map.createLayer('Tile Layer 1');
     game.map.setCollisionBetween(1, 200, true, 'Tile Layer 1');
 
