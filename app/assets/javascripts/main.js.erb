@@ -5,20 +5,12 @@ function preload() {
 
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
-<<<<<<< HEAD
-  game.load.image('tiles', '<%= image_path('Tiles_32x32.png')%>');
   game.load.image('tiles1', '<%= image_path('sheet.png')%>');
-  game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
-  game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
-
-  game.load.tilemap('map', '<%= asset_path('gangshit.json')%>', null, Phaser.Tilemap.TILED_JSON);
-=======
-  game.load.image('tiles1', '<%= image_path('sheet.png')%>');
+  game.load.image('barrel', '<%= image_path('barrel.png')%>');
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
   //preloaded music audio
   game.load.audio('bigbs', '<%= asset_path('slatt.mp3') %>');
->>>>>>> Loops
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
 
@@ -26,12 +18,8 @@ function preload() {
 
 
 }
-<<<<<<< HEAD
-
-=======
 //created music varibale
 var music;
->>>>>>> Loops
 var player;
 var playertwo;
 var platforms;
@@ -55,24 +43,14 @@ function create() {
 
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
-<<<<<<< HEAD
-    game.map = game.add.tilemap('map');
-
-    game.map.addTilesetImage('Tilesheet', 'tiles');
-    game.map.addTilesetImage('sheet2', 'tiles1');
-    game.groundLayer = game.map.createLayer('Tile Layer 1');
-    game.map.setCollisionBetween(1, 200, true, 'Tile Layer 1');
-
-=======
    
 
->>>>>>> Loops
    
 
     
 
 
-    // platforms = game.add.group();
+     platforms = game.add.group();
 
     game.world.setBounds(0, 0);
 
@@ -80,12 +58,9 @@ function create() {
 
     platforms = game.add.group();
 
-<<<<<<< HEAD
-=======
     //calls on the music variable created to play the game
     music = game.add.audio('bigbs');
     music.play();
->>>>>>> Loops
 
     game.world.setBounds(1,1);
 
@@ -95,7 +70,7 @@ function create() {
 
 
 
-    // platforms = game.add.group();
+    platforms = game.add.group();
 
     platforms.enableBody = true;
 
@@ -117,13 +92,8 @@ function create() {
 
     player = game.add.sprite(0, game.world.height - 0, 'dude');
     playertwo = game.add.sprite(0, game.world.height - 0, 'guy');
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> Loops
     game.physics.arcade.enable(player);
     game.physics.arcade.enable(playertwo);
     game.camera.follow(player);
@@ -172,16 +142,16 @@ function create() {
         bottle.body.bounce.y = 0.2 + Math.random() * 0.2;
     }
 
-// // PLATFORMS ITEMS
-//     for (var i = 0; i < 20; i++)
-//     {
-//         var ledge = platforms.create(i * 105, 180, 'GroundLayer');
-//
-//         ledge.body.immovable = true;
-//
-//         ground.body.bounce.y = 0.2 + Math.random() * 0.2;
-//     }
-//
+//  PLATFORMS ITEMS
+     for (var i = 0; i < 20; i++)
+     {
+         var ledge = platforms.create(i * 105, 180, 'GroundLayer');
+
+        ledge.body.immovable = true;
+
+         ground.body.bounce.y = 0.2 + Math.random() * 0.2;
+    }
+
 
 
 // SCORE TEXT
@@ -252,10 +222,7 @@ function update() {
         player.frame = 1;
     }
 
-    if (cursors.up.isDown && player.body.touching.down && hitPlatform)
-    {
-        player.body.velocity.y = -350;
-    }
+    
 
 
 
