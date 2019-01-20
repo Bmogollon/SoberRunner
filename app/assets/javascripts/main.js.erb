@@ -27,51 +27,26 @@ var scoreText;
 var map;
 var tiles;
 
-
-
-
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
-
-
   game.physics.startSystem(Phaser.Physics.ARCADE);
   game.map = game.add.tilemap('map');
-
   game.map.addTilesetImage('citytiles','tiles');
   game.map.addTilesetImage('backgd', 'tiles2');
-
   game.groundLayer = game.map.createLayer('Backgroundlayer');
-
   game.map.setCollisionBetween(1, 100, true, 'Backgroundlayer');
-
   game.groundLayer = game.map.createLayer('Groundlayer');
-
   game.map.setCollisionBetween(1, 100, true, 'Groundlayer');
-
-
-
   game.world.setBounds(0, 0);
-
-  game.physics.startSystem(Phaser.Physics.ARCADE);
-
-
   game.world.setBounds(1,1);
-
-
-
   game.add.sprite(0, 0, 'background');
 
 
 
   platforms = game.add.group();
-
   platforms.enableBody = true;
 
-
-
   var ground = platforms.create(0, game.world.height - 0, 'ground');
-
-
   ground.scale.setTo(0, 0);
 
   ground.body.immovable = true;
@@ -112,13 +87,11 @@ function create() {
   coffees = game.add.group();
 
   coffees.enableBody = true;
-  for (var i = 0; i < 40; i++)
+  for (var i = 0; i < 20; i++)
   {
-    var coffee = coffees.create(i * 100, 20, 'coffee');
-
-    coffee.body.gravity.y = 700;
-
-    coffee.body.bounce.y = 0.5 + Math.random() * 0.5;
+    var coffee = coffees.create(i * (Math.random()*100), 20, 'coffee');
+    coffee.body.gravity.y = 1000;
+    coffee.body.bounce.y = 0;
   }
 
   // BOTTLE ITEMS
@@ -128,7 +101,7 @@ function create() {
   bottles.enableBody = true;
   for (var i = 0; i < 100; i++)
   {
-    var bottle = bottles.create(i * 100, 40, 'bottle');
+    var bottle = bottles.create(i * 100, -10, 'bottle');
 
     bottle.body.gravity.y = 900;
 
@@ -138,11 +111,9 @@ function create() {
   // PLATFORMS ITEMS
   for (var i = 0; i < 20; i++)
   {
-    var ledge = platforms.create(i * 105, 180, 'ground');
+    var ledge = platforms.create(i * (Math.random()*105), Math.random()*500, 'ground');
 
     ledge.body.immovable = true;
-
-    ground.body.bounce.y = 0.2 + Math.random() * 0.2;
   }
 
 
@@ -151,12 +122,11 @@ function create() {
 
   cursors = game.input.keyboard.createCursorKeys();
 
-  this.keys= game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D } );
+  this.keys = game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D } );
 
   // SCORE TEXT
 
-
-  scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
+  scoreText = game.add.text(400, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
 
   this.add
   .text(100, 0, "run ⇨ jump ⇧ back ⇦ \nDon't Fall ",{
@@ -254,14 +224,10 @@ function update() {
 
 
 
-  if (score === 3) {
-    // alert('You are drunk! Go Home!!')
-    score = 0
-    // game.camera.shake(0.005, 3000000);
-
-
+  if (score >= 3) {
+    alert('You are drunk! Go Home!!');
+    game.camera.shake(0.005, 3000000);
   }
-
 }
 
 
@@ -298,7 +264,7 @@ function collectDiamond (player, bottle) {
 
 
 
-// alert('game over!! Your are way to drunk');
+// alert('game over!! Your are way too drunk');
 
 
 
