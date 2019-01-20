@@ -13,7 +13,7 @@ class SessionController < ApplicationController
      else
 
        redirect_to login_path
-   end
+     end
   end
 
   def destroy
