@@ -1,5 +1,5 @@
 //= require phaser
-var game = new Phaser.Game(400, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(1000, 500, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
 
 // LOADING IMAGES TO SCREEN
 function preload() {
@@ -7,8 +7,8 @@ function preload() {
   game.load.image('background', '<%= image_path('PubBar.png') %>');
   // game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
-  // game.load.image('tiles', '<%= image_path('Tile_59.png') %>');
-  game.load.image('tiles2', '<%= image_path('Background_Layer_2.png')%>');
+  game.load.image('bullet','<%= image_path('bullet.png') %>');
+
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
   game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
@@ -17,6 +17,7 @@ function preload() {
 }
 
 var player;
+var bottle;
 var playertwo;
 var platforms;
 var cursors;
@@ -26,18 +27,28 @@ var score = 0;
 var scoreText;
 var map;
 var tiles;
+var fireButton;
+
+var bullets = 0;
+  var bulletSpeed = 600;
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
-  game.map.addTilesetImage('citytiles','tiles');
-  game.groundLayer = game.map.createLayer('Backgroundlayer');
-  game.map.setCollisionBetween(1, 100, true, 'Backgroundlayer');
-  game.groundLayer = game.map.createLayer('Groundlayer');
-  game.map.setCollisionBetween(1, 100, true, 'Groundlayer');
-  game.world.setBounds(0, 0);
-  game.world.setBounds(1,1);
+  // game.world.setBounds(0, 0);
   game.add.sprite(0, 0, 'background');
+
+
+
+  bullets = game.add.group();
+     bullets.enableBody = true;
+     bullets.physicsBodyType = Phaser.Physics.ARCADE;
+     bullets.createMultiple(30, 'bullet');
+     bullets.setAll('anchor.x', 0.5);
+     bullets.setAll('anchor.y', 1);
+     bullets.setAll('outOfBoundsKill', true);
+     bullets.setAll('checkWorldBounds', true);
+
 
 
 
@@ -134,6 +145,7 @@ function create() {
     backgroundColor: "#ffffff"
   })
 
+fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 }
 
@@ -226,7 +238,21 @@ function update() {
     alert('You are drunk! Go Home!!');
     game.camera.shake(0.005, 3000000);
   }
+
+  if (fireButton.isDown)
+        {
+            fireBullet();
+        }
+
+
+        game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
+
+
 }
+
+
+
+
 
 
 // ******************************
@@ -265,7 +291,30 @@ function collectDiamond (player, bottle) {
 // alert('game over!! Your are way too drunk');
 
 
+function collisionHandler (bullet, bottle) {
 
+
+    bullet.kill();
+    bottle.kill();
+}
+
+
+function fireBullet () {
+
+    if (game.time.now > bulletSpeed)
+    {
+
+        bullet = bullets.getFirstExists(false);
+
+        if (bullet)
+        {
+            bullet.reset(player.x, player.y + 8);
+            bullet.body.velocity.y = -400;
+            bulletSpeed = game.time.now + 200;
+        }
+    }
+
+}
 
 
 function collectCoffee (player, coffee) {
