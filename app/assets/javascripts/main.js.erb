@@ -8,6 +8,7 @@ function preload() {
   game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.image('bullet','<%= image_path('bullet.png') %>');
+  game.load.image('beerbullet', '<%= image_path('beermug.png')%>');
 
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
@@ -28,6 +29,7 @@ var scoreText;
 var map;
 var tiles;
 var fireButton;
+var enemyBullet;
 
 var bullets = 0;
   var bulletSpeed = 600;
@@ -49,6 +51,15 @@ function create() {
      bullets.setAll('outOfBoundsKill', true);
      bullets.setAll('checkWorldBounds', true);
 
+//Enemy Bullets
+enemyBullet = game.add.group();
+   enemyBullet.enableBody = true;
+   enemyBullet.physicsBodyType = Phaser.Physics.ARCADE;
+   enemyBullet.createMultiple(30, 'beerbullet');
+   enemyBullet.setAll('anchor.x', 0.5);
+   enemyBullet.setAll('anchor.y', 1);
+   enemyBullet.setAll('outOfBoundsKill', true);
+   enemyBullet.setAll('checkWorldBounds', true);
 
 
 
@@ -256,8 +267,8 @@ function collisionHandler() {
     bottle.kill;
 }
 
-function enemyHitsPlayer() {
-  bullet.kill();
+function enemyHitsPlayer(player, enemyBullet) {
+  enemyBullet.kill();
   live = lives.getFirstAlive();
   if (live)
     live.kill();
@@ -268,8 +279,9 @@ if (lives.countLiving() < 1)
   {
     player.kill();
     enemyBullets.callAll('kill');
-    
+
   }
+
 
 
 
