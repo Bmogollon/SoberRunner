@@ -1,13 +1,13 @@
 //= require phaser
-var game = new Phaser.Game(600, 400, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(400, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
 
 // LOADING IMAGES TO SCREEN
 function preload() {
-  game.load.image('coffee', '<%= image_path('firstaid.png') %>');
-  game.load.image('background', '<%= image_path('background.png') %>');
-  game.load.image('ground', '<%= image_path('barrel.png') %>');
+  // game.load.image('coffee', '<%= image_path('firstaid.png') %>');
+  game.load.image('background', '<%= image_path('PubBar.png') %>');
+  // game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
-  game.load.image('tiles', '<%= image_path('Tile_59.png') %>');
+  // game.load.image('tiles', '<%= image_path('Tile_59.png') %>');
   game.load.image('tiles2', '<%= image_path('Background_Layer_2.png')%>');
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
@@ -30,9 +30,7 @@ var tiles;
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
-  game.map = game.add.tilemap('map');
   game.map.addTilesetImage('citytiles','tiles');
-  game.map.addTilesetImage('backgd', 'tiles2');
   game.groundLayer = game.map.createLayer('Backgroundlayer');
   game.map.setCollisionBetween(1, 100, true, 'Backgroundlayer');
   game.groundLayer = game.map.createLayer('Groundlayer');
