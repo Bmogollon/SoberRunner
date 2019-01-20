@@ -1,12 +1,21 @@
 //= require phaser
+<<<<<<< HEAD
 var game = new Phaser.Game(1000, 500,Phaser.AUTO, '', { preload: preload, create: create, update: update });
+=======
+var game = new Phaser.Game(1000, 500, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+>>>>>>> bonny
 
 function preload() {
 
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
+<<<<<<< HEAD
   game.load.image('tiles1', '<%= image_path('sheet.png')%>');
   game.load.image('barrel', '<%= image_path('barrel.png')%>');
+=======
+  game.load.image('bullet','<%= image_path('bullet.png') %>');
+
+>>>>>>> bonny
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
   //preloaded music audio
@@ -21,6 +30,7 @@ function preload() {
 //created music varibale
 var music;
 var player;
+var bottle;
 var playertwo;
 var platforms;
 var groundLayer;
@@ -32,6 +42,10 @@ var score = 0;
 var scoreText;
 var map;
 var tiles;
+var fireButton;
+
+var bullets = 0;
+  var bulletSpeed = 600;
 
 // *********
 // LOADING IMAGES TO SCREEN
@@ -40,6 +54,12 @@ var tiles;
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
+<<<<<<< HEAD
+=======
+  game.physics.startSystem(Phaser.Physics.ARCADE);
+  // game.world.setBounds(0, 0);
+  game.add.sprite(0, 0, 'background');
+>>>>>>> bonny
 
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -74,6 +94,23 @@ function create() {
 
     platforms.enableBody = true;
 
+<<<<<<< HEAD
+=======
+  bullets = game.add.group();
+     bullets.enableBody = true;
+     bullets.physicsBodyType = Phaser.Physics.ARCADE;
+     bullets.createMultiple(30, 'bullet');
+     bullets.setAll('anchor.x', 0.5);
+     bullets.setAll('anchor.y', 1);
+     bullets.setAll('outOfBoundsKill', true);
+     bullets.setAll('checkWorldBounds', true);
+
+
+
+
+  platforms = game.add.group();
+  platforms.enableBody = true;
+>>>>>>> bonny
 
 
      var ground = platforms.create(0, game.world.height - 0, 'Tile Layer 1');
@@ -173,6 +210,7 @@ this.keys= game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser
           backgroundColor: "#ffffff"
         })
 
+fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 }
 
@@ -260,6 +298,7 @@ function update() {
     }
 
 
+<<<<<<< HEAD
 
      if (score === 3) {
             // alert('You are drunk! Go Home!!')
@@ -268,8 +307,27 @@ function update() {
 
 
           }
+=======
+  if (score >= 3) {
+    alert('You are drunk! Go Home!!');
+    game.camera.shake(0.005, 3000000);
+  }
+
+  if (fireButton.isDown)
+        {
+            fireBullet();
+        }
+
+
+        game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
+
+>>>>>>> bonny
 
 }
+
+
+
+
 
 
 // ******************************
@@ -308,7 +366,35 @@ function collectDiamond (player, bottle) {
     // alert('game over!! Your are way to drunk');
 
 
+function collisionHandler (bullet, bottle) {
 
+    //  When a bullet hits an alien we kill them both
+    bullet.kill();
+    bottle.kill();
+
+
+
+}
+
+
+function fireBullet () {
+
+    //  To avoid them being allowed to fire too fast we set a time limit
+    if (game.time.now > bulletSpeed)
+    {
+        //  Grab the first bullet we can from the pool
+        bullet = bullets.getFirstExists(false);
+
+        if (bullet)
+        {
+            //  And fire it
+            bullet.reset(player.x, player.y + 8);
+            bullet.body.velocity.y = -400;
+            bulletSpeed = game.time.now + 200;
+        }
+    }
+
+}
 
 
 function collectCoffee (player, coffee) {
