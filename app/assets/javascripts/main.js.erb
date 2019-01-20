@@ -4,7 +4,7 @@ var game = new Phaser.Game(1000, 500, Phaser.AUTO, 'game', { preload: preload, c
 // LOADING IMAGES TO SCREEN
 function preload() {
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
-  game.load.image('background', '<%= image_path('background.png') %>');
+  game.load.image('background', '<%= image_path('PubBar.png') %>');
   game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.image('bullet','<%= image_path('bullet.png') %>');
@@ -39,7 +39,7 @@ function create() {
   game.add.sprite(0, 0, 'background');
 
 
-
+//Create Bullets
   bullets = game.add.group();
      bullets.enableBody = true;
      bullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -116,6 +116,7 @@ function create() {
 
     bottle.body.bounce.y = 0.2 + Math.random() * 0.2;
   }
+  bottles.physicsBodyType = Phaser.Physics.ARCADE;
 
   // PLATFORMS ITEMS
   for (var i = 0; i < 20; i++)
@@ -245,11 +246,30 @@ function update() {
         }
 
 
-        game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
+        game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
 
 
 }
 
+function collisionHandler() {
+    bullet.kill();
+    bottle.kill;
+}
+
+function enemyHitsPlayer() {
+  bullet.kill();
+  live = lives.getFirstAlive();
+  if (live)
+    live.kill();
+
+}
+
+if (lives.countLiving() < 1)
+  {
+    player.kill();
+    enemyBullets.callAll('kill');
+    
+  }
 
 
 
