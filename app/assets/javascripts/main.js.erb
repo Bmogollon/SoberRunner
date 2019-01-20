@@ -9,7 +9,8 @@ function preload() {
   // game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.image('tiles', '<%= image_path('Tile_59.png') %>');
-  game.load.image('tiles2', '<%= image_path('Background_Layer_2.png')%>');
+  game.load.image('tiles3', '<%= image_path('_Spritesheet_Objects.png')%>');
+
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
 
@@ -32,6 +33,7 @@ var score = 0;
 var scoreText;
 var map;
 var tiles;
+var layer;
 
 // *********
 // LOADING IMAGES TO SCREEN
@@ -45,12 +47,10 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.map = game.add.tilemap('map');
 
-    game.map.addTilesetImage('citytiles','tiles');
-    game.map.addTilesetImage('backgd', 'tiles2');
+    game.map.addTilesetImage('groundlayer','tiles');
+    game.map.addTilesetImage('citytiles', 'tiles3');
 
-    game.groundLayer = game.map.createLayer('Backgroundlayer');
 
-    game.map.setCollisionBetween(1, 100, true, 'Backgroundlayer');
 
     game.groundLayer = game.map.createLayer('Groundlayer');
 
@@ -189,11 +189,11 @@ function update() {
     game.physics.arcade.collide(bottles, platforms);
     game.physics.arcade.collide(coffees, platforms);
 
-    game.physics.arcade.collide(bottles, game.groundLayer);
-    game.physics.arcade.collide(coffees, game.groundLayer);
+    game.physics.arcade.collide(bottles, layer);
+    game.physics.arcade.collide(coffees, layer);
 
 
-    game.physics.arcade.collide(player, game.groundLayer);
+    game.physics.arcade.collide(player, layer);
 
 
 
