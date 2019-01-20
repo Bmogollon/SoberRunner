@@ -268,13 +268,15 @@ function collectDiamond (player, bottle) {
 
 
 
-
-function collisionHandler (bullet, bottle) {
-  bullet.kill();
-  bottle.kill();
-}
 // alert('game over!! Your are way too drunk');
 
+
+function collisionHandler (bullet, bottle) {
+
+
+    bullet.kill();
+    bottle.kill();
+}
 
 
 function fireBullet () {
