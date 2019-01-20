@@ -11,7 +11,6 @@ function preload() {
 
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
-  game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
 }
@@ -25,9 +24,9 @@ var coffees;
 var bottles;
 var score = 0;
 var scoreText;
-var map;
-var tiles;
 var fireButton;
+var fireButton2;
+
 
 var bullets = 0;
   var bulletSpeed = 600;
@@ -146,6 +145,7 @@ function create() {
   })
 
 fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+fireButton2 = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
 }
 
@@ -153,19 +153,11 @@ fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 // UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
 
 function update() {
-  var hitPlatform = game.physics.arcade.collide(player, platforms);
 
-  game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
-  game.physics.arcade.overlap(player, coffees, collectCoffee, null, this)
+  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
 
   game.physics.arcade.collide(bottles, platforms);
   game.physics.arcade.collide(coffees, platforms);
-
-  game.physics.arcade.collide(bottles, game.groundLayer);
-  game.physics.arcade.collide(coffees, game.groundLayer);
-
-
-  game.physics.arcade.collide(player, game.groundLayer);
 
 
 
@@ -199,13 +191,8 @@ function update() {
 
 
 
-  var hitPlatform = game.physics.arcade.collide(playertwo, platforms);
-  game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this)
-
-  game.physics.arcade.collide(playertwo, game.groundLayer);
-
-  game.physics.arcade.overlap(playertwo, coffees, collectCoffee, null, this)
-
+// ************
+// PlayerTwo Functionality
 
   playertwo.body.velocity.x = 0;
   if (this.keys.left.isDown)
@@ -239,13 +226,18 @@ function update() {
     game.camera.shake(0.005, 3000000);
   }
 
-  if (fireButton.isDown)
+  if (player === fireButton.isDown)
         {
             fireBullet();
         }
 
 
-        game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
+        // Player 2 Firing?
+        if (fireButton2.isDown)
+              {
+                  fireBullet();
+              }
+
 
 
 }
@@ -264,39 +256,25 @@ function update() {
 function collectDiamond (player, bottle) {
   bottle.kill()
   score += 1
-
-  // game.camera.fade(0x000000, 500);
+  bullet.kill();
+  bottle.kill();
 
 
   // SCORE
   scoreText.text = 'Drinks: ' + score;
-  // ENERGY
-  let energy = document.getElementById("energy");
-  energy.value -= 2;
-
-
-  if (energy.value === 0){
-    alert('game over!!')
-    window.location.reload(false);
-
-  }
-
-
 
 }
 
 
 
-
-// alert('game over!! Your are way too drunk');
 
 
 function collisionHandler (bullet, bottle) {
-
-
-    bullet.kill();
-    bottle.kill();
+  bullet.kill();
+  bottle.kill();
 }
+// alert('game over!! Your are way too drunk');
+
 
 
 function fireBullet () {
@@ -317,16 +295,7 @@ function fireBullet () {
 }
 
 
-function collectCoffee (player, coffee) {
-  coffee.kill()
-  score -= 1
-  game.camera.resetFX();
 
-  energy.value += 5;
-  scoreText.text = 'Drinks: ' + score;
-
-  // scoreText.text = 'Drinks: ' + score
-}
 
 // ************************************
 
