@@ -1,17 +1,13 @@
 class PagesController < ApplicationController
+  # before_action :authorize, only: [:welcome]
 
-  before_action :authorise, only: [:welcome]
-
-  def welcome
+  def home
 
   end
 
-
-
   private
-    def authorise
-      redirect_to login_path unless (@current_user.present?)
-    end
 
-
+  def authorize
+    redirect_to login_path unless (@current_user.present?)
+  end
 end
