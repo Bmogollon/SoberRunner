@@ -1,40 +1,25 @@
 //= require phaser
-<<<<<<< HEAD
-var game = new Phaser.Game(1000, 500,Phaser.AUTO, '', { preload: preload, create: create, update: update });
-=======
 var game = new Phaser.Game(1000, 500, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
->>>>>>> bonny
 
+// LOADING IMAGES TO SCREEN
 function preload() {
-
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
+  game.load.image('background', '<%= image_path('PubBar.png') %>');
+  game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
-<<<<<<< HEAD
-  game.load.image('tiles1', '<%= image_path('sheet.png')%>');
-  game.load.image('barrel', '<%= image_path('barrel.png')%>');
-=======
   game.load.image('bullet','<%= image_path('bullet.png') %>');
 
->>>>>>> bonny
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
-  //preloaded music audio
-  game.load.audio('bigbs', '<%= asset_path('slatt.mp3') %>');
+  game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
-
-
-
-
 }
-//created music varibale
-var music;
+
 var player;
 var bottle;
 var playertwo;
 var platforms;
-var groundLayer;
-var backgroundLayer;
 var cursors;
 var coffees;
 var bottles;
@@ -47,55 +32,14 @@ var fireButton;
 var bullets = 0;
   var bulletSpeed = 600;
 
-// *********
-// LOADING IMAGES TO SCREEN
-
-
-
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
-<<<<<<< HEAD
-=======
   game.physics.startSystem(Phaser.Physics.ARCADE);
   // game.world.setBounds(0, 0);
   game.add.sprite(0, 0, 'background');
->>>>>>> bonny
 
 
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-   
-
-   
-
-    
-
-
-     platforms = game.add.group();
-
-    game.world.setBounds(0, 0);
-
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-
-    platforms = game.add.group();
-
-    //calls on the music variable created to play the game
-    music = game.add.audio('bigbs');
-    music.play();
-
-    game.world.setBounds(1,1);
-
-
-
-    game.add.sprite(0, 0, 'Tile Layer 1');
-
-
-
-    platforms = game.add.group();
-
-    platforms.enableBody = true;
-
-<<<<<<< HEAD
-=======
+//Create Bullets
   bullets = game.add.group();
      bullets.enableBody = true;
      bullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -110,204 +54,187 @@ function create() {
 
   platforms = game.add.group();
   platforms.enableBody = true;
->>>>>>> bonny
+
+  var ground = platforms.create(0, game.world.height - 0, 'ground');
+  ground.scale.setTo(0, 0);
+
+  ground.body.immovable = true;
+  var ledge = platforms.create( 'ground');
+  ledge.body.immovable = true;
+
+  ledge = platforms.create( 'ground');
+
+  ledge.body.immovable = true;
 
 
-     var ground = platforms.create(0, game.world.height - 0, 'Tile Layer 1');
+  player = game.add.sprite(0, game.world.height - 0, 'dude');
+  playertwo = game.add.sprite(0, game.world.height - 0, 'guy');
 
 
-    ground.scale.setTo(0, 0);
+  game.physics.arcade.enable(player);
+  game.physics.arcade.enable(playertwo);
+  game.camera.follow(player);
 
-    ground.body.immovable = true;
-    var ledge = platforms.create( 'Tile Layer 1');
-    ledge.body.immovable = true;
+  player.body.bounce.y = 0.2;
+  player.body.gravity.y = 1100;
+  player.body.collideWorldBounds = true;
 
-    // ledge = platforms.create( 'Tile Layer 1');
-
-    // ledge.body.immovable = true;
-
-
-    player = game.add.sprite(0, game.world.height - 0, 'dude');
-    playertwo = game.add.sprite(0, game.world.height - 0, 'guy');
-
-
-    game.physics.arcade.enable(player);
-    game.physics.arcade.enable(playertwo);
-    game.camera.follow(player);
-
-    player.body.bounce.y = 0.2;
-    player.body.gravity.y = 1100;
-    player.body.collideWorldBounds = true;
-
-    player.animations.add('left', [3,4, 5], 10, true);
-    player.animations.add('right', [ 6,7,8], 10, true);
+  player.animations.add('left', [3,4, 5], 10, true);
+  player.animations.add('right', [ 6,7,8], 10, true);
 
 
 
-    playertwo.body.bounce.y = 0.2;
-    playertwo.body.gravity.y = 1100;
-    playertwo.body.collideWorldBounds = true;
+  playertwo.body.bounce.y = 0.2;
+  playertwo.body.gravity.y = 1100;
+  playertwo.body.collideWorldBounds = true;
 
-    playertwo.animations.add('left', [3,4, 5], 10, true);
-    playertwo.animations.add('right', [ 6,7,8], 10, true);
+  playertwo.animations.add('left', [3,4, 5], 10, true);
+  playertwo.animations.add('right', [ 6,7,8], 10, true);
 
-// COFFEE ITEMS?
+  // COFFEE ITEMS?
 
   coffees = game.add.group();
 
   coffees.enableBody = true;
-        for (var i = 0; i < 40; i++)
-        {
-          var coffee = coffees.create(i * 100, 20, 'coffee');
+  for (var i = 0; i < 20; i++)
+  {
+    var coffee = coffees.create(i * (Math.random()*100), 20, 'coffee');
+    coffee.body.gravity.y = 1000;
+    coffee.body.bounce.y = 0;
+  }
 
-          coffee.body.gravity.y = 700;
+  // BOTTLE ITEMS
 
-          coffee.body.bounce.y = 0.5 + Math.random() * 0.5;
-        }
+  bottles = game.add.group();
 
-// BOTTLE ITEMS
+  bottles.enableBody = true;
+  for (var i = 0; i < 100; i++)
+  {
+    var bottle = bottles.create(i * 100, -10, 'bottle');
 
-        bottles = game.add.group();
+    bottle.body.gravity.y = 900;
 
-        bottles.enableBody = true;
-    for (var i = 0; i < 100; i++)
-    {
-        var bottle = bottles.create(i * 100, 40, 'bottle');
+    bottle.body.bounce.y = 0.2 + Math.random() * 0.2;
+  }
+  bottles.physicsBodyType = Phaser.Physics.ARCADE;
 
-        bottle.body.gravity.y = 900;
+  // PLATFORMS ITEMS
+  for (var i = 0; i < 20; i++)
+  {
+    var ledge = platforms.create(i * (Math.random()*105), Math.random()*500, 'ground');
 
-        bottle.body.bounce.y = 0.2 + Math.random() * 0.2;
-    }
-
-//  PLATFORMS ITEMS
-     for (var i = 0; i < 20; i++)
-     {
-         var ledge = platforms.create(i * 105, 180, 'GroundLayer');
-
-        ledge.body.immovable = true;
-
-         ground.body.bounce.y = 0.2 + Math.random() * 0.2;
-    }
+    ledge.body.immovable = true;
+  }
 
 
 
-// SCORE TEXT
+  // SCORE TEXT
 
-    cursors = game.input.keyboard.createCursorKeys();
+  cursors = game.input.keyboard.createCursorKeys();
 
-this.keys= game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D } );
+  this.keys = game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D } );
 
-            // SCORE TEXT
+  // SCORE TEXT
 
+  scoreText = game.add.text(400, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
 
-    scoreText = game.add.text(500, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
-
-    this.add
-        .text(100, 0, "run ⇨ jump ⇧ back ⇦ \nDon't Fall ",{
-          font: "18px monospace",
-          fill: "#000000",
-          // padding: { x: 20, y: 10 },
-          backgroundColor: "#ffffff"
-        })
+  this.add
+  .text(100, 0, "run ⇨ jump ⇧ back ⇦ \nDon't Fall ",{
+    font: "18px monospace",
+    fill: "#000000",
+    // padding: { x: 20, y: 10 },
+    backgroundColor: "#ffffff"
+  })
 
 fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 }
 
 // *********************************************
- // UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
+// UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
 
 function update() {
-    var hitPlatform = game.physics.arcade.collide(player, game.groundLayer);
+  var hitPlatform = game.physics.arcade.collide(player, platforms);
 
-    game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
-    game.physics.arcade.overlap(player, coffees, collectCoffee, null, this)
+  game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
+  game.physics.arcade.overlap(player, coffees, collectCoffee, null, this)
 
-    game.physics.arcade.collide(bottles, game.groundLayer);
-    game.physics.arcade.collide(coffees, game.groundLayer);
+  game.physics.arcade.collide(bottles, platforms);
+  game.physics.arcade.collide(coffees, platforms);
 
-    game.physics.arcade.collide(bottles, game.groundLayer);
-    game.physics.arcade.collide(coffees, game.groundLayer);
-
-
-    game.physics.arcade.collide(player, game.groundLayer);
-
-    player.body.velocity.x = 0;
-
-    cursors = game.input.keyboard.createCursorKeys();
+  game.physics.arcade.collide(bottles, game.groundLayer);
+  game.physics.arcade.collide(coffees, game.groundLayer);
 
 
-   
-
-    
-
-    if (cursors.left.isDown)
-    {
-        player.body.velocity.x = -150;
-
-        player.animations.play('left');
-    }
-    else if (cursors.right.isDown)
-    {
-        player.body.velocity.x = 150;
-
-        player.animations.play('right');
-    }
-    else
-    {
-        player.animations.stop();
-
-        player.frame = 1;
-    }
-
-    
+  game.physics.arcade.collide(player, game.groundLayer);
 
 
 
-    var hitPlatform = game.physics.arcade.collide(playertwo, game.groundLayer);
-    game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this)
+  player.body.velocity.x = 0;
 
-    game.physics.arcade.collide(playertwo, game.groundLayer);
+  cursors = game.input.keyboard.createCursorKeys();
 
-    game.physics.arcade.overlap(playertwo, coffees, collectCoffee, null, this)
+  if (cursors.left.isDown)
+  {
+    player.body.velocity.x = -150;
 
+    player.animations.play('left');
+  }
+  else if (cursors.right.isDown)
+  {
+    player.body.velocity.x = 150;
 
-    playertwo.body.velocity.x = 0;
-    if (this.keys.left.isDown)
-    {
-        playertwo.body.velocity.x = -150;
+    player.animations.play('right');
+  }
+  else
+  {
+    player.animations.stop();
 
-        playertwo.animations.play('left');
-    }
-    else if (this.keys.right.isDown)
-    {
-        playertwo.body.velocity.x = 150;
+    player.frame = 1;
+  }
 
-        playertwo.animations.play('right');
-    }
-    else
-    {
-        playertwo.animations.stop();
-
-        playertwo.frame = 1;
-    }
-
-    if (this.keys.up.isDown && playertwo.body.touching.down && hitPlatform)
-    {
-        playertwo.body.velocity.y = -350;
-    }
+  if (cursors.up.isDown && player.body.touching.down && hitPlatform)
+  {
+    player.body.velocity.y = -350;
+  }
 
 
-<<<<<<< HEAD
 
-     if (score === 3) {
-            // alert('You are drunk! Go Home!!')
-            score = 0
-             // game.camera.shake(0.005, 3000000);
+  var hitPlatform = game.physics.arcade.collide(playertwo, platforms);
+  game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this)
+
+  game.physics.arcade.collide(playertwo, game.groundLayer);
+
+  game.physics.arcade.overlap(playertwo, coffees, collectCoffee, null, this)
 
 
-          }
-=======
+  playertwo.body.velocity.x = 0;
+  if (this.keys.left.isDown)
+  {
+    playertwo.body.velocity.x = -150;
+
+    playertwo.animations.play('left');
+  }
+  else if (this.keys.right.isDown)
+  {
+    playertwo.body.velocity.x = 150;
+
+    playertwo.animations.play('right');
+  }
+  else
+  {
+    playertwo.animations.stop();
+
+    playertwo.frame = 1;
+  }
+
+  if (this.keys.up.isDown && playertwo.body.touching.down && hitPlatform)
+  {
+    playertwo.body.velocity.y = -350;
+  }
+
+
+
   if (score >= 3) {
     alert('You are drunk! Go Home!!');
     game.camera.shake(0.005, 3000000);
@@ -319,12 +246,30 @@ function update() {
         }
 
 
-        game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
+        game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
 
->>>>>>> bonny
 
 }
 
+function collisionHandler() {
+    bullet.kill();
+    bottle.kill;
+}
+
+function enemyHitsPlayer() {
+  bullet.kill();
+  live = lives.getFirstAlive();
+  if (live)
+    live.kill();
+
+}
+
+if (lives.countLiving() < 1)
+  {
+    player.kill();
+    enemyBullets.callAll('kill');
+    
+  }
 
 
 
@@ -343,9 +288,9 @@ function collectDiamond (player, bottle) {
   // game.camera.fade(0x000000, 500);
 
 
-// SCORE
+  // SCORE
   scoreText.text = 'Drinks: ' + score;
-// ENERGY
+  // ENERGY
   let energy = document.getElementById("energy");
   energy.value -= 2;
 
@@ -358,36 +303,31 @@ function collectDiamond (player, bottle) {
 
 
 
-  }
+}
 
 
 
 
-    // alert('game over!! Your are way to drunk');
+// alert('game over!! Your are way too drunk');
 
 
 function collisionHandler (bullet, bottle) {
 
-    //  When a bullet hits an alien we kill them both
+
     bullet.kill();
     bottle.kill();
-
-
-
 }
 
 
 function fireBullet () {
 
-    //  To avoid them being allowed to fire too fast we set a time limit
     if (game.time.now > bulletSpeed)
     {
-        //  Grab the first bullet we can from the pool
+
         bullet = bullets.getFirstExists(false);
 
         if (bullet)
         {
-            //  And fire it
             bullet.reset(player.x, player.y + 8);
             bullet.body.velocity.y = -400;
             bulletSpeed = game.time.now + 200;
