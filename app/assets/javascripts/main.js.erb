@@ -1,5 +1,9 @@
 //= require phaser
+<<<<<<< HEAD
 var game = new Phaser.Game(1000, 500, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+=======
+var game = new Phaser.Game(300, 500, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+>>>>>>> 1b3adeac5a7fddf9a11bf4710655d9d438030c3a
 
 // LOADING IMAGES TO SCREEN
 function preload() {
@@ -7,12 +11,26 @@ function preload() {
   game.load.image('background', '<%= image_path('PubBar.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.image('bullet','<%= image_path('bullet.png') %>');
+<<<<<<< HEAD
 
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
   game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
+=======
+  game.load.image('like','<%= image_path('like.png') %>');
+  game.load.image('mug','<%= image_path('beermug.png') %>');
+  game.load.spritesheet('bart', '<%= image_path('bart.png') %>',500,500);
+  game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
+  game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
+  game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
+  game.load.audio('junes', '<%= asset_path('JUNE_EFFECT_IN_GAME') %>');
+  game.scale.pageAlignHorizontally = true;
+  game.scale.pageAlignVertically = true;
+  game.antialias = false;
+  game.stage.smoothed = false;
+>>>>>>> 1b3adeac5a7fddf9a11bf4710655d9d438030c3a
 }
 
 var player;
@@ -28,12 +46,27 @@ var tiles;
 var fireButton;
 var bullets = 0;
 var bulletSpeed = 600;
+<<<<<<< HEAD
+=======
+var bart = 0;
+
+
+var barBullets;
+var firingTimer = 0;
+var livingEnemies = [];
+>>>>>>> 1b3adeac5a7fddf9a11bf4710655d9d438030c3a
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
   // game.world.setBounds(0, 0);
+<<<<<<< HEAD
   game.add.sprite(0, 0, 'background');
+=======
+  var bar = game.add.sprite(0, 0, 'background');
+  bar.height = game.world.height*.55;
+  bar.width = game.world.width;
+>>>>>>> 1b3adeac5a7fddf9a11bf4710655d9d438030c3a
 
   bullets = game.add.group();
   bullets.enableBody = true;
@@ -43,6 +76,66 @@ function create() {
   bullets.setAll('anchor.y', 0.5);
   bullets.setAll('outOfBoundsKill', true);
   bullets.setAll('checkWorldBounds', true);
+
+<<<<<<< HEAD
+  platforms = game.add.group();
+  platforms.enableBody = true;
+  player = game.add.sprite(0, game.world.height, 'dude');
+  playertwo = game.add.sprite(0, game.world.height, 'guy');
+  game.physics.arcade.enable(player);
+  game.physics.arcade.enable(playertwo);
+
+  game.camera.follow(player);
+  player.body.collideWorldBounds = true;
+  player.animations.add('left', [3,4,5], 10, true);
+  player.animations.add('right', [6,7,8], 10, true);
+
+  playertwo.body.collideWorldBounds = true;
+  playertwo.animations.add('left', [3,4,5], 10, true);
+  playertwo.animations.add('right', [6,7,8], 10, true);
+=======
+  barBullets = game.add.group();
+  barBullets.enableBody = true;
+  barBullets.physicsBodyType = Phaser.Physics.ARCADE;
+  barBullets.createMultiple(30, 'mug');
+  barBullets.setAll('anchor.x', 0.5);
+  barBullets.setAll('anchor.y', 0.5);
+  barBullets.setAll('outOfBoundsKill', true);
+  barBullets.setAll('checkWorldBounds', true);
+>>>>>>> 1b3adeac5a7fddf9a11bf4710655d9d438030c3a
+
+  // BOTTLE ITEMS
+
+  bottles = game.add.group();
+  bottles.enableBody = true;
+<<<<<<< HEAD
+  for (var i = 0; i < 30; i++)
+  {
+    var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.1, 'bottle');
+  }
+  for (var i = 0; i < 30; i++)
+  {
+    var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.2, 'bottle');
+  }
+
+  // SCORE TEXT
+
+=======
+  for (var i = 0; i < 8; i++)
+  {
+    var bottle = bottles.create( (game.world.width/10)*i+16 , 57, 'bottle');
+  }
+  for (var i = 0; i < 8; i++)
+  {
+    var bottle = bottles.create( (game.world.width/10)*i+22 , 108, 'bottle');
+  }
+
+  bart = game.add.sprite(50, 98, 'bart');
+  game.physics.enable(bart, Phaser.Physics.ARCADE);
+  bart.anchor.setTo(0.5, 0.5);
+  bart.height = game.world.height*.25;
+  bart.width = game.world.width*.3;
+  var tween = game.add.tween(bart).to( { x: 230 }, 800, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
   platforms = game.add.group();
   platforms.enableBody = true;
@@ -60,27 +153,19 @@ function create() {
   playertwo.animations.add('left', [3,4,5], 10, true);
   playertwo.animations.add('right', [6,7,8], 10, true);
 
-  // BOTTLE ITEMS
-
-  bottles = game.add.group();
-  bottles.enableBody = true;
-  for (var i = 0; i < 30; i++)
-  {
-    var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.1, 'bottle');
-  }
-  for (var i = 0; i < 30; i++)
-  {
-    var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.2, 'bottle');
-  }
 
   // SCORE TEXT
+  scoreString = "Score : ";
+  scoreText = game.add.text(10, 10, scoreString + score, {font: '28px Arial', fill: '#fff'});
 
+>>>>>>> 1b3adeac5a7fddf9a11bf4710655d9d438030c3a
   cursors = game.input.keyboard.createCursorKeys();
 
   this.keys = game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D } );
 
   // SCORE TEXT
 
+<<<<<<< HEAD
   scoreText = game.add.text(400, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
 
   this.add
@@ -90,6 +175,15 @@ function create() {
     // padding: { x: 20, y: 10 },
     backgroundColor: "#ffffff"
   })
+=======
+
+  // this.add.text(100, 0, "run ⇨ jump ⇧ back ⇦ \nDon't Fall ",{
+  //   font: "18px monospace",
+  //   fill: "#000000",
+  //   // padding: { x: 20, y: 10 },
+  //   backgroundColor: "#ffffff"
+  // })
+>>>>>>> 1b3adeac5a7fddf9a11bf4710655d9d438030c3a
 
   fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -100,6 +194,7 @@ function create() {
 
 function update() {
   var hitPlatform = game.physics.arcade.collide(player, platforms);
+<<<<<<< HEAD
 
   game.physics.arcade.collide(bottles, platforms);
 
@@ -252,6 +347,21 @@ function fireBullet () {
 
     bullet = bullets.getFirstExists(false);
 
+=======
+
+  game.physics.arcade.overlap(bullets, bottles, destroyBottle, null, this);
+  game.physics.arcade.overlap(bart, bullets, throwMug);
+
+  function destroyBottle(bullet, bottle) {
+    bullet.kill();
+    bottle.kill();
+    score += 10;
+    scoreText.setText('Score: ' + score);
+  }
+
+  function throwMug(bart, bullet) {
+    bullet.kill();
+    bullet = bullets.getFirstExists(false);
     if (bullet)
     {
       bullet.reset(player.x, player.y + 8);
@@ -260,8 +370,69 @@ function fireBullet () {
     }
   }
 
+  player.body.velocity.x = 0;
+  cursors = game.input.keyboard.createCursorKeys();
+  if (cursors.left.isDown)
+  {
+    player.body.velocity.x = -150;
+
+    player.animations.play('left');
+  }
+  else if (cursors.right.isDown)
+  {
+    player.body.velocity.x = 150;
+
+    player.animations.play('right');
+  }
+  else
+  {
+    player.animations.stop();
+    player.frame = 1;
+  }
+
+  if (cursors.up.isDown && player.body.touching.down && hitPlatform) {
+    player.body.velocity.y = -350;
+  }
+  playertwo.body.velocity.x = 0;
+  if (this.keys.left.isDown) {
+    playertwo.body.velocity.x = -150;
+    playertwo.animations.play('left');
+  } else if (this.keys.right.isDown) {
+    playertwo.body.velocity.x = 150;
+    playertwo.animations.play('right');
+  } else {
+    playertwo.animations.stop();
+    playertwo.frame = 1;
+  }
+
+  if (this.keys.up.isDown && playertwo.body.touching.down && hitPlatform) {
+    playertwo.body.velocity.y = -350;
+  };
+
+  if (fireButton.isDown) {
+    fireBullet();
+  };
+}
+
+function fireBullet () {
+  if (game.time.now > bulletSpeed)
+  {
+    bullet = bullets.getFirstExists(false);
+>>>>>>> 1b3adeac5a7fddf9a11bf4710655d9d438030c3a
+    if (bullet)
+    {
+      bullet.reset(player.x, player.y + 8);
+      bullet.body.velocity.y = -400;
+      bulletSpeed = game.time.now + 200;
+    }
+  }
+<<<<<<< HEAD
+
 }
 
 // ************************************
 
 // POP UP
+=======
+}
+>>>>>>> 1b3adeac5a7fddf9a11bf4710655d9d438030c3a
