@@ -5,7 +5,6 @@ var game = new Phaser.Game(1000, 500, Phaser.AUTO, 'game', { preload: preload, c
 function preload() {
   // game.load.image('coffee', '<%= image_path('firstaid.png') %>');
   game.load.image('background', '<%= image_path('PubBar.png') %>');
-  // game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.image('bullet','<%= image_path('bullet.png') %>');
 
@@ -21,14 +20,12 @@ var bottle;
 var playertwo;
 var platforms;
 var cursors;
-var coffees;
 var bottles;
 var score = 0;
 var scoreText;
 var map;
 var tiles;
 var fireButton;
-
 var bullets = 0;
 var bulletSpeed = 600;
 
@@ -38,94 +35,42 @@ function create() {
   // game.world.setBounds(0, 0);
   game.add.sprite(0, 0, 'background');
 
-
-
   bullets = game.add.group();
   bullets.enableBody = true;
   bullets.physicsBodyType = Phaser.Physics.ARCADE;
   bullets.createMultiple(30, 'bullet');
   bullets.setAll('anchor.x', 0.5);
-  bullets.setAll('anchor.y', 1);
+  bullets.setAll('anchor.y', 0.5);
   bullets.setAll('outOfBoundsKill', true);
   bullets.setAll('checkWorldBounds', true);
 
-
-
-
   platforms = game.add.group();
   platforms.enableBody = true;
-
-  var ground = platforms.create(0, game.world.height - 0, 'ground');
-  ground.scale.setTo(0, 0);
-
-  ground.body.immovable = true;
-  var ledge = platforms.create( 'ground');
-  ledge.body.immovable = true;
-
-  ledge = platforms.create( 'ground');
-
-  ledge.body.immovable = true;
-
-
-  player = game.add.sprite(0, game.world.height - 0, 'dude');
-  playertwo = game.add.sprite(0, game.world.height - 0, 'guy');
-
-
+  player = game.add.sprite(0, game.world.height, 'dude');
+  playertwo = game.add.sprite(0, game.world.height, 'guy');
   game.physics.arcade.enable(player);
   game.physics.arcade.enable(playertwo);
+
   game.camera.follow(player);
-
-  player.body.bounce.y = 0.2;
-  player.body.gravity.y = 1100;
   player.body.collideWorldBounds = true;
+  player.animations.add('left', [3,4,5], 10, true);
+  player.animations.add('right', [6,7,8], 10, true);
 
-  player.animations.add('left', [3,4, 5], 10, true);
-  player.animations.add('right', [ 6,7,8], 10, true);
-
-
-
-  playertwo.body.bounce.y = 0.2;
-  playertwo.body.gravity.y = 1100;
-  playertwo.body.collideWorldBounds = true;
-
-  playertwo.animations.add('left', [3,4, 5], 10, true);
-  playertwo.animations.add('right', [ 6,7,8], 10, true);
-
-  // COFFEE ITEMS?
-
-  coffees = game.add.group();
-
-  coffees.enableBody = true;
-  for (var i = 0; i < 20; i++)
-  {
-    var coffee = coffees.create(i * (Math.random()*100), 20, 'coffee');
-    coffee.body.gravity.y = 1000;
-    coffee.body.bounce.y = 0;
-  }
+  playertwo.animations.add('left', [3,4,5], 10, true);
+  playertwo.animations.add('right', [6,7,8], 10, true);
 
   // BOTTLE ITEMS
 
   bottles = game.add.group();
-
   bottles.enableBody = true;
-  for (var i = 0; i < 100; i++)
+  for (var i = 0; i < 30; i++)
   {
-    var bottle = bottles.create(i * 100, -10, 'bottle');
-
-    bottle.body.gravity.y = 900;
-
-    bottle.body.bounce.y = 0.2 + Math.random() * 0.2;
+    var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.1, 'bottle');
   }
-
-  // PLATFORMS ITEMS
-  for (var i = 0; i < 20; i++)
+  for (var i = 0; i < 30; i++)
   {
-    var ledge = platforms.create(i * (Math.random()*105), Math.random()*500, 'ground');
-
-    ledge.body.immovable = true;
+    var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.2, 'bottle');
   }
-
-
 
   // SCORE TEXT
 
@@ -156,17 +101,13 @@ function update() {
   var hitPlatform = game.physics.arcade.collide(player, platforms);
 
   game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
-  game.physics.arcade.overlap(player, coffees, collectCoffee, null, this)
 
   game.physics.arcade.collide(bottles, platforms);
-  game.physics.arcade.collide(coffees, platforms);
 
-  game.physics.arcade.collide(bottles, game.groundLayer);
-  game.physics.arcade.collide(coffees, game.groundLayer);
-
-
-  game.physics.arcade.collide(player, game.groundLayer);
-
+  // game.physics.arcade.collide(bottles, game.groundLayer);
+  //
+  // game.physics.arcade.collide(player, game.groundLayer);
+  //
 
 
   player.body.velocity.x = 0;
@@ -203,8 +144,6 @@ function update() {
   game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this)
 
   game.physics.arcade.collide(playertwo, game.groundLayer);
-
-  game.physics.arcade.overlap(playertwo, coffees, collectCoffee, null, this)
 
 
   playertwo.body.velocity.x = 0;
@@ -314,18 +253,6 @@ function fireBullet () {
     }
   }
 
-}
-
-
-function collectCoffee (player, coffee) {
-  coffee.kill()
-  score -= 1
-  game.camera.resetFX();
-
-  energy.value += 5;
-  scoreText.text = 'Drinks: ' + score;
-
-  // scoreText.text = 'Drinks: ' + score
 }
 
 // ************************************
