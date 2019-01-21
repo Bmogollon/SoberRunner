@@ -3,21 +3,11 @@ var game = new Phaser.Game(1000, 500, Phaser.AUTO, 'game', { preload: preload, c
 
 // LOADING IMAGES TO SCREEN
 function preload() {
-<<<<<<< HEAD
   // game.load.image('coffee', '<%= image_path('firstaid.png') %>');
   // game.load.image('background', '<%= image_path('PubBar.png') %>');
   game.load.image('bar', '<%= image_path('PubBar.png') %>', 50,50,50,50);
 
-=======
-<<<<<<< HEAD
-  game.load.image('coffee', '<%= image_path('firstaid.png') %>');
-  game.load.image('background', '<%= image_path('PubBar.png') %>');
->>>>>>> 2b1f7a99241fd0682c8ce0573fae5c4b93b6ef3b
   game.load.image('ground', '<%= image_path('barrel.png') %>');
-=======
-  // game.load.image('coffee', '<%= image_path('firstaid.png') %>');
-  game.load.image('background', '<%= image_path('PubBar.png') %>');
->>>>>>> c17752ef71630f7981c32094db17bbe07eac3e54
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.image('bullet','<%= image_path('bullet.png') %>');
   game.load.image('like','<%= image_path('like.png') %>');
@@ -41,8 +31,9 @@ var map;
 var tiles;
 var like;
 var fireButton;
+
 var bullets = 0;
-var bulletSpeed = 600;
+  var bulletSpeed = 600;
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
@@ -50,28 +41,24 @@ function create() {
   // game.world.setBounds(0, 0);
   game.add.sprite(0, 0, 'background');
 
-<<<<<<< HEAD
   var image = game.add.image(100, 100, 'bar');
 
-=======
-<<<<<<< HEAD
->>>>>>> 2b1f7a99241fd0682c8ce0573fae5c4b93b6ef3b
 
 //Create Bullets
-=======
->>>>>>> c17752ef71630f7981c32094db17bbe07eac3e54
   bullets = game.add.group();
-  bullets.enableBody = true;
-  bullets.physicsBodyType = Phaser.Physics.ARCADE;
-  bullets.createMultiple(30, 'bullet');
-  bullets.setAll('anchor.x', 0.5);
-  bullets.setAll('anchor.y', 0.5);
-  bullets.setAll('outOfBoundsKill', true);
-  bullets.setAll('checkWorldBounds', true);
+     bullets.enableBody = true;
+     bullets.physicsBodyType = Phaser.Physics.ARCADE;
+     bullets.createMultiple(30, 'bullet');
+     bullets.setAll('anchor.x', 0.5);
+     bullets.setAll('anchor.y', 1);
+     bullets.setAll('outOfBoundsKill', true);
+     bullets.setAll('checkWorldBounds', true);
+
+
+
 
   platforms = game.add.group();
   platforms.enableBody = true;
-<<<<<<< HEAD
 
   var ground = platforms.create(0, game.world.height - 0, 'ground');
   ground.scale.setTo(0, 0);
@@ -84,19 +71,14 @@ function create() {
   playertwo = game.add.sprite(0, game.world.height - 0, 'guy');
 
 
-=======
-  player = game.add.sprite(0, game.world.height, 'dude');
-  playertwo = game.add.sprite(0, game.world.height, 'guy');
->>>>>>> 2b1f7a99241fd0682c8ce0573fae5c4b93b6ef3b
   game.physics.arcade.enable(player);
   game.physics.arcade.enable(playertwo);
-
   game.camera.follow(player);
-  player.body.collideWorldBounds = true;
-  player.animations.add('left', [3,4,5], 10, true);
-  player.animations.add('right', [6,7,8], 10, true);
 
-<<<<<<< HEAD
+  player.body.bounce.y = 0.2;
+  player.body.gravity.y = 1100;
+  player.body.collideWorldBounds = true;
+
   player.animations.add('left', [3,4, 5], 10, true);
   player.animations.add('right', [ 6,7,8], 10, true);
 
@@ -111,35 +93,33 @@ function create() {
 
   // COFFEE ITEMS?
 
-=======
-  playertwo.animations.add('left', [3,4,5], 10, true);
-  playertwo.animations.add('right', [6,7,8], 10, true);
->>>>>>> 2b1f7a99241fd0682c8ce0573fae5c4b93b6ef3b
 
   // BOTTLE ITEMS
 
   bottles = game.add.group();
+
   bottles.enableBody = true;
-  for (var i = 0; i < 30; i++)
+  for (var i = 0; i < 100; i++)
   {
-    var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.1, 'bottle');
+    var bottle = bottles.create(i * 100, -10, 'bottle');
+
+    bottle.body.gravity.y = 900;
+
+    bottle.body.bounce.y = 0.2 + Math.random() * 0.2;
   }
-<<<<<<< HEAD
   bottles.physicsBodyType = Phaser.Physics.ARCADE;
 
   // PLATFORMS ITEMS
   for (var i = 0; i < 20; i++)
-=======
-  for (var i = 0; i < 30; i++)
->>>>>>> c17752ef71630f7981c32094db17bbe07eac3e54
   {
-    var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.2, 'bottle');
+    var ledge = platforms.create(i * (Math.random()*105), Math.random()*500, 'ground');
+
+    ledge.body.immovable = true;
   }
 
-<<<<<<< HEAD
 
 
-  
+
       for (var i = 0; i < 3; i++)
       {
 
@@ -149,8 +129,6 @@ function create() {
       }
 
 
-=======
->>>>>>> 2b1f7a99241fd0682c8ce0573fae5c4b93b6ef3b
   // SCORE TEXT
 
   cursors = game.input.keyboard.createCursorKeys();
@@ -169,13 +147,9 @@ function create() {
     backgroundColor: "#ffffff"
   })
 
-<<<<<<< HEAD
 
 
 fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-=======
-  fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
->>>>>>> 2b1f7a99241fd0682c8ce0573fae5c4b93b6ef3b
 
 
 }
@@ -190,19 +164,12 @@ function update() {
   game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
 
   game.physics.arcade.collide(bottles, platforms);
-<<<<<<< HEAD
 
   game.physics.arcade.collide(bottles, game.groundLayer);
 
 
   game.physics.arcade.collide(player, game.groundLayer);
-=======
->>>>>>> 2b1f7a99241fd0682c8ce0573fae5c4b93b6ef3b
 
-  // game.physics.arcade.collide(bottles, game.groundLayer);
-  //
-  // game.physics.arcade.collide(player, game.groundLayer);
-  //
 
 
   player.body.velocity.x = 0;
@@ -240,10 +207,7 @@ function update() {
 
   game.physics.arcade.collide(playertwo, game.groundLayer);
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 2b1f7a99241fd0682c8ce0573fae5c4b93b6ef3b
 
   playertwo.body.velocity.x = 0;
   if (this.keys.left.isDown)
@@ -278,12 +242,11 @@ function update() {
   }
 
   if (fireButton.isDown)
-  {
-    fireBullet();
-  }
+        {
+            fireBullet();
+        }
 
 
-<<<<<<< HEAD
         game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
 
 
@@ -293,9 +256,6 @@ function collisionHandler() {
     bullet.kill();
     bottle.kill;
 }
-=======
-  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
->>>>>>> c17752ef71630f7981c32094db17bbe07eac3e54
 
 function enemyHitsPlayer() {
   bullet.kill();
@@ -344,19 +304,13 @@ function collectDiamond (player, bottle) {
 function collisionHandler (bullet, bottle) {
 
 
-<<<<<<< HEAD
     bullet.kill();
     bottle.kill();
-=======
-  bullet.kill();
-  bottle.kill();
->>>>>>> c17752ef71630f7981c32094db17bbe07eac3e54
 }
 
 
 function fireBullet () {
 
-<<<<<<< HEAD
     if (game.time.now > bulletSpeed)
     {
 
@@ -372,7 +326,6 @@ function fireBullet () {
 
 }
 
-<<<<<<< HEAD
 //
 // function collectCoffee (player, coffee) {
 //   coffee.kill()
@@ -384,25 +337,3 @@ function fireBullet () {
 //
 //   // scoreText.text = 'Drinks: ' + score
 // }
-=======
-=======
-  if (game.time.now > bulletSpeed)
-  {
->>>>>>> c17752ef71630f7981c32094db17bbe07eac3e54
-
-    bullet = bullets.getFirstExists(false);
-
-    if (bullet)
-    {
-      bullet.reset(player.x, player.y + 8);
-      bullet.body.velocity.y = -400;
-      bulletSpeed = game.time.now + 200;
-    }
-  }
-
-}
->>>>>>> 2b1f7a99241fd0682c8ce0573fae5c4b93b6ef3b
-
-// ************************************
-
-// POP UP
