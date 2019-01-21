@@ -33,8 +33,7 @@ var tiles;
 var fireButton;
 var bullets = 0;
 var bulletSpeed = 600;
-var bart = 0;
-
+var bart;
 
 var barBullets;
 var firingTimer = 0;
@@ -79,7 +78,7 @@ function create() {
     var bottle = bottles.create( (game.world.width/10)*i+22 , 108, 'bottle');
   }
 
-  bart = game.add.sprite(50, 98, 'bart');
+  var bart = game.add.sprite(50, 98, 'bart');
   game.physics.enable(bart, Phaser.Physics.ARCADE);
   bart.anchor.setTo(0.5, 0.5);
   bart.height = game.world.height*.25;
