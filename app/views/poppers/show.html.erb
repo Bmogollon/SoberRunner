@@ -62,7 +62,18 @@ padding:2em;
     </div>
 </div>
 
+<button onclick="myGoal()">Goals</button>
 
+<script>
+function myGoal() {
+      var x = document.getElementById("goals-outter");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+    </script>
 
 </body>
 </html>
