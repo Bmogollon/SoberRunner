@@ -30,7 +30,7 @@ var tiles;
 var fireButton;
 
 var bullets = 0;
-  var bulletSpeed = 600;
+var bulletSpeed = 600;
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
@@ -41,13 +41,13 @@ function create() {
 
 
   bullets = game.add.group();
-     bullets.enableBody = true;
-     bullets.physicsBodyType = Phaser.Physics.ARCADE;
-     bullets.createMultiple(30, 'bullet');
-     bullets.setAll('anchor.x', 0.5);
-     bullets.setAll('anchor.y', 1);
-     bullets.setAll('outOfBoundsKill', true);
-     bullets.setAll('checkWorldBounds', true);
+  bullets.enableBody = true;
+  bullets.physicsBodyType = Phaser.Physics.ARCADE;
+  bullets.createMultiple(30, 'bullet');
+  bullets.setAll('anchor.x', 0.5);
+  bullets.setAll('anchor.y', 1);
+  bullets.setAll('outOfBoundsKill', true);
+  bullets.setAll('checkWorldBounds', true);
 
 
 
@@ -145,7 +145,7 @@ function create() {
     backgroundColor: "#ffffff"
   })
 
-fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+  fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 }
 
@@ -240,12 +240,12 @@ function update() {
   }
 
   if (fireButton.isDown)
-        {
-            fireBullet();
-        }
+  {
+    fireBullet();
+  }
 
 
-        game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
+  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
 
 
 }
@@ -294,25 +294,25 @@ function collectDiamond (player, bottle) {
 function collisionHandler (bullet, bottle) {
 
 
-    bullet.kill();
-    bottle.kill();
+  bullet.kill();
+  bottle.kill();
 }
 
 
 function fireBullet () {
 
-    if (game.time.now > bulletSpeed)
+  if (game.time.now > bulletSpeed)
+  {
+
+    bullet = bullets.getFirstExists(false);
+
+    if (bullet)
     {
-
-        bullet = bullets.getFirstExists(false);
-
-        if (bullet)
-        {
-            bullet.reset(player.x, player.y + 8);
-            bullet.body.velocity.y = -400;
-            bulletSpeed = game.time.now + 200;
-        }
+      bullet.reset(player.x, player.y + 8);
+      bullet.body.velocity.y = -400;
+      bulletSpeed = game.time.now + 200;
     }
+  }
 
 }
 
