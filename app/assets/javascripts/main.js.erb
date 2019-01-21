@@ -1,5 +1,5 @@
 //= require phaser
-var game = new Phaser.Game(1000, 500, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(300, 500, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
 
 // LOADING IMAGES TO SCREEN
 function preload() {
@@ -10,8 +10,11 @@ function preload() {
 
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
+  game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
+  game.antialias = false;
+  game.stage.smoothed = false;
 }
 
 var player;
@@ -32,7 +35,9 @@ var bulletSpeed = 600;
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
   // game.world.setBounds(0, 0);
-  game.add.sprite(0, 0, 'background');
+  var bar = game.add.sprite(0, 0, 'background');
+  bar.height = game.world.height*.55;
+  bar.width = game.world.width;
 
   bullets = game.add.group();
   bullets.enableBody = true;
@@ -63,19 +68,18 @@ function create() {
 
   bottles = game.add.group();
   bottles.enableBody = true;
-  for (var i = 0; i < 30; i++)
+  for (var i = 0; i < 8; i++)
   {
-    var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.1, 'bottle');
+    var bottle = bottles.create( (game.world.width/10)*i+16 , 57, 'bottle');
   }
-  for (var i = 0; i < 30; i++)
+  for (var i = 0; i < 8; i++)
   {
-    var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.2, 'bottle');
+    var bottle = bottles.create( (game.world.width/10)*i+22 , 108, 'bottle');
   }
 
   // SCORE TEXT
-  scoreString = 'Score : ';
-  scoreText = game.add.text(10, 10, scoreString + score, { fontSize: '32px', fill: 'white' });
-
+  scoreString = "Score : ";
+  scoreText = game.add.text(10, 10, scoreString + score, {font: '28px Arial', fill: '#fff'});
 
   cursors = game.input.keyboard.createCursorKeys();
 
@@ -84,6 +88,12 @@ function create() {
   // SCORE TEXT
 
 
+  // this.add.text(100, 0, "run ⇨ jump ⇧ back ⇦ \nDon't Fall ",{
+  //   font: "18px monospace",
+  //   fill: "#000000",
+  //   // padding: { x: 20, y: 10 },
+  //   backgroundColor: "#ffffff"
+  // })
 
   fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -103,6 +113,9 @@ function update() {
   function destroyBottle(bullet, bottle) {
     bullet.kill();
     bottle.kill();
+
+    score += 10;
+    scoreText.setText('Score: ' + score);
   }
 
   // game.physics.arcade.collide(bottles, game.groundLayer);
@@ -174,10 +187,7 @@ function update() {
 
 
 
-  if (score >= 3) {
-    alert('You are drunk! Go Home!!');
-    game.camera.shake(0.005, 3000000);
-  }
+
 
   if (fireButton.isDown)
   {
@@ -190,46 +200,15 @@ function update() {
 
 }
 
-
-
-
-
-
-// ******************************
-// Health Bar
-// _text
-
-
-// *****************************************
-function collectDiamond (player, bottle) {
-
-
-
-  // SCORE
-
-
-
-
-
-
-
-}
-
-
-
-
-// alert('game over!! Your are way too drunk');
-
-
 function collisionHandler (bullet, bottle) {
 
 
   bullet.kill();
   bottle.kill();
 
-  score += 10;
-  scoreText.text = scoreString + score;
+
 }
+
 
 
 function fireBullet () {
@@ -248,6 +227,39 @@ function fireBullet () {
   }
 
 }
+
+
+
+
+// ******************************
+// Health Bar
+// _text
+
+
+// *****************************************
+function collectDiamond (player, bottle) {
+
+
+  // game.camera.fade(0x000000, 500);
+
+
+  // SCORE
+
+
+
+
+
+
+
+}
+
+
+
+
+// alert('game over!! Your are way too drunk');
+
+
+
 
 // ************************************
 
