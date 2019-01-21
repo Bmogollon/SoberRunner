@@ -3,20 +3,13 @@ var game = new Phaser.Game(1000, 500, Phaser.AUTO, 'game', { preload: preload, c
 
 // LOADING IMAGES TO SCREEN
 function preload() {
-<<<<<<< HEAD
-  game.load.image('coffee', '<%= image_path('firstaid.png') %>');
-  game.load.image('background', '<%= image_path('PubBar.png') %>');
-  game.load.image('ground', '<%= image_path('barrel.png') %>');
-=======
   // game.load.image('coffee', '<%= image_path('firstaid.png') %>');
   game.load.image('background', '<%= image_path('PubBar.png') %>');
->>>>>>> c17752ef71630f7981c32094db17bbe07eac3e54
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.image('bullet','<%= image_path('bullet.png') %>');
 
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
-  game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
 }
@@ -34,18 +27,13 @@ var tiles;
 var fireButton;
 var bullets = 0;
 var bulletSpeed = 600;
+var lives = 0;
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
   // game.world.setBounds(0, 0);
   game.add.sprite(0, 0, 'background');
-
-<<<<<<< HEAD
-
-//Create Bullets
-=======
->>>>>>> c17752ef71630f7981c32094db17bbe07eac3e54
   bullets = game.add.group();
   bullets.enableBody = true;
   bullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -78,14 +66,8 @@ function create() {
   {
     var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.1, 'bottle');
   }
-<<<<<<< HEAD
-  bottles.physicsBodyType = Phaser.Physics.ARCADE;
 
-  // PLATFORMS ITEMS
-  for (var i = 0; i < 20; i++)
-=======
   for (var i = 0; i < 30; i++)
->>>>>>> c17752ef71630f7981c32094db17bbe07eac3e54
   {
     var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.2, 'bottle');
   }
@@ -118,8 +100,17 @@ function create() {
 function update() {
   var hitPlatform = game.physics.arcade.collide(player, platforms);
 
-  game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
+  function collisionHandler (bullet, bottle) {
 
+    bullet.kill();
+    bottle.kill();
+
+  }
+
+  game.physics.arcade.overlap(player, bottles, collectDiamond, null, this);
+  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
+
+  game.physics.arcade.collide(bullets, bottles);
   game.physics.arcade.collide(bottles, platforms);
 
   // game.physics.arcade.collide(bottles, game.groundLayer);
@@ -155,8 +146,6 @@ function update() {
   {
     player.body.velocity.y = -350;
   }
-
-
 
   var hitPlatform = game.physics.arcade.collide(playertwo, platforms);
   game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this)
@@ -201,122 +190,77 @@ function update() {
     fireBullet();
   }
 
+  // function enemyHitsPlayer() {
+  //   bullet.kill();
+  //   live = lives.getFirstAlive();
+  //   if (live)
+  //   live.kill();
+  //
+  // }
 
-<<<<<<< HEAD
-        game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
+  // if (lives.countLiving() < 1)
+  // {
+  //   player.kill();
+  //   enemyBullets.callAll('kill');
+  //
+  // }
 
 
-}
 
-function collisionHandler() {
-    bullet.kill();
-    bottle.kill;
-}
-=======
-  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
->>>>>>> c17752ef71630f7981c32094db17bbe07eac3e54
 
-function enemyHitsPlayer() {
-  bullet.kill();
-  live = lives.getFirstAlive();
-  if (live)
-    live.kill();
 
-}
+  // ******************************
+  // Health Bar
+  // _text
 
-if (lives.countLiving() < 1)
-  {
-    player.kill();
-    enemyBullets.callAll('kill');
-    
+
+  // *****************************************
+  function collectDiamond (player, bottle) {
+    bottle.kill();
+    score += 1;
+
+    // game.camera.fade(0x000000, 500);
+
+
+    // SCORE
+    scoreText.text = 'Drinks: ' + score;
+    // ENERGY
+    let energy = document.getElementById("energy");
+    energy.value -= 2;
+
+
+    if (energy.value === 0){
+      alert('game over!!')
+      window.location.reload(false);
+    }
   }
 
+  // alert('game over!! Your are way too drunk');
 
 
+  function collisionHandler (bullet, bottle) {
 
-
-// ******************************
-// Health Bar
-// _text
-
-
-// *****************************************
-function collectDiamond (player, bottle) {
-  bottle.kill()
-  score += 1
-
-  // game.camera.fade(0x000000, 500);
-
-
-  // SCORE
-  scoreText.text = 'Drinks: ' + score;
-  // ENERGY
-  let energy = document.getElementById("energy");
-  energy.value -= 2;
-
-
-  if (energy.value === 0){
-    alert('game over!!')
-    window.location.reload(false);
-
-  }
-
-
-
-}
-
-
-
-
-// alert('game over!! Your are way too drunk');
-
-
-function collisionHandler (bullet, bottle) {
-
-
-<<<<<<< HEAD
     bullet.kill();
     bottle.kill();
-=======
-  bullet.kill();
-  bottle.kill();
->>>>>>> c17752ef71630f7981c32094db17bbe07eac3e54
-}
+
+  }
 
 
-function fireBullet () {
-
-<<<<<<< HEAD
+  function fireBullet () {
     if (game.time.now > bulletSpeed)
     {
 
-        bullet = bullets.getFirstExists(false);
+      bullet = bullets.getFirstExists(false);
 
-        if (bullet)
-        {
-            bullet.reset(player.x, player.y + 8);
-            bullet.body.velocity.y = -400;
-            bulletSpeed = game.time.now + 200;
-        }
+      if (bullet)
+      {
+        bullet.reset(player.x, player.y + 8);
+        bullet.body.velocity.y = -400;
+        bulletSpeed = game.time.now + 200;
+      }
     }
 
-}
-
-=======
-  if (game.time.now > bulletSpeed)
-  {
->>>>>>> c17752ef71630f7981c32094db17bbe07eac3e54
-
-    bullet = bullets.getFirstExists(false);
-
-    if (bullet)
-    {
-      bullet.reset(player.x, player.y + 8);
-      bullet.body.velocity.y = -400;
-      bulletSpeed = game.time.now + 200;
-    }
   }
-
 }
 
 // ************************************
