@@ -31,8 +31,7 @@ var cursors;
 var bottles;
 var score = 0;
 var scoreText;
-var map;
-var tiles;
+var like;
 var fireButton;
 var bullets = 0;
 var bulletSpeed = 600;
@@ -113,9 +112,23 @@ function create() {
   playertwo.animations.add('right', [6,7,8], 10, true);
 
 
+  for (var i = 0; i < 3; i++)
+  {
+
+    var like  = game.add.image(-5,3,'like');
+    player.addChild(like);
+
+  }
+
+  for (var i = 0; i < 3; i++)
+  {
+
+    var like  = game.add.image(-5,3,'like');
+    playertwo.addChild(like);
+
+  }
+
   // SCORE TEXT
-  scoreString = "Score : ";
-  scoreText = game.add.text(10, 10, scoreString + score, {font: '28px Arial', fill: '#fff'});
 
   cursors = game.input.keyboard.createCursorKeys();
 
@@ -123,13 +136,8 @@ function create() {
 
   // SCORE TEXT
 
+  scoreText = game.add.text(400, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
 
-  // this.add.text(100, 0, "run ⇨ jump ⇧ back ⇦ \nDon't Fall ",{
-  //   font: "18px monospace",
-  //   fill: "#000000",
-  //   // padding: { x: 20, y: 10 },
-  //   backgroundColor: "#ffffff"
-  // })
 
   fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -222,41 +230,7 @@ function update() {
              bartFires();
          }
 
-
-  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
-
-
-}
-
-function collisionHandler (bullet, bottle) {
-
-
-  bullet.kill();
-  bottle.kill();
-
-
-}
-
-
-
-function fireBullet () {
-
-  if (game.time.now > bulletSpeed)
-  {
-
-    bullet = bullets.getFirstExists(false);
-
-    if (bullet)
-    {
-      bullet.reset(player.x, player.y + 8);
-      bullet.body.velocity.y = -400;
-      bulletSpeed = game.time.now + 200;
-    }
   }
-
-}
-
-
 
 
 
@@ -300,4 +274,5 @@ function fireBullet () {
       }
     }
 
-  }
+
+}
