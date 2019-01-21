@@ -8,21 +8,21 @@ function preload() {
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.image('bullet','<%= image_path('bullet.png') %>');
   game.load.image('like','<%= image_path('like.png') %>');
-
-  game.load.image('barBullet','<%= image_path('bullet.png') %>');
-
-
+  game.load.image('enemyBullet','<%= image_path('beer.png') %>');
   game.load.spritesheet('bart', '<%= image_path('bart.png') %>',500,500);
-
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
   game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
+  game.load.audio('junes', '<%= asset_path('JUNE_EFFECT_IN_GAME') %>');
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
   game.antialias = false;
   game.stage.smoothed = false;
 }
+
+
 var bar;
+var bart;
 var player;
 var bottle;
 var playertwo;
@@ -37,10 +37,10 @@ var bullets = 0;
 var bulletSpeed = 600;
 
 
+var enemyBullet;
 
-var barBullet;
-var firingTimer = 0;
-var livingEnemies = [];
+var firingTimer = 40;
+
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
@@ -61,23 +61,39 @@ function create() {
 
 
 
+
   enemyBullets = game.add.group();
-     enemyBullets.enableBody = true;
-     enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
-     enemyBullets.createMultiple(30, 'barBullet');
-     enemyBullets.setAll('anchor.x', 0.5);
-     enemyBullets.setAll('anchor.y', 1);
-     enemyBullets.setAll('outOfBoundsKill', true);
-     enemyBullets.setAll('checkWorldBounds', true);
-
-     barts = game.add.group();
-     barts.enableBody = true;
-     barts.physicsBodyType = Phaser.Physics.ARCADE;
-
-     createbart();
+    enemyBullets.enableBody = true;
+    enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
+    enemyBullets.createMultiple(30, 'enemyBullet');
+    enemyBullets.setAll('anchor.x', 0.5);
+    enemyBullets.setAll('anchor.y', 1);
+    enemyBullets.setAll('outOfBoundsKill', true);
+    enemyBullets.setAll('checkWorldBounds', true);
 
 
 
+
+  // BOTTLE ITEMS
+
+  bottles = game.add.group();
+  bottles.enableBody = true;
+  for (var i = 0; i < 8; i++)
+  {
+    var bottle = bottles.create( (game.world.width/10)*i+16 , 57, 'bottle');
+  }
+  for (var i = 0; i < 8; i++)
+  {
+    var bottle = bottles.create( (game.world.width/10)*i+22 , 108, 'bottle');
+  }
+
+  var bart = game.add.sprite(50, 98, 'bart');
+  bart.anchor.setTo(0.5, 0.5);
+  bart.height = game.world.height*.25;
+  bart.width = game.world.width*.3;
+  bart.physicsBodyType = Phaser.Physics.ARCADE;
+  bart.enableBody = true;
+  var tween = game.add.tween(bart).to( { x: 230 }, 800, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
   platforms = game.add.group();
   platforms.enableBody = true;
@@ -95,18 +111,6 @@ function create() {
   playertwo.animations.add('left', [3,4,5], 10, true);
   playertwo.animations.add('right', [6,7,8], 10, true);
 
-  // BOTTLE ITEMS
-
-  bottles = game.add.group();
-  bottles.enableBody = true;
-  for (var i = 0; i < 8; i++)
-  {
-    var bottle = bottles.create( (game.world.width/10)*i+16 , 57, 'bottle');
-  }
-  for (var i = 0; i < 8; i++)
-  {
-    var bottle = bottles.create( (game.world.width/10)*i+22 , 108, 'bottle');
-  }
 
   for (var i = 0; i < 3; i++)
   {
@@ -137,33 +141,11 @@ function create() {
 
   fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-}
 
-
-
-function createbart () {
-    for (var y = 0; y < 1; y++)
-    {
-        for (var x = 0; x < 1; x++)
-        {
-            var bart = barts.create(x * 0, y * 0, 'bart');
-
-                 barts.height = game.world.height*.3;
-                 barts.width = game.world.width*.3;
-            bart.anchor.setTo(0.1, 0.1);
-            bart.body.moves = false;
-        }
-    }
-
-    barts.x = 2;
-    barts.y = 37;
-
-    var tween = game.add.tween(barts).to( { x: 200 }, 800, Phaser.Easing.Linear.None, true, 0, 1000, true);
-
+  fireButton2 = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
 
 }
-
 
 
 
@@ -174,20 +156,7 @@ function createbart () {
 function update() {
   var hitPlatform = game.physics.arcade.collide(player, platforms);
 
-  game.physics.arcade.collide(bottles, platforms);
-
-  game.physics.arcade.overlap(bullets, bottles, destroyBottle, null, this);
-
-  function destroyBottle(bullet, bottle) {
-    bullet.kill();
-    bottle.kill();
-  }
-
-  // game.physics.arcade.collide(bottles, game.groundLayer);
-  //
-  // game.physics.arcade.collide(player, game.groundLayer);
-  //
-
+  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
 
   player.body.velocity.x = 0;
 
@@ -251,63 +220,59 @@ function update() {
 
 
 
-  if (score >= 3) {
-    alert('You are drunk! Go Home!!');
-    game.camera.shake(0.005, 3000000);
-  }
 
   if (fireButton.isDown)
   {
     fireBullet();
   }
+  if (game.time.now > firingTimer)
+         {
+             bartFires();
+         }
 
-
-  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
-
-  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
-
-
-
-
-
-
-
-// ******************************
-// Health Bar
-// _text
-
-
-// *****************************************
-
-
-
-
-
-// alert('game over!! Your are way too drunk');
-
-
-function collisionHandler (bullet, bottle) {
-
-
-  bullet.kill();
-  bottle.kill();
-}
-
-
-function fireBullet () {
-
-  if (game.time.now > bulletSpeed)
-  {
-
-    bullet = bullets.getFirstExists(false);
-
-    if (bullet)
-    {
-      bullet.reset(player.x, player.y + 8);
-      bullet.body.velocity.y = -400;
-      bulletSpeed = game.time.now + 200;
-    }
   }
 
+
+
+
+
+
+  function collisionHandler (bullet, bottle) {
+    bullet.kill();
+    bottle.kill();
+  }
+
+
+
+  function bartFires () {
+
+      enemyBullet = enemyBullets.getFirstExists(false);
+
+
+      if (enemyBullet)
+      {
+        enemyBullet.reset(bart);
+
+                game.physics.arcade.moveToObject(enemyBullet,player,120);
+                firingTimer = game.time.now + 500;
+
 }
+}
+
+  function fireBullet () {
+
+    if (game.time.now > bulletSpeed)
+    {
+
+      bullet = bullets.getFirstExists(false);
+
+      if (bullet)
+      {
+        bullet.reset(player.x, player.y + 8);
+        bullet.body.velocity.y = -400;
+        bulletSpeed = game.time.now + 200;
+      }
+    }
+
+
 }
