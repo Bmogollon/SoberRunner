@@ -8,7 +8,7 @@ function preload() {
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.image('bullet','<%= image_path('bullet.png') %>');
   game.load.image('like','<%= image_path('like.png') %>');
-  game.load.image('barBullet','<%= image_path('bullet.png') %>');
+  game.load.image('mug','<%= image_path('beermug.png') %>');
   game.load.spritesheet('bart', '<%= image_path('bart.png') %>',500,500);
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
@@ -32,7 +32,7 @@ var like;
 var fireButton;
 var bullets = 0;
 var bulletSpeed = 600;
-
+var bart;
 
 
 var barBullet;
@@ -56,14 +56,11 @@ function create() {
   bullets.setAll('outOfBoundsKill', true);
   bullets.setAll('checkWorldBounds', true);
 
-
-
   enemyBullets = game.add.group();
   enemyBullets.enableBody = true;
   enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
-  enemyBullets.createMultiple(30, 'barBullet');
   enemyBullets.setAll('anchor.x', 0.5);
-  enemyBullets.setAll('anchor.y', 1);
+  enemyBullets.setAll('anchor.y', 0.5);
   enemyBullets.setAll('outOfBoundsKill', true);
   enemyBullets.setAll('checkWorldBounds', true);
 
@@ -80,7 +77,7 @@ function create() {
     var bottle = bottles.create( (game.world.width/10)*i+22 , 108, 'bottle');
   }
 
-  var bart = game.add.sprite(50, 98, 'bart');
+  bart = game.add.sprite(50, 98, 'bart');
   bart.anchor.setTo(0.5, 0.5);
   bart.height = game.world.height*.25;
   bart.width = game.world.width*.3;
@@ -136,36 +133,6 @@ function create() {
 
 }
 
-//
-//
-// function createbart () {
-//   for (var y = 0; y < 1; y++)
-//   {
-//     for (var x = 0; x < 1; x++)
-//     {
-//       var bart = barts.create(0, 0, 'bart');
-//
-//       barts.height = game.world.height*.25;
-//       barts.width = game.world.width*.3;
-//       bart.anchor.setTo(0.5, 0.5);
-//       bart.body.moves = false;
-//     }
-//   }
-//
-//   barts.x = 50;
-//   barts.y = 100;
-//
-//   var tween = game.add.tween(barts).to( { x: 200 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
-//   tween.onLoop.add(descend, this);
-// }
-
-
-function descend() {
-
-  barts.y += 10;
-
-}
-
 // *********************************************
 // UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
 
@@ -175,10 +142,16 @@ function update() {
   game.physics.arcade.collide(bottles, platforms);
 
   game.physics.arcade.overlap(bullets, bottles, destroyBottle, null, this);
+  game.physics.arcade.overlap(bullets, bart, throwMug, null, this);
 
   function destroyBottle(bullet, bottle) {
     bullet.kill();
     bottle.kill();
+  }
+
+  function throwMug(bart, mug) {
+    enemyBullets.push(game.add(bart.position.X, bart.position.Y, 'mug'));
+    console.log(enemyBullets);
   }
 
   // game.physics.arcade.collide(bottles, game.groundLayer);
