@@ -19,7 +19,7 @@ function preload() {
   game.antialias = false;
   game.stage.smoothed = false;
 }
-var bar;
+
 var player;
 var bottle;
 var playertwo;
@@ -28,7 +28,8 @@ var cursors;
 var bottles;
 var score = 0;
 var scoreText;
-var like;
+var map;
+var tiles;
 var fireButton;
 var bullets = 0;
 var bulletSpeed = 600;
@@ -102,23 +103,9 @@ function create() {
   playertwo.animations.add('right', [6,7,8], 10, true);
 
 
-  for (var i = 0; i < 3; i++)
-  {
-
-    var like  = game.add.image(-5,3,'like');
-    player.addChild(like);
-
-  }
-
-  for (var i = 0; i < 3; i++)
-  {
-
-    var like  = game.add.image(-5,3,'like');
-    playertwo.addChild(like);
-
-  }
-
   // SCORE TEXT
+  scoreString = "Score : ";
+  scoreText = game.add.text(10, 10, scoreString + score, {font: '28px Arial', fill: '#fff'});
 
   cursors = game.input.keyboard.createCursorKeys();
 
@@ -126,8 +113,13 @@ function create() {
 
   // SCORE TEXT
 
-  scoreText = game.add.text(400, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
 
+  // this.add.text(100, 0, "run ⇨ jump ⇧ back ⇦ \nDon't Fall ",{
+  //   font: "18px monospace",
+  //   fill: "#000000",
+  //   // padding: { x: 20, y: 10 },
+  //   backgroundColor: "#ffffff"
+  // })
 
   fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -147,6 +139,9 @@ function update() {
   function destroyBottle(bullet, bottle) {
     bullet.kill();
     bottle.kill();
+
+    score += 10;
+    scoreText.setText('Score: ' + score);
   }
 
   function throwMug(bart, mug) {
@@ -218,10 +213,9 @@ function update() {
     playertwo.body.velocity.y = -350;
   }
 
-  if (score >= 3) {
-    alert('You are drunk! Go Home!!');
-    game.camera.shake(0.005, 3000000);
-  }
+
+
+
 
   if (fireButton.isDown)
   {
@@ -248,4 +242,3 @@ function fireBullet () {
       bulletSpeed = game.time.now + 200;
     }
   }
-}
