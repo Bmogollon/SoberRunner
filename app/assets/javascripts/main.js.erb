@@ -3,10 +3,17 @@ var game = new Phaser.Game(1000, 500, Phaser.AUTO, 'game', { preload: preload, c
 
 // LOADING IMAGES TO SCREEN
 function preload() {
+<<<<<<< HEAD
   // game.load.image('coffee', '<%= image_path('firstaid.png') %>');
   game.load.image('background', '<%= image_path('PubBar.png') %>');
+=======
+  game.load.image('coffee', '<%= image_path('firstaid.png') %>');
+  game.load.image('background', '<%= image_path('PubBar.png') %>');
+  game.load.image('ground', '<%= image_path('barrel.png') %>');
+>>>>>>> dadfa27402a0279b20c237e89a55c1d7429be51e
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.image('bullet','<%= image_path('bullet.png') %>');
+  game.load.image('beerbullet', '<%= image_path('beermug.png')%>');
 
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
@@ -23,8 +30,12 @@ var bottles;
 var score = 0;
 var scoreText;
 var fireButton;
+<<<<<<< HEAD
 var fireButton2;
 
+=======
+var enemyBullet;
+>>>>>>> dadfa27402a0279b20c237e89a55c1d7429be51e
 
 var bullets = 0;
 var bulletSpeed = 600;
@@ -35,6 +46,7 @@ function create() {
   // game.world.setBounds(0, 0);
   game.add.sprite(0, 0, 'background');
 
+<<<<<<< HEAD
   bullets = game.add.group();
   bullets.enableBody = true;
   bullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -43,6 +55,30 @@ function create() {
   bullets.setAll('anchor.y', 0.5);
   bullets.setAll('outOfBoundsKill', true);
   bullets.setAll('checkWorldBounds', true);
+=======
+
+//Create Bullets
+  bullets = game.add.group();
+     bullets.enableBody = true;
+     bullets.physicsBodyType = Phaser.Physics.ARCADE;
+     bullets.createMultiple(30, 'bullet');
+     bullets.setAll('anchor.x', 0.5);
+     bullets.setAll('anchor.y', 1);
+     bullets.setAll('outOfBoundsKill', true);
+     bullets.setAll('checkWorldBounds', true);
+
+//Enemy Bullets
+enemyBullet = game.add.group();
+   enemyBullet.enableBody = true;
+   enemyBullet.physicsBodyType = Phaser.Physics.ARCADE;
+   enemyBullet.createMultiple(30, 'beerbullet');
+   enemyBullet.setAll('anchor.x', 0.5);
+   enemyBullet.setAll('anchor.y', 1);
+   enemyBullet.setAll('outOfBoundsKill', true);
+   enemyBullet.setAll('checkWorldBounds', true);
+
+
+>>>>>>> dadfa27402a0279b20c237e89a55c1d7429be51e
 
   platforms = game.add.group();
   platforms.enableBody = true;
@@ -67,7 +103,14 @@ function create() {
   {
     var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.1, 'bottle');
   }
+<<<<<<< HEAD
   for (var i = 0; i < 30; i++)
+=======
+  bottles.physicsBodyType = Phaser.Physics.ARCADE;
+
+  // PLATFORMS ITEMS
+  for (var i = 0; i < 20; i++)
+>>>>>>> dadfa27402a0279b20c237e89a55c1d7429be51e
   {
     var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.2, 'bottle');
   }
@@ -181,15 +224,39 @@ function update() {
         }
 
 
+<<<<<<< HEAD
         // Player 2 Firing?
         if (fireButton2.isDown)
               {
                   fireBullet();
               }
 
+=======
+        game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
 
 
 }
+
+function collisionHandler() {
+    bullet.kill();
+    bottle.kill;
+}
+>>>>>>> dadfa27402a0279b20c237e89a55c1d7429be51e
+
+function enemyHitsPlayer(player, enemyBullet) {
+  enemyBullet.kill();
+  live = lives.getFirstAlive();
+  if (live)
+    live.kill();
+
+}
+
+if (lives.countLiving() < 1)
+  {
+    player.kill();
+    enemyBullets.callAll('kill');
+
+  }
 
 
 
@@ -223,13 +290,19 @@ function collectDiamond (player, bottle) {
 function collisionHandler (bullet, bottle) {
 
 
+<<<<<<< HEAD
   bullet.kill();
   bottle.kill();
+=======
+    bullet.kill();
+    bottle.kill();
+>>>>>>> dadfa27402a0279b20c237e89a55c1d7429be51e
 }
 
 
 function fireBullet () {
 
+<<<<<<< HEAD
   if (game.time.now > bulletSpeed)
   {
 
@@ -240,6 +313,19 @@ function fireBullet () {
       bullet.reset(player.x, player.y + 8);
       bullet.body.velocity.y = -400;
       bulletSpeed = game.time.now + 200;
+=======
+    if (game.time.now > bulletSpeed)
+    {
+
+        bullet = bullets.getFirstExists(false);
+
+        if (bullet)
+        {
+            bullet.reset(player.x, player.y + 8);
+            bullet.body.velocity.y = -400;
+            bulletSpeed = game.time.now + 200;
+        }
+>>>>>>> dadfa27402a0279b20c237e89a55c1d7429be51e
     }
   }
 
