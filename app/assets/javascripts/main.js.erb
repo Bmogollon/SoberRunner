@@ -39,12 +39,7 @@ var bulletSpeed = 600;
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
-  // game.world.setBounds(0, 0);
   game.add.sprite(0, 0, 'background');
-
-  platforms = game.add.group();
-
-  game.world.setBounds(0, 0);
 
   //calls on the music variable created to play the game
   music = game.add.audio('junes');
@@ -66,13 +61,8 @@ function create() {
 
   var ground = platforms.create(0, game.world.height - 0, 'ground');
   ground.scale.setTo(0, 0);
-
-
-
   ledge.body.immovable = true;
-
-
-     var ground = platforms.create(0, game.world.height - 0, 'Tile Layer 1');
+   var ground = platforms.create(0, game.world.height - 0, 'Tile Layer 1');
 
 
     ground.scale.setTo(0, 0);
@@ -80,11 +70,6 @@ function create() {
     ground.body.immovable = true;
     var ledge = platforms.create( 'Tile Layer 1');
     ledge.body.immovable = true;
-
-    // ledge = platforms.create( 'Tile Layer 1');
-
-    // ledge.body.immovable = true;
-
 
     player = game.add.sprite(0, game.world.height - 0, 'dude');
     playertwo = game.add.sprite(0, game.world.height - 0, 'guy');
@@ -189,8 +174,8 @@ fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 function update() {
   var hitPlatform = game.physics.arcade.collide(player, platforms);
 
-  game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
-  game.physics.arcade.overlap(player, coffees, collectCoffee, null, this)
+  game.physics.arcade.overlap(player, bottles, collectDiamond, null, this);
+  game.physics.arcade.overlap(player, coffees, collectCoffee, null, this);
 
   game.physics.arcade.collide(bottles, platforms);
   game.physics.arcade.collide(coffees, platforms);
@@ -232,11 +217,11 @@ function update() {
 
 
     var hitPlatform = game.physics.arcade.collide(playertwo, game.groundLayer);
-    game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this)
+    game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this);
 
   game.physics.arcade.collide(playertwo, game.groundLayer);
 
-  game.physics.arcade.overlap(playertwo, coffees, collectCoffee, null, this)
+  game.physics.arcade.overlap(playertwo, coffees, collectCoffee, null, this);
 
 
   playertwo.body.velocity.x = 0;
@@ -294,8 +279,8 @@ function update() {
 
 // *****************************************
 function collectDiamond (player, bottle) {
-  bottle.kill()
-  score += 1
+  bottle.kill();
+  score += 1;
 
   // game.camera.fade(0x000000, 500);
 
@@ -308,7 +293,7 @@ function collectDiamond (player, bottle) {
 
 
   if (energy.value === 0){
-    alert('game over!!')
+    alert('game over!!');
     window.location.reload(false);
 
   }
@@ -350,16 +335,10 @@ function fireBullet () {
 
 
 function collectCoffee (player, coffee) {
-  coffee.kill()
-  score -= 1
+  coffee.kill();
+  score -= 1;
   game.camera.resetFX();
 
   energy.value += 5;
   scoreText.text = 'Drinks: ' + score;
-
-  // scoreText.text = 'Drinks: ' + score
-}
-
-// ************************************
-
-// POP UP
+};
