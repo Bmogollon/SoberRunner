@@ -34,6 +34,7 @@ var scoreText;
 
 var bullets = 0;
 var bulletSpeed = 600;
+var lives = 0;
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
@@ -130,8 +131,17 @@ fireButton2 = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
 function update() {
 
-  game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
+  function collisionHandler (bullet, bottle) {
 
+    bullet.kill();
+    bottle.kill();
+
+  }
+
+  game.physics.arcade.overlap(player, bottles, collectDiamond, null, this);
+  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
+
+  game.physics.arcade.collide(bullets, bottles);
   game.physics.arcade.collide(bottles, platforms);
 
   // game.physics.arcade.collide(bottles, game.groundLayer);
@@ -168,10 +178,11 @@ function update() {
     player.body.velocity.y = -350;
   }
 
+  var hitPlatform = game.physics.arcade.collide(playertwo, platforms);
+  game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this)
 
+  game.physics.arcade.collide(playertwo, game.groundLayer);
 
-// ************
-// PlayerTwo Functionality
 
   playertwo.body.velocity.x = 0;
   if (this.keys.left.isDown)
@@ -210,6 +221,13 @@ function update() {
             fireBullet();
         }
 
+  // function enemyHitsPlayer() {
+  //   bullet.kill();
+  //   live = lives.getFirstAlive();
+  //   if (live)
+  //   live.kill();
+  //
+  // }
 
         game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
 
@@ -240,6 +258,9 @@ if (lives.countLiving() < 1)
 // Health Bar
 // _text
 
+  // ******************************
+  // Health Bar
+  // _text
 
 // *****************************************
 function collectDiamond (player, bottle) {
@@ -248,17 +269,12 @@ function collectDiamond (player, bottle) {
   bullet.kill();
   bottle.kill();
 
+    // game.camera.fade(0x000000, 500);
 
   // SCORE
   scoreText.text = 'Drinks: ' + score;
 
-}
-
-
-
-
-// alert('game over!! Your are way too drunk');
-
+  function collisionHandler (bullet, bottle) {
 
 function collisionHandler (bullet, bottle) {
 
@@ -283,22 +299,24 @@ function enemyFires() {
 
 }
 
+  }
 
-function fireBullet () {
 
+  function fireBullet () {
     if (game.time.now > bulletSpeed)
     {
 
-        bullet = bullets.getFirstExists(false);
+      bullet = bullets.getFirstExists(false);
 
-        if (bullet)
-        {
-            bullet.reset(player.x, player.y + 8);
-            bullet.body.velocity.y = -400;
-            bulletSpeed = game.time.now + 200;
-        }
+      if (bullet)
+      {
+        bullet.reset(player.x, player.y + 8);
+        bullet.body.velocity.y = -400;
+        bulletSpeed = game.time.now + 200;
+      }
     }
   }
+}
 
 
 
