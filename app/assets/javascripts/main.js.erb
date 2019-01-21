@@ -188,8 +188,6 @@ function update() {
     player.body.velocity.y = -350;
   }
 
-
-
   var hitPlatform = game.physics.arcade.collide(playertwo, platforms);
 
   game.physics.arcade.collide(playertwo, game.groundLayer);
@@ -220,8 +218,6 @@ function update() {
     playertwo.body.velocity.y = -350;
   }
 
-
-
   if (score >= 3) {
     alert('You are drunk! Go Home!!');
     game.camera.shake(0.005, 3000000);
@@ -232,53 +228,24 @@ function update() {
     fireBullet();
   }
 
-
   game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
+}
 
-  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
-
-
-
-
-
-
-
-  // ******************************
-  // Health Bar
-  // _text
+function collisionHandler (bullet, bottle) {
+  bullet.kill();
+  bottle.kill();
+}
 
 
-  // *****************************************
-
-
-
-
-
-  // alert('game over!! Your are way too drunk');
-
-
-  function collisionHandler (bullet, bottle) {
-
-
-    bullet.kill();
-    bottle.kill();
-  }
-
-
-  function fireBullet () {
-
-    if (game.time.now > bulletSpeed)
+function fireBullet () {
+  if (game.time.now > bulletSpeed)
+  {
+    bullet = bullets.getFirstExists(false);
+    if (bullet)
     {
-
-      bullet = bullets.getFirstExists(false);
-
-      if (bullet)
-      {
-        bullet.reset(player.x, player.y + 8);
-        bullet.body.velocity.y = -400;
-        bulletSpeed = game.time.now + 200;
-      }
+      bullet.reset(player.x, player.y + 8);
+      bullet.body.velocity.y = -400;
+      bulletSpeed = game.time.now + 200;
     }
-
   }
 }
