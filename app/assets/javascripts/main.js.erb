@@ -156,10 +156,10 @@ function createbart () {
     barts.x = 0;
     barts.y = 0;
 
-    var loop = game.add.loop(barts).to( { x: 200 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+    var tween = game.add.tween(barts).to( { x: 200 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
 
-    loop.onLoop.add(descend, this);
+    tween.onLoop.add(descend, this);
 }
 
 
