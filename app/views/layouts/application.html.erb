@@ -1,6 +1,48 @@
+<style>
+html{
+ box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body {
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+
+#goals-outter {
+  display: none;
+   background-size:cover;
+   background-repeat:no-repeat;
+   min-width:500px;
+   min-height:510px;
+   color: #2C1C14;
+   box-shadow: 5px 5px 15px #D36F1B; 
+   font-family: 'Bungee Inline', cursive;
+   background-color: #D0CEC0;
+ 
+}
+
+.goals-inner {
+padding:2em;
+}
+
+</style>
+
+
+
+
 <!DOCTYPE html>
 <html>
   <head>
+  <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Faster+One|Fontdiner+Swanky|Knewave" rel="stylesheet">
+  <script
+ src="https://code.jquery.com/jquery-3.3.1.js"
+ integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+ crossorigin="anonymous"></script>
     <title>SoberRunner</title>
 
     <%= csrf_meta_tags %>
@@ -12,24 +54,28 @@
   <h1 class="logo"> ▁ ▂ ▄ ▅ ▆ ▇ █ 𝕊𝕠𝕓𝕖𝕣 ℝ𝕦𝕟𝕟𝕖𝕣 █ ▇ ▆ ▅ ▄ ▂ ▁ </h1>
   <div class="bg"></div>
 
-  <div class="text">Welcome to Sober runner</div>
+  
 
-  <div class="finish">
-    <br>
+  <%# <div class="finish">
+    <br> %>
 
-    <%= form_tag login_path do %>
-      <%= label_tag :username %>
-      <%= text_field_tag :username %>
-      <br>
-
-      <%= label_tag :password %>
-      <%= password_field_tag :password %>
-      <br>
-
-      <%= submit_tag %>
-    <% end %>
+   
 
     </div>
+
+    <div id="goals-outter">
+    <%= image_tag("soberrunlogo.png", size: "250x200", alt: "Edit Entry") %>
+    <div class="goals-inner">
+        <center><h2>Goal:</h2>
+        <article>Help Kit & Mordecai shoot & break as many<br>
+         alcohol bottles off the bar stand<br>
+         to put an end to the Juggernaut Bartender.<br>
+        But beware he's throwing beer mugs at our heroes.<br>
+        Avoid getting hit 3x for which the game will<br>
+         be Over!                       
+        </article></center>
+    </div>
+</div>
 
 
   <div class="copyright"> Copyright 2019 Brunch Group</div>
@@ -41,10 +87,12 @@
 
       <button class="btn"><a href="#">START</a></button>
 
+      <button type="button" id="goalbutton">Goals</button>
+
 
     </div>
 
-</div>
+<%# </div> %>
 
 <div class="copyright"> Copyright 2019 Brunch Group</div>
 
@@ -57,7 +105,11 @@
     <%= yield %>
 
 
-
+<script>
+$("#goalbutton").click(function(){
+        $("#goals-outter").toggle();
+    });
+   </script>
 
   </body>
 </html>

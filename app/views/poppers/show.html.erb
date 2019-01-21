@@ -20,7 +20,6 @@ body {
    color: #2C1C14;
    box-shadow: 5px 5px 15px #D36F1B; 
    font-family: 'Bungee Inline', cursive;
-   /* background-image: url(<%= image_path 'rawpixel.jpg' %>); */
    background-color: #D0CEC0;
  
 }
@@ -62,7 +61,18 @@ padding:2em;
     </div>
 </div>
 
+<button onclick="myGoal()">Goals</button>
 
+<script>
+function myGoal() {
+      var x = document.getElementById("goals-outter");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+    </script>
 
 </body>
 </html>
