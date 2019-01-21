@@ -7,14 +7,15 @@ function preload() {
   game.load.image('background', '<%= image_path('PubBar.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.image('bullet','<%= image_path('bullet.png') %>');
-
+  game.load.image('enemyBullet', '<%= image_path('beermug.png')%>');
+  game.load.spritesheet('villian', '<%= image_path('bartendanim.png')%>');
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
-  game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
 }
 
+var enemy;
 var player;
 var bottle;
 var playertwo;
@@ -23,11 +24,17 @@ var cursors;
 var bottles;
 var score = 0;
 var scoreText;
-var map;
-var tiles;
 var fireButton;
+var fireButton2;
+
+
+var lives;
+var livingEnemies = [];
+var scoreText;
+
 var bullets = 0;
 var bulletSpeed = 600;
+var lives = 0;
 
 // ****************** CREATING PLAYER AND MOVEMENTS
 function create() {
@@ -52,6 +59,37 @@ function create() {
   game.physics.arcade.enable(playertwo);
 
   game.camera.follow(player);
+
+
+
+  platforms = game.add.group();
+  platforms.enableBody = true;
+
+  var ground = platforms.create(0, game.world.height - 0, 'ground');
+  ground.scale.setTo(0, 0);
+
+  ground.body.immovable = true;
+  var ledge = platforms.create( 'ground');
+  ledge.body.immovable = true;
+
+  ledge = platforms.create( 'ground');
+
+  ledge.body.immovable = true;
+
+  enemy = game.add.sprite(0, game.world.height - 0, 'villian');
+  player = game.add.sprite(0, game.world.height - 0, 'dude');
+  playertwo = game.add.sprite(0, game.world.height - 0, 'guy');
+
+
+  game.physics.arcade.enable(player);
+  game.physics.arcade.enable(playertwo);
+  game.camera.follow(player);
+  game.physics.arcade.enable(enemy);
+
+  enemy.body.bounce.y = 0.2;
+  enemy.body.gravity.y = 1000;
+  player.body.bounce.y = 0.2;
+  player.body.gravity.y = 1100;
   player.body.collideWorldBounds = true;
   player.animations.add('left', [3,4,5], 10, true);
   player.animations.add('right', [6,7,8], 10, true);
@@ -79,18 +117,12 @@ function create() {
   this.keys = game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D } );
 
   // SCORE TEXT
+  scoreString = 'Score : ';
+  scoreText = game.add.text(10, 10, scoreString + score, { font: '34px Arial', fill: '#fff'});
 
-  scoreText = game.add.text(400, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
 
-  this.add
-  .text(100, 0, "run ⇨ jump ⇧ back ⇦ \nDon't Fall ",{
-    font: "18px monospace",
-    fill: "#000000",
-    // padding: { x: 20, y: 10 },
-    backgroundColor: "#ffffff"
-  })
-
-  fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+fireButton2 = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
 }
 
@@ -98,7 +130,6 @@ function create() {
 // UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
 
 function update() {
-  var hitPlatform = game.physics.arcade.collide(player, platforms);
 
   game.physics.arcade.collide(bottles, platforms);
 
@@ -144,8 +175,6 @@ function update() {
     player.body.velocity.y = -350;
   }
 
-
-
   var hitPlatform = game.physics.arcade.collide(playertwo, platforms);
   game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this)
 
@@ -184,16 +213,38 @@ function update() {
     game.camera.shake(0.005, 3000000);
   }
 
-  if (fireButton.isDown)
-  {
-    fireBullet();
-  }
+  if (player === fireButton.isDown)
+        {
+            fireBullet();
+        }
 
+  // function enemyHitsPlayer() {
+  //   bullet.kill();
+  //   live = lives.getFirstAlive();
+  //   if (live)
+  //   live.kill();
+  //
+  // }
 
-  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
+        game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
+
 
 
 }
+
+function collisionHandler() {
+    bullet.kill();
+    bottle.kill;
+}
+
+
+
+if (lives.countLiving() < 1)
+  {
+    player.kill();
+    enemyBullets.callAll('kill');
+
+  }
 
 
 
@@ -204,62 +255,69 @@ function update() {
 // Health Bar
 // _text
 
+  // ******************************
+  // Health Bar
+  // _text
 
 // *****************************************
 function collectDiamond (player, bottle) {
   bottle.kill()
   score += 1
+  bullet.kill();
+  bottle.kill();
 
-  // game.camera.fade(0x000000, 500);
-
+    // game.camera.fade(0x000000, 500);
 
   // SCORE
   scoreText.text = 'Drinks: ' + score;
-  // ENERGY
-  let energy = document.getElementById("energy");
-  energy.value -= 2;
 
-
-  if (energy.value === 0){
-    alert('game over!!')
-    window.location.reload(false);
-
-  }
-
-
-
-}
-
-
-
-
-// alert('game over!! Your are way too drunk');
-
+  function collisionHandler (bullet, bottle) {
 
 function collisionHandler (bullet, bottle) {
 
 
-  bullet.kill();
-  bottle.kill();
+    bullet.kill();
+    bottle.kill();
 }
 
 
-function fireBullet () {
+function enemyFires() {
+  enemyBullet = enemyBullets.getFirstExists(false);
+  livingEnemies.length = 0;
+  bottles.forEachAlive(function(bottle){
+    livingEnemies.push(bottle);
+  });
+  if(enemyBullet)
+    var random = game.rnd.integerInRange(0,livingEnemies.length-1);
+    var shooter = livingEnemies[random];
+    enemyBullet.reset(shooter.body.x, shooter.body.y);
+    game.physics.arcade.moveToObject(enemyBullet, player, 120);
+    firingTimer = game.time.now + 2000;
 
-  if (game.time.now > bulletSpeed)
-  {
+}
 
-    bullet = bullets.getFirstExists(false);
-
-    if (bullet)
-    {
-      bullet.reset(player.x, player.y + 8);
-      bullet.body.velocity.y = -400;
-      bulletSpeed = game.time.now + 200;
-    }
   }
 
+
+  function fireBullet () {
+    if (game.time.now > bulletSpeed)
+    {
+
+      bullet = bullets.getFirstExists(false);
+
+      if (bullet)
+      {
+        bullet.reset(player.x, player.y + 8);
+        bullet.body.velocity.y = -400;
+        bulletSpeed = game.time.now + 200;
+      }
+    }
+  }
 }
+
+
+
+
 
 // ************************************
 
