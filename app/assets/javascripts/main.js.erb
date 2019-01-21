@@ -3,15 +3,17 @@ var game = new Phaser.Game(1000, 500, Phaser.AUTO, 'game', { preload: preload, c
 
 // LOADING IMAGES TO SCREEN
 function preload() {
-  game.load.image('coffee', '<%= image_path('firstaid.png') %>');
-  game.load.image('background', '<%= image_path('PubBar.png') %>');
+  // game.load.image('coffee', '<%= image_path('firstaid.png') %>');
+  // game.load.image('background', '<%= image_path('PubBar.png') %>');
+  game.load.image('bar', '<%= image_path('PubBar.png') %>', 50,50,50,50);
+
   game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
   game.load.image('bullet','<%= image_path('bullet.png') %>');
+  game.load.image('like','<%= image_path('like.png') %>');
 
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
-  game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
 }
@@ -21,12 +23,13 @@ var bottle;
 var playertwo;
 var platforms;
 var cursors;
-var coffees;
 var bottles;
 var score = 0;
 var scoreText;
+var lives;
 var map;
 var tiles;
+var like;
 var fireButton;
 
 var bullets = 0;
@@ -37,6 +40,8 @@ function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
   // game.world.setBounds(0, 0);
   game.add.sprite(0, 0, 'background');
+
+  var image = game.add.image(100, 100, 'bar');
 
 
 //Create Bullets
@@ -61,11 +66,6 @@ function create() {
   ground.body.immovable = true;
   var ledge = platforms.create( 'ground');
   ledge.body.immovable = true;
-
-  ledge = platforms.create( 'ground');
-
-  ledge.body.immovable = true;
-
 
   player = game.add.sprite(0, game.world.height - 0, 'dude');
   playertwo = game.add.sprite(0, game.world.height - 0, 'guy');
@@ -93,15 +93,6 @@ function create() {
 
   // COFFEE ITEMS?
 
-  coffees = game.add.group();
-
-  coffees.enableBody = true;
-  for (var i = 0; i < 20; i++)
-  {
-    var coffee = coffees.create(i * (Math.random()*100), 20, 'coffee');
-    coffee.body.gravity.y = 1000;
-    coffee.body.bounce.y = 0;
-  }
 
   // BOTTLE ITEMS
 
@@ -128,6 +119,16 @@ function create() {
 
 
 
+  
+      for (var i = 0; i < 3; i++)
+      {
+
+        var like  = game.add.image(-5,3,'like');
+        player.addChild(like);
+
+      }
+
+
   // SCORE TEXT
 
   cursors = game.input.keyboard.createCursorKeys();
@@ -146,24 +147,25 @@ function create() {
     backgroundColor: "#ffffff"
   })
 
+
+
 fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
+
 }
+
 
 // *********************************************
 // UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
 
 function update() {
-  var hitPlatform = game.physics.arcade.collide(player, platforms);
+  // var hitPlatform = game.physics.arcade.collide(player, platforms);
 
   game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
-  game.physics.arcade.overlap(player, coffees, collectCoffee, null, this)
 
   game.physics.arcade.collide(bottles, platforms);
-  game.physics.arcade.collide(coffees, platforms);
 
   game.physics.arcade.collide(bottles, game.groundLayer);
-  game.physics.arcade.collide(coffees, game.groundLayer);
 
 
   game.physics.arcade.collide(player, game.groundLayer);
@@ -200,12 +202,11 @@ function update() {
 
 
 
-  var hitPlatform = game.physics.arcade.collide(playertwo, platforms);
+  // var hitPlatform = game.physics.arcade.collide(playertwo, platforms);
   game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this)
 
   game.physics.arcade.collide(playertwo, game.groundLayer);
 
-  game.physics.arcade.overlap(playertwo, coffees, collectCoffee, null, this)
 
 
   playertwo.body.velocity.x = 0;
@@ -268,7 +269,7 @@ if (lives.countLiving() < 1)
   {
     player.kill();
     enemyBullets.callAll('kill');
-    
+
   }
 
 
@@ -291,17 +292,6 @@ function collectDiamond (player, bottle) {
   // SCORE
   scoreText.text = 'Drinks: ' + score;
   // ENERGY
-  let energy = document.getElementById("energy");
-  energy.value -= 2;
-
-
-  if (energy.value === 0){
-    alert('game over!!')
-    window.location.reload(false);
-
-  }
-
-
 
 }
 
@@ -336,17 +326,17 @@ function fireBullet () {
 
 }
 
-
-function collectCoffee (player, coffee) {
-  coffee.kill()
-  score -= 1
-  game.camera.resetFX();
-
-  energy.value += 5;
-  scoreText.text = 'Drinks: ' + score;
-
-  // scoreText.text = 'Drinks: ' + score
-}
+//
+// function collectCoffee (player, coffee) {
+//   coffee.kill()
+//   score -= 1
+//   game.camera.resetFX();
+//
+//   energy.value += 5;
+//   scoreText.text = 'Drinks: ' + score;
+//
+//   // scoreText.text = 'Drinks: ' + score
+// }
 
 // ************************************
 
