@@ -1,5 +1,5 @@
 //= require phaser
-var game = new Phaser.Game(1000, 500, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(300, 500, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
 
 // LOADING IMAGES TO SCREEN
 function preload() {
@@ -19,6 +19,8 @@ function preload() {
   game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
+  game.antialias = false;
+  game.stage.smoothed = false;
 }
 var bar;
 var player;
@@ -44,7 +46,9 @@ var livingEnemies = [];
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
   // game.world.setBounds(0, 0);
-  game.add.sprite(0, 0, 'background');
+  var bar = game.add.sprite(0, 0, 'background');
+  bar.height = game.world.height*.55;
+  bar.width = game.world.width;
 
   bullets = game.add.group();
   bullets.enableBody = true;
@@ -96,13 +100,13 @@ function create() {
 
   bottles = game.add.group();
   bottles.enableBody = true;
-  for (var i = 0; i < 30; i++)
+  for (var i = 0; i < 8; i++)
   {
-    var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.1, 'bottle');
+    var bottle = bottles.create( (game.world.width/10)*i+16 , 57, 'bottle');
   }
-  for (var i = 0; i < 30; i++)
+  for (var i = 0; i < 8; i++)
   {
-    var bottle = bottles.create( (game.world.width/20)*i , (game.world.height)*.2, 'bottle');
+    var bottle = bottles.create( (game.world.width/10)*i+22 , 108, 'bottle');
   }
 
   for (var i = 0; i < 3; i++)
@@ -129,6 +133,7 @@ function create() {
 
   // SCORE TEXT
 
+  scoreText = game.add.text(400, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
 
 
   fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -148,7 +153,7 @@ function createbart () {
         }
     }
 
-    barts.x = 900;
+    barts.x = 0;
     barts.y = 0;
 
     //  All this does is basically start the invaders moving. Notice we're moving the Group they belong to, rather than the invaders directly.
@@ -262,8 +267,8 @@ function update() {
 
   game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
 
+  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
 
-}
 
 
 
@@ -307,4 +312,5 @@ function fireBullet () {
     }
   }
 
+}
 }
