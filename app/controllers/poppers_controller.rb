@@ -5,7 +5,7 @@ class PoppersController < ApplicationController
   end
 
   def show
-  @popper = Popper.new
+    render :layout => false
   end
 
   def create

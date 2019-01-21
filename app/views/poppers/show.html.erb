@@ -1,2 +1,69 @@
-<h1>Poppers#show</h1>
-<p>Find me in app/views/poppers/show.html.erb</p>
+<style>
+
+html{
+ box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+body {
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#goals-outter {
+   background-size:cover;
+   background-repeat:no-repeat;
+   min-width:500px;
+   min-height:510px;
+   color: #2C1C14;
+   box-shadow: 5px 5px 15px #D36F1B; 
+   font-family: 'Bungee Inline', cursive;
+   /* background-image: url(<%= image_path 'rawpixel.jpg' %>); */
+   background-color: #D0CEC0;
+ 
+}
+
+.goals-inner {
+padding:2em;
+}
+
+
+
+
+
+</style>
+
+
+
+
+<!DOCTYPE HTML>
+<html lang="en" dir="ltr">
+<link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Faster+One|Fontdiner+Swanky|Knewave" rel="stylesheet">
+<head>
+<meta charset="UTF-8">
+ <title> </title>
+</head>
+<body>
+
+
+<div id="goals-outter">
+    <%= image_tag("soberrunlogo.png", size: "250x200", alt: "Edit Entry") %>
+    <div class="goals-inner">
+        <center><h2>Goal:</h2>
+        <article>Help Kit & Mordecai shoot & break as many<br>
+         alcohol bottles off the bar stand<br>
+         to put an end to the Juggernaut Bartender.<br>
+        But beware he's throwing beer mugs at our heroes.<br>
+        Avoid getting hit 3x for which the game will<br>
+         be Over!                       
+        </article></center>
+    </div>
+</div>
+
+
+
+</body>
+</html>
+
