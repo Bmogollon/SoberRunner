@@ -158,18 +158,14 @@ function createbart () {
     barts.x = 2;
     barts.y = 37;
 
-    var tween = game.add.tween(barts).to( { x: 200 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+    var tween = game.add.tween(barts).to( { x: 200 }, 800, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
 
-    tween.onLoop.add(descend, this);
-}
-
-
-function descend() {
-
-    barts.y += 10;
 
 }
+
+
+
 
 
 // *********************************************
