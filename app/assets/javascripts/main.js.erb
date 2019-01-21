@@ -100,9 +100,15 @@ function create() {
 function update() {
   var hitPlatform = game.physics.arcade.collide(player, platforms);
 
-  game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
-
   game.physics.arcade.collide(bottles, platforms);
+
+  game.physics.arcade.overlap(player, bottles, collectDiamond, null, this);
+  game.physics.arcade.overlap(bullets, bottles, destroyBottle, null, this);
+
+  function destroyBottle(bullet, bottle) {
+    bullet.kill();
+    bottle.kill();
+  }
 
   // game.physics.arcade.collide(bottles, game.groundLayer);
   //
