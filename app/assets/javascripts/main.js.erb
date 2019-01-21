@@ -70,7 +70,6 @@ function create() {
      enemyBullets.setAll('outOfBoundsKill', true);
      enemyBullets.setAll('checkWorldBounds', true);
 
-
      barts = game.add.group();
      barts.enableBody = true;
      barts.physicsBodyType = Phaser.Physics.ARCADE;
@@ -148,13 +147,16 @@ function createbart () {
         for (var x = 0; x < 1; x++)
         {
             var bart = barts.create(x * 0, y * 0, 'bart');
+
+                 barts.height = game.world.height*.3;
+                 barts.width = game.world.width*.3;
             bart.anchor.setTo(0.1, 0.1);
             bart.body.moves = false;
         }
     }
 
-    barts.x = 0;
-    barts.y = 0;
+    barts.x = 2;
+    barts.y = 37;
 
     var tween = game.add.tween(barts).to( { x: 200 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
