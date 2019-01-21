@@ -156,7 +156,7 @@ function create() {
 function update() {
   var hitPlatform = game.physics.arcade.collide(player, platforms);
 
-  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
+  game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
 
   player.body.velocity.x = 0;
 
