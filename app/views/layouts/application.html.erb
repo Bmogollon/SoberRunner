@@ -12,7 +12,6 @@ body {
     align-items:center;
 }
 
-
 #goals-outter {
   display: none;
    background-size:cover;
@@ -23,6 +22,7 @@ body {
    box-shadow: 5px 5px 15px #D36F1B; 
    font-family: 'Bungee Inline', cursive;
    background-color: #D0CEC0;
+   left: 0;
  
 }
 
@@ -35,35 +35,45 @@ padding:2em;
 
 
 
+
 <!DOCTYPE html>
 <html>
-  <head>
-  <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Faster+One|Fontdiner+Swanky|Knewave" rel="stylesheet">
+ <head>
+ <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Faster+One|Fontdiner+Swanky|Knewave" rel="stylesheet">
   <script
  src="https://code.jquery.com/jquery-3.3.1.js"
  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
  crossorigin="anonymous"></script>
-    <title>SoberRunner</title>
 
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+   <title>SoberRunner</title>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  </head>
+   <%= csrf_meta_tags %>
+   <%= csp_meta_tag %>
 
-  <h1 class="logo"> ▁ ▂ ▄ ▅ ▆ ▇ █ 𝕊𝕠𝕓𝕖𝕣 ℝ𝕦𝕟𝕟𝕖𝕣 █ ▇ ▆ ▅ ▄ ▂ ▁ </h1>
-  <div class="bg"></div>
+   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+ </head>
 
-  
+ <h1 class="logo"> </h1>
+ <div class="bg"></div>
 
-  <%# <div class="finish">
-    <br> %>
+ <a href="http://anetwork.ir" class="anetwork"></a>
+ <div class="text"><a href="http://anetwork.ir">Ready for Sober runner</a></div>
 
-   
+ <div class="finish">
 
-    </div>
 
-    <div id="goals-outter">
+
+   <div class="container">
+
+     <button class="btn"><a href="/games/index">START</a></button>
+     <br>
+     <button type="button" class="btn" id="goalbutton">Goals</button>
+
+   </div>
+
+</div>
+
+<div id="goals-outter">
     <%= image_tag("soberrunlogo.png", size: "250x200", alt: "Edit Entry") %>
     <div class="goals-inner">
         <center><h2>Goal:</h2>
@@ -78,21 +88,13 @@ padding:2em;
 </div>
 
 
-  <div class="copyright"> Copyright 2019 Brunch Group</div>
 
+<script>
+$("#goalbutton").click(function(){
+        $("#goals-outter").toggle();
+    });
+   </script>
 
-
-
-    <div class="container">
-
-      <button class="btn"><a href="#">START</a></button>
-
-      <button type="button" id="goalbutton">Goals</button>
-
-
-    </div>
-
-<%# </div> %>
 
 <div class="copyright"> Copyright 2019 Brunch Group</div>
 
@@ -101,15 +103,9 @@ padding:2em;
 
 
 
-  <body>
-    <%= yield %>
+ <body>
+   <%= yield %>
 
 
-<script>
-$("#goalbutton").click(function(){
-        $("#goals-outter").toggle();
-    });
-   </script>
-
-  </body>
-</html>
+ </body>
+</html> 

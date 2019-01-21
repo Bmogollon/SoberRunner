@@ -15,54 +15,42 @@
  */
 
 
-
-
-
-
-
  @font-face {
-				font-family: "open";
-				font-style: normal;
-				font-weight: 300;
-				src: local("Open Sans Light"), local("OpenSans-Light"), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTZ1r3JsPcQLi8jytr04NNhU.woff) format('woff');
+  font-family: "open";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Open Sans Light"), local("OpenSans-Light"), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTZ1r3JsPcQLi8jytr04NNhU.woff) format('woff');
 }
 
-*, *:before, *:after {
-  box-sizing: border-box;
+*,* :before, *:after {
+box-sizing: border-box;
 }
 
 @keyframes empty {
 
-  0% {
+0% {
+transform: scale( 10);
+}
 
-    transform: scale( 3 );
-  }
-
-  100% {
-    transform: scale( 0 );
-
-    transform: scale( 10);
-  }
-
-  100% {
-    transform: scale( 0);
-  }
+100% {
+transform: scale( 0);
+}
 
 }
 
 @keyframes shake {
 
-  0%, 100% {
-    transform: rotate( 0 );
-  }
+0%, 100% {
+transform: rotate( 0 );
+}
 
-  10%, 50%, 90% {
-    transform: rotate( 4deg );
-  }
+10%, 50%, 90% {
+transform: rotate( 4deg );
+}
 
-  30%, 70% {
-    transform: rotate( -4deg );
-  }
+30%, 70% {
+transform: rotate( -4deg );
+}
 
 }
 
@@ -71,48 +59,45 @@
   100% {
     left: 40%;
   }
-
-}
-
-@keyframes fave {
-
+ 
+ }
+ 
+ @keyframes fave {
+ 
   0% {
     opacity: 0;
   }
-
+ 
   100% {
     left: 45%;
     opacity: 1;
   }
-
-}
-
-@keyframes fill {
-
+ 
+ }
+ 
+ @keyframes fill {
+ 
   0% {
-z
-    bottom: -100%;
-
     bottom: -10%;
   }
-
+ 
   100% {
     bottom: 0%;
   }
-
-}
-
-@keyframes goOut {
-
+ 
+ }
+ 
+ @keyframes goOut {
+ 
   100% {
     opacity: 0;
     top: 45%;
   }
-
-}
-
-@keyframes comeIn {
-
+ 
+ }
+ 
+ @keyframes comeIn {
+ 
   0% {
    opacity: 0;
    top: 55%;
@@ -121,11 +106,11 @@ z
     opacity: 1;
     top: 45%;
   }
-
-}
-
-@keyframes copyrights {
-
+ 
+ }
+ 
+ @keyframes copyrights {
+ 
   0% {
    opacity: 0;
    bottom: 0;
@@ -134,32 +119,25 @@ z
     opacity: 1;
     bottom: 5%;
   }
-
-}
-
-a {
+ 
+ }
+ 
+ a {
   text-decoration: none;
   color: inherit;
-}
-
-html, body {
+ }
+ 
+ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
   font-family: open, 'sans-serif', sans;
-
-  background: yellow;
-
-  background: lightgreen;
+  background: gold, brown;
   overflow: hidden;
-}
-
-.bg {
-
-  background: red;
-
-  background:  #0B486B;
+ }
+ .bg {
+  background:  gold;
   width: 50vw;
   height: 50vw;
   border-radius: 50%;
@@ -169,153 +147,114 @@ html, body {
   left: 50%;
   position: absolute;
   animation: empty both 5s linear;
-}
-
-.anetwork {
+ }
+ 
+ 
+ 
+ .anetwork {
   position: absolute;
   top: 50%;
   left: 50%;
   margin-top: -23px;
   margin-left: -23px;
-  width: 46px;
+  width: 47px;
   box-shadow: 0 2px 2px rgba( 0, 0, 0, .5 );
-  height: 46px;
-
-  background: green;
-
-  background: maroon;
+  height: 50px;
+  background: gold;
   overflow: hidden;
-  animation: shake .25s linear 20, moveLeft both .7s ease-in-out 5.5s, goOut forwards .6s ease 8s;
-}
-.anetwork:before {
-
-  content: 'sober runner';
-
+  animation: shake .10s linear 20, moveLeft both .7s ease-in-out 5.5s, goOut forwards .6s ease 8s;
+ }
+ 
+ .anetwork:before {
   content: 'sober run';
   position: absolute;
   width: 150%;
   transform: scale( 1.2 );
   height: 100%;
-
-  background: red;
-
   background: black;
   border-radius: 75px 75px 0 0 / 30px 30px 0 0;
   animation: fill both 5s linear;
-}
-.anetwork:after {
+ }
+ .anetwork:after {
   content: 'SB';
   color: white;
   font: 42px tahoma, arial, sans-serif;
   position: absolute;
   right: -2px;
   bottom: -12px;
-}
-
-.text {
-
-  color: orange;
-  text-shadow: 0 1px 0 #fff;
-  font-size: 29px;
-  position: absolute;
-  left: 55%;
-  top: 50%;
-  margin-top: -2%;
-
-
+ }
+ 
+ .text {
+ 
   color: white ;
-  text-shadow: 0 1px 0 turquoise;
+  text-shadow: 0 1px 0 gold;
   font-size: 40px;
   position: fixed;
   left: 45%;
   top: 50%;
   margin-top: -1%;
-  /* Fave = Fade N move :D */
+  /* Fave = Fade N move :smile: */
   animation: fave .7s both ease-in-out 5.5s, goOut forwards .6s ease 8s;
-}
-
-.logo{
+ }
+ 
+ .logo{
   text-align: center;
-}
-
-
-form{
-  height:200px;
-  width:300px;
-  color: white;
-  border-radius: 5%;
-  display: block;
-  background:red;
-  position: absolute;
-  padding-bottom: 120px;
-
-
-
-
-
-
-.btn {
-  background-color:#0B486B;
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ .btn {
+  background-color:gold;
   position: relative;
   outline: none;
   border-radius: 15px;
-  box-shadow: 20px 15px 20px #3B8686;
+   padding-left: -130%;
   font-size: 24px;
   display: block;
   text-align: center;
-
+ 
   /* margin: 10px auto; */
   min-height: 80px;
   width: 170%;
   color: white;
   /* padding-top: 35px; */
-
-}
-.copyright {
+ 
+ }
+ .copyright {
   font-size: 16px;
   color: #666;
   text-shadow: 0 -1px 0 #f1f1f1;
   position: absolute;
-  left: 42%;
+  left: 43%;
   bottom: 5%;
   animation: copyrights .5s ease both 6.5s;
-}
-
-.finish {
+ }
+ 
+ .finish {
   position: absolute;
   left: 45%;
   color: green;
   font-size: 30px;
   animation: comeIn both .5s ease 8.5s;
-}
-
-body{
-  background: rgba(211, 251, 78, 0.66);
-
-}
-
-h1{
-  text-align: center;
-}
-
-
-   background-image: url("intro.jpg");
+ }
+ 
+ body{
+ 
+   background-image: url("honeycombbackgroundnew.png");
    background-size: cover;
-
-
-}
-
-
-
-
-
-
-h1{
+   background-color: silver;
+   background-blend-mode: multiply;
+ 
+ }
+ h1{
   text-align: center;
-}
-
- @import url('https://fonts.googleapis.com/css?family=Bungee+Inline|Faster+One|Fontdiner+Swanky|Knewave');
-
+ }
+ 
+ @import url('https://fonts.googleapis.com/css?family=Bungee+Inline%7CFaster+One%7CFontdiner+Swanky%7CKnewave');
+ 
  #Cover-pops .container {
     box-sizing: content-box;
     border: 15px red groove;
@@ -324,7 +263,7 @@ h1{
     padding: 1em;
     justify-items: center;
  }
-
+ 
  #pulse-pops .container1 {
     box-sizing: content-box;
     border: 15px red groove;
@@ -332,9 +271,9 @@ h1{
     height: 80px;
     padding: 1em;
     justify-items: center;
-
+ 
  }
-
+ 
  .container {
     padding: 1em;
     font-family: 'Fontdiner Swanky', cursive;
@@ -342,9 +281,9 @@ h1{
     text-align: center;
     color: gray;
     text-shadow: 0px 2px red;
-
+ 
   }
-
+ 
   .container1 {
     padding: 3em;
     font-family: 'Fontdiner Swanky', cursive;
@@ -352,24 +291,24 @@ h1{
     text-align: center;
     color: gray;
     text-shadow: 0px 2px red;
-
+ 
   }
-
-
-
-h1 {
+ 
+ 
+ 
+ h1 {
     font-size: 1rem;
-    /* animation: glitch-1 1s infinite linear; */
+    animation: glitch-1 1s infinite linear;
     }
-
-h2 {
+ 
+ h2 {
     font-size: 1rem;
   animation: pulse 1s infinite;
   -webkit-animation-name: pulse;
-}
-
-
-
+ }
+ 
+ 
+ 
     #warning {
     font-size: 2em;
     font-family: 'Fontdiner Swanky', cursive;
@@ -379,21 +318,21 @@ h2 {
     -webkit-animation-name: pulse;
     padding: 2em;
     }
-
+ 
   @keyframes glitch-1 {
     0%, 2%, 5%, 42%, 45%, 72%, 75%, 100% {opacity: 1; transform: scaleX(1) scaleY(1);}
     3% {opacity: .8; transform: scaleY(2);}
     43% {opacity: .8; transform: scaleX(1.3);}
     73% {opacity: 8; transform: rotate(5deg) scale(2);}
   }
-
+ 
   @keyframes glitch-2 {
     0%, 12%, 15%, 52%, 55%, 82%, 85%, 100% {opacity: 1; transform: scaleX(1) scaleY(1); }
     13% {opacity: .8; transform: scaleY(2); color: #0ff;}
     53% {opacity: .8; transform: scaleX(.7);  color: #f0f;}
     83% {opacity: 8; transform: rotate(-10deg); color: #ff0;}
   }
-
+ 
   @keyframes pulse {
     from { -webkit-transform: scale3d(1, 1, 1);
       transform: scale3d(1, 1, 1);}
@@ -402,3 +341,10 @@ h2 {
     to { -webkit-transform: scale3d(1, 1, 1);
       transform: scale3d(1, 1, 1);}
     }
+
+
+
+
+
+
+ 
