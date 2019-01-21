@@ -33,10 +33,10 @@ var tiles;
 var fireButton;
 var bullets = 0;
 var bulletSpeed = 600;
-var bart;
+var bart = 0;
 
 
-var barBullet;
+var barBullets;
 var firingTimer = 0;
 var livingEnemies = [];
 
@@ -57,13 +57,14 @@ function create() {
   bullets.setAll('outOfBoundsKill', true);
   bullets.setAll('checkWorldBounds', true);
 
-  enemyBullets = game.add.group();
-  enemyBullets.enableBody = true;
-  enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
-  enemyBullets.setAll('anchor.x', 0.5);
-  enemyBullets.setAll('anchor.y', 0.5);
-  enemyBullets.setAll('outOfBoundsKill', true);
-  enemyBullets.setAll('checkWorldBounds', true);
+  barBullets = game.add.group();
+  barBullets.enableBody = true;
+  barBullets.physicsBodyType = Phaser.Physics.ARCADE;
+  barBullets.createMultiple(30, 'mug');
+  barBullets.setAll('anchor.x', 0.5);
+  barBullets.setAll('anchor.y', 0.5);
+  barBullets.setAll('outOfBoundsKill', true);
+  barBullets.setAll('checkWorldBounds', true);
 
   // BOTTLE ITEMS
 
@@ -79,11 +80,10 @@ function create() {
   }
 
   bart = game.add.sprite(50, 98, 'bart');
+  game.physics.enable(bart, Phaser.Physics.ARCADE);
   bart.anchor.setTo(0.5, 0.5);
   bart.height = game.world.height*.25;
   bart.width = game.world.width*.3;
-  bart.physicsBodyType = Phaser.Physics.ARCADE;
-  bart.enableBody = true;
   var tween = game.add.tween(bart).to( { x: 230 }, 800, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
   platforms = game.add.group();
@@ -131,34 +131,29 @@ function create() {
 function update() {
   var hitPlatform = game.physics.arcade.collide(player, platforms);
 
-  game.physics.arcade.collide(bottles, platforms);
-
   game.physics.arcade.overlap(bullets, bottles, destroyBottle, null, this);
-  game.physics.arcade.overlap(bullets, bart, throwMug, null, this);
+  game.physics.arcade.overlap(bart, bullets, throwMug);
 
   function destroyBottle(bullet, bottle) {
     bullet.kill();
     bottle.kill();
-
     score += 10;
     scoreText.setText('Score: ' + score);
   }
 
-  function throwMug(bart, mug) {
-    enemyBullets.push(game.add(bart.position.X, bart.position.Y, 'mug'));
-    console.log(enemyBullets);
+  function throwMug(bart, bullet) {
+    bullet.kill();
+    bullet = bullets.getFirstExists(false);
+    if (bullet)
+    {
+      bullet.reset(player.x, player.y + 8);
+      bullet.body.velocity.y = -400;
+      bulletSpeed = game.time.now + 200;
+    }
   }
 
-  // game.physics.arcade.collide(bottles, game.groundLayer);
-  //
-  // game.physics.arcade.collide(player, game.groundLayer);
-  //
-
-
   player.body.velocity.x = 0;
-
   cursors = game.input.keyboard.createCursorKeys();
-
   if (cursors.left.isDown)
   {
     player.body.velocity.x = -150;
@@ -174,62 +169,32 @@ function update() {
   else
   {
     player.animations.stop();
-
     player.frame = 1;
   }
 
-  if (cursors.up.isDown && player.body.touching.down && hitPlatform)
-  {
+  if (cursors.up.isDown && player.body.touching.down && hitPlatform) {
     player.body.velocity.y = -350;
   }
-
-  var hitPlatform = game.physics.arcade.collide(playertwo, platforms);
-
-  game.physics.arcade.collide(playertwo, game.groundLayer);
-
-
   playertwo.body.velocity.x = 0;
-  if (this.keys.left.isDown)
-  {
+  if (this.keys.left.isDown) {
     playertwo.body.velocity.x = -150;
-
     playertwo.animations.play('left');
-  }
-  else if (this.keys.right.isDown)
-  {
+  } else if (this.keys.right.isDown) {
     playertwo.body.velocity.x = 150;
-
     playertwo.animations.play('right');
-  }
-  else
-  {
+  } else {
     playertwo.animations.stop();
-
     playertwo.frame = 1;
   }
 
-  if (this.keys.up.isDown && playertwo.body.touching.down && hitPlatform)
-  {
+  if (this.keys.up.isDown && playertwo.body.touching.down && hitPlatform) {
     playertwo.body.velocity.y = -350;
-  }
+  };
 
-
-
-
-
-  if (fireButton.isDown)
-  {
+  if (fireButton.isDown) {
     fireBullet();
-  }
-
-  game.physics.arcade.overlap(bullets, bottle, collisionHandler, null, this);
+  };
 }
-
-function collisionHandler (bullet, bottle) {
-  bullet.kill();
-  bottle.kill();
-}
-
 
 function fireBullet () {
   if (game.time.now > bulletSpeed)
