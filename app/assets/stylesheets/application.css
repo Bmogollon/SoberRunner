@@ -136,7 +136,7 @@ html, body {
   width: 100%;
   height: 100%;
   font-family: open, 'sans-serif', sans;
-  background: lightgreen;
+  background: #0B486B;
   overflow: hidden;
 }
 
@@ -162,7 +162,7 @@ html, body {
   width: 46px;
   box-shadow: 0 2px 2px rgba( 0, 0, 0, .5 );
   height: 46px;
-  background: maroon;
+  background: gold;
   overflow: hidden;
   animation: shake .25s linear 20, moveLeft both .7s ease-in-out 5.5s, goOut forwards .6s ease 8s;
 }
@@ -188,7 +188,7 @@ html, body {
 .text {
 
   color: white ;
-  text-shadow: 0 1px 0 turquoise;
+  text-shadow: 0 1px 0 gold;
   font-size: 40px;
   position: fixed;
   left: 45%;
@@ -244,7 +244,7 @@ html, body {
 
 body{
 
-   background-image: url("intro.jpg");
+   background-image: url("intro.png");
    background-size: cover;
    background-color: silver;
    background-blend-mode: multiply;
