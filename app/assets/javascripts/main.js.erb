@@ -113,16 +113,14 @@ function create() {
 
   for (var i = 0; i < 3; i++)
   {
-
-    var like  = game.add.image(-5,3,'like');
+    var like  = game.add.image((i*20)-5,3,'like');
     player.addChild(like);
-
   }
 
   for (var i = 0; i < 3; i++)
   {
 
-    var like  = game.add.image(-5,3,'like');
+    var like  = game.add.image((i*20)-5,3,'like');
     playertwo.addChild(like);
 
   }
@@ -157,10 +155,16 @@ function update() {
 
   game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
   game.physics.arcade.overlap(bullets, bart, hitTarget, null, this);
+  game.physics.arcade.overlap(enemyBullets, player, hurt, null, this);
 
   function hitTarget(bart, bullet) {
     bullet.kill();
-    bartFires();
+  }
+
+  function hurt(player, enemyBullet) {
+    enemyBullet.kill();
+    player.kill();
+    player.alive = false;
   }
 
   player.body.velocity.x = 0;
@@ -184,11 +188,6 @@ function update() {
     player.animations.stop();
 
     player.frame = 1;
-  }
-
-  if (cursors.up.isDown && player.body.touching.down && hitPlatform)
-  {
-    player.body.velocity.y = -350;
   }
 
 
@@ -217,14 +216,6 @@ function update() {
 
     playertwo.frame = 1;
   }
-
-  if (this.keys.up.isDown && playertwo.body.touching.down && hitPlatform)
-  {
-    playertwo.body.velocity.y = -350;
-  }
-
-
-
 
   if (fireButton.isDown)
   {
@@ -265,19 +256,19 @@ function bartFires () {
 }
 
 function fireBullet () {
-
-  if (game.time.now > bulletSpeed)
-  {
-
-    bullet = bullets.getFirstExists(false);
-
-    if (bullet)
+  if(player.alive) {
+    if (game.time.now > bulletSpeed)
     {
-      bullet.reset(player.x, player.y + 8);
-      bullet.body.velocity.y = -400;
-      bulletSpeed = game.time.now + 200;
+
+      bullet = bullets.getFirstExists(false);
+
+      if (bullet)
+      {
+        bullet.reset(player.x, player.y + 8);
+        bullet.body.velocity.y = -400;
+        bulletSpeed = game.time.now + 200;
+      }
     }
   }
-
 
 }
