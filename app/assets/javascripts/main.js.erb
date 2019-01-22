@@ -245,6 +245,9 @@ function update() {
     bartFires();
   }
 
+  if (bottles.length == 0) {
+    game.state.restart();
+  }
 }
 
 
@@ -254,7 +257,7 @@ function update() {
 
 function collisionHandler (bullet, bottle) {
   bullet.kill();
-  bottle.kill();
+  bottle.destroy();
 }
 
 
