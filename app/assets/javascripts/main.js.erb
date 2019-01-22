@@ -247,7 +247,7 @@ function bartFires () {
 
   if (enemyBullet)
   {
-    enemyBullet.reset(bart.x, bart.y);
+    enemyBullet.reset(bart.x, bart.y+bart.height/2);
 
     game.physics.arcade.moveToObject(enemyBullet,player,120);
     firingTimer = game.time.now + 500;
