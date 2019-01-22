@@ -13,7 +13,7 @@ body {
 }
 
 #goals-outter {
-  display: none;
+   display: none;
    background-size:cover;
    background-repeat:no-repeat;
    min-width:500px;
@@ -22,7 +22,9 @@ body {
    box-shadow: 5px 5px 15px #D36F1B; 
    font-family: 'Bungee Inline', cursive;
    background-color: #D0CEC0;
-   left: 0;
+   margin-left: 0;
+   position: relative;
+
  
 }
 
@@ -56,8 +58,8 @@ padding:2em;
  <h1 class="logo"> </h1>
  <div class="bg"></div>
 
- <a href="http://anetwork.ir" class="anetwork"></a>
- <div class="text"><a href="http://anetwork.ir">Ready for Sober runner</a></div>
+ <a class="anetwork"></a>
+ <div class="text">Welcome To Sober Runner</div>
 
  <div class="finish">
 
@@ -76,16 +78,16 @@ padding:2em;
 <div id="goals-outter">
     <%= image_tag("soberrunlogo.png", size: "250x200", alt: "Edit Entry") %>
     <div class="goals-inner">
-        <center><h2>Goal:</h2>
+        <h2>Goal:</h2>
         <article>Help Kit & Mordecai shoot & break as many<br>
          alcohol bottles off the bar stand<br>
          to put an end to the Juggernaut Bartender.<br>
         But beware he's throwing beer mugs at our heroes.<br>
         Avoid getting hit 3x for which the game will<br>
          be Over!                       
-        </article></center>
-    </div>
+        </article>
 </div>
+
 
 
 
