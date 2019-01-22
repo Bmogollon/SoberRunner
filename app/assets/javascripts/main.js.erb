@@ -63,13 +63,13 @@ function create() {
 
 
   enemyBullets = game.add.group();
-    enemyBullets.enableBody = true;
-    enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
-    enemyBullets.createMultiple(30, 'enemyBullet');
-    enemyBullets.setAll('anchor.x', 0.5);
-    enemyBullets.setAll('anchor.y', 1);
-    enemyBullets.setAll('outOfBoundsKill', true);
-    enemyBullets.setAll('checkWorldBounds', true);
+  enemyBullets.enableBody = true;
+  enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
+  enemyBullets.createMultiple(30, 'enemyBullet');
+  enemyBullets.setAll('anchor.x', 0.5);
+  enemyBullets.setAll('anchor.y', 0.5);
+  enemyBullets.setAll('outOfBoundsKill', true);
+  enemyBullets.setAll('checkWorldBounds', true);
 
 
 
@@ -87,12 +87,11 @@ function create() {
     var bottle = bottles.create( (game.world.width/10)*i+22 , 108, 'bottle');
   }
 
-  var bart = game.add.sprite(50, 98, 'bart');
+  bart = game.add.sprite(50, 98, 'bart');
   bart.anchor.setTo(0.5, 0.5);
   bart.height = game.world.height*.25;
   bart.width = game.world.width*.3;
-  bart.physicsBodyType = Phaser.Physics.ARCADE;
-  bart.enableBody = true;
+	game.physics.arcade.enable(bart, Phaser.Physics.ARCADE);
   var tween = game.add.tween(bart).to( { x: 230 }, 800, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
   platforms = game.add.group();
@@ -157,6 +156,12 @@ function update() {
   var hitPlatform = game.physics.arcade.collide(player, platforms);
 
   game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
+  game.physics.arcade.overlap(bullets, bart, hitTarget, null, this);
+
+  function hitTarget(bart, bullet) {
+    bullet.kill();
+    bartFires();
+  }
 
   player.body.velocity.x = 0;
 
@@ -226,53 +231,53 @@ function update() {
     fireBullet();
   }
   if (game.time.now > firingTimer)
-         {
-             bartFires();
-         }
-
+  {
+    bartFires();
   }
 
+}
 
 
 
 
 
-  function collisionHandler (bullet, bottle) {
-    bullet.kill();
-    bottle.kill();
+
+function collisionHandler (bullet, bottle) {
+  bullet.kill();
+  bottle.kill();
+}
+
+
+
+function bartFires () {
+
+  enemyBullet = enemyBullets.getFirstExists(false);
+
+
+  if (enemyBullet)
+  {
+    enemyBullet.reset(bart.x, bart.y);
+
+    game.physics.arcade.moveToObject(enemyBullet,player,120);
+    firingTimer = game.time.now + 500;
+
   }
-
-
-
-  function bartFires () {
-
-      enemyBullet = enemyBullets.getFirstExists(false);
-
-
-      if (enemyBullet)
-      {
-        enemyBullet.reset(bart);
-
-                game.physics.arcade.moveToObject(enemyBullet,player,120);
-                firingTimer = game.time.now + 500;
-
-}
 }
 
-  function fireBullet () {
+function fireBullet () {
 
-    if (game.time.now > bulletSpeed)
+  if (game.time.now > bulletSpeed)
+  {
+
+    bullet = bullets.getFirstExists(false);
+
+    if (bullet)
     {
-
-      bullet = bullets.getFirstExists(false);
-
-      if (bullet)
-      {
-        bullet.reset(player.x, player.y + 8);
-        bullet.body.velocity.y = -400;
-        bulletSpeed = game.time.now + 200;
-      }
+      bullet.reset(player.x, player.y + 8);
+      bullet.body.velocity.y = -400;
+      bulletSpeed = game.time.now + 200;
     }
+  }
 
 
 }
