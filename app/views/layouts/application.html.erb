@@ -19,13 +19,13 @@ body {
    min-width:500px;
    min-height:510px;
    color: #2C1C14;
-   box-shadow: 5px 5px 15px #D36F1B; 
+   box-shadow: 5px 5px 15px #D36F1B;
    font-family: 'Bungee Inline', cursive;
    background-color: #D0CEC0;
    margin-left: 0;
    position: relative;
 
- 
+
 }
 
 .goals-inner {
@@ -55,59 +55,59 @@ padding:2em;
    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
  </head>
 
- <h1 class="logo"> </h1>
- <div class="bg"></div>
-
- <a class="anetwork"></a>
- <div class="text">Welcome To Sober Runner</div>
-
- <div class="finish">
-
-
-
-   <div class="container">
-
-     <button class="btn"><a href="/games/index">START</a></button>
-     <br>
-     <button type="button" class="btn" id="goalbutton">Goals</button>
-
-   </div>
-
-</div>
-
-<div id="goals-outter">
-    <%= image_tag("soberrunlogo.png", size: "250x200", alt: "Edit Entry") %>
-    <div class="goals-inner">
-        <h2>Goal:</h2>
-        <article>Help Kit & Mordecai shoot & break as many<br>
-         alcohol bottles off the bar stand<br>
-         to put an end to the Juggernaut Bartender.<br>
-        But beware he's throwing beer mugs at our heroes.<br>
-        Avoid getting hit 3x for which the game will<br>
-         be Over!                       
-        </article>
-</div>
-
-
-
-
-<script>
-$("#goalbutton").click(function(){
-        $("#goals-outter").toggle();
-    });
-   </script>
-
-
-<div class="copyright"> Copyright 2019 Brunch Group</div>
-
 
 
 
 
 
  <body>
+
+   <h1 class="logo"> </h1>
+   <div class="bg"></div>
+
+   <a class="anetwork"></a>
+   <div class="text">Welcome To Sober Runner</div>
+
+   <div class="finish">
+
+
+
+     <div class="container">
+
+       <button class="btn"><a href="/games/index">START</a></button>
+       <br>
+       <button type="button" class="btn" id="goalbutton">Goals</button>
+
+     </div>
+
+   </div>
+
+   <div id="goals-outter">
+     <%= image_tag("soberrunlogo.png", size: "250x200", alt: "Edit Entry") %>
+     <div class="goals-inner">
+       <h2>Goal:</h2>
+       <article>Help Kit & Mordecai shoot & break as many<br>
+         alcohol bottles off the bar stand<br>
+         to put an end to the Juggernaut Bartender.<br>
+         But beware he's throwing beer mugs at our heroes.<br>
+         Avoid getting hit 3x for which the game will<br>
+         be Over!
+       </article>
+     </div>
+
+
+
+
+     <script>
+     $("#goalbutton").click(function(){
+       $("#goals-outter").toggle();
+     });
+     </script>
+
+
+     <div class="copyright"> Copyright 2019 Brunch Group</div>
    <%= yield %>
 
 
  </body>
-</html> 
+</html>
