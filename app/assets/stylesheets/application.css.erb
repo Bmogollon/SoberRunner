@@ -59,45 +59,45 @@ transform: rotate( -4deg );
   100% {
     left: 40%;
   }
- 
+
  }
- 
+
  @keyframes fave {
- 
+
   0% {
     opacity: 0;
   }
- 
+
   100% {
     left: 45%;
     opacity: 1;
   }
- 
+
  }
- 
+
  @keyframes fill {
- 
+
   0% {
     bottom: -10%;
   }
- 
+
   100% {
     bottom: 0%;
   }
- 
+
  }
- 
+
  @keyframes goOut {
- 
+
   100% {
     opacity: 0;
     top: 45%;
   }
- 
+
  }
- 
+
  @keyframes comeIn {
- 
+
   0% {
    opacity: 0;
    top: 55%;
@@ -106,11 +106,11 @@ transform: rotate( -4deg );
     opacity: 1;
     top: 45%;
   }
- 
+
  }
- 
+
  @keyframes copyrights {
- 
+
   0% {
    opacity: 0;
    bottom: 0;
@@ -119,14 +119,14 @@ transform: rotate( -4deg );
     opacity: 1;
     bottom: 5%;
   }
- 
+
  }
- 
+
  a {
   text-decoration: none;
   color: inherit;
  }
- 
+
  html, body {
   margin: 0;
   padding: 0;
@@ -148,9 +148,9 @@ transform: rotate( -4deg );
   position: absolute;
   animation: empty both 5s linear;
  }
- 
- 
- 
+
+
+
  .anetwork {
   position: absolute;
   top: 50%;
@@ -164,7 +164,7 @@ transform: rotate( -4deg );
   overflow: hidden;
   animation: shake .10s linear 20, moveLeft both .7s ease-in-out 5.5s, goOut forwards .6s ease 8s;
  }
- 
+
  .anetwork:before {
   content: 'sober run';
   position: absolute;
@@ -183,9 +183,9 @@ transform: rotate( -4deg );
   right: -2px;
   bottom: -12px;
  }
- 
+
  .text {
- 
+
   color: white ;
   text-shadow: 0 1px 0 gold;
   font-size: 40px;
@@ -196,16 +196,16 @@ transform: rotate( -4deg );
   /* Fave = Fade N move :smile: */
   animation: fave .7s both ease-in-out 5.5s, goOut forwards .6s ease 8s;
  }
- 
+
  .logo{
   text-align: center;
  }
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
  .btn {
   background-color:gold;
   position: relative;
@@ -215,13 +215,13 @@ transform: rotate( -4deg );
   font-size: 24px;
   display: block;
   text-align: center;
- 
+
   /* margin: 10px auto; */
   min-height: 80px;
   width: 170%;
   color: white;
   /* padding-top: 35px; */
- 
+
  }
  .copyright {
   font-size: 16px;
@@ -232,7 +232,7 @@ transform: rotate( -4deg );
   bottom: 5%;
   animation: copyrights .5s ease both 6.5s;
  }
- 
+
  .finish {
   position: absolute;
   left: 45%;
@@ -240,21 +240,21 @@ transform: rotate( -4deg );
   font-size: 30px;
   animation: comeIn both .5s ease 8.5s;
  }
- 
+
  body{
- 
-   background-image: url("honeycombbackgroundnew.png");
+
+   background-image: url('<%= image_path('honeycombbackgroundnew.png') %>');
    background-size: cover;
    background-color: silver;
    background-blend-mode: multiply;
- 
+
  }
  h1{
   text-align: center;
  }
- 
+
  @import url('https://fonts.googleapis.com/css?family=Bungee+Inline%7CFaster+One%7CFontdiner+Swanky%7CKnewave');
- 
+
  #Cover-pops .container {
     box-sizing: content-box;
     border: 15px red groove;
@@ -263,7 +263,7 @@ transform: rotate( -4deg );
     padding: 1em;
     justify-items: center;
  }
- 
+
  #pulse-pops .container1 {
     box-sizing: content-box;
     border: 15px red groove;
@@ -271,9 +271,9 @@ transform: rotate( -4deg );
     height: 80px;
     padding: 1em;
     justify-items: center;
- 
+
  }
- 
+
  .container {
     padding: 1em;
     font-family: 'Fontdiner Swanky', cursive;
@@ -281,9 +281,9 @@ transform: rotate( -4deg );
     text-align: center;
     color: gray;
     text-shadow: 0px 2px red;
- 
+
   }
- 
+
   .container1 {
     padding: 3em;
     font-family: 'Fontdiner Swanky', cursive;
@@ -291,24 +291,24 @@ transform: rotate( -4deg );
     text-align: center;
     color: gray;
     text-shadow: 0px 2px red;
- 
+
   }
- 
- 
- 
+
+
+
  h1 {
     font-size: 1rem;
     animation: glitch-1 1s infinite linear;
     }
- 
+
  h2 {
     font-size: 1rem;
   animation: pulse 1s infinite;
   -webkit-animation-name: pulse;
  }
- 
- 
- 
+
+
+
     #warning {
     font-size: 2em;
     font-family: 'Fontdiner Swanky', cursive;
@@ -318,21 +318,21 @@ transform: rotate( -4deg );
     -webkit-animation-name: pulse;
     padding: 2em;
     }
- 
+
   @keyframes glitch-1 {
     0%, 2%, 5%, 42%, 45%, 72%, 75%, 100% {opacity: 1; transform: scaleX(1) scaleY(1);}
     3% {opacity: .8; transform: scaleY(2);}
     43% {opacity: .8; transform: scaleX(1.3);}
     73% {opacity: 8; transform: rotate(5deg) scale(2);}
   }
- 
+
   @keyframes glitch-2 {
     0%, 12%, 15%, 52%, 55%, 82%, 85%, 100% {opacity: 1; transform: scaleX(1) scaleY(1); }
     13% {opacity: .8; transform: scaleY(2); color: #0ff;}
     53% {opacity: .8; transform: scaleX(.7);  color: #f0f;}
     83% {opacity: 8; transform: rotate(-10deg); color: #ff0;}
   }
- 
+
   @keyframes pulse {
     from { -webkit-transform: scale3d(1, 1, 1);
       transform: scale3d(1, 1, 1);}
@@ -341,10 +341,3 @@ transform: rotate( -4deg );
     to { -webkit-transform: scale3d(1, 1, 1);
       transform: scale3d(1, 1, 1);}
     }
-
-
-
-
-
-
- 
