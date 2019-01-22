@@ -157,12 +157,18 @@ function update() {
 
   game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
   game.physics.arcade.overlap(bullets, bart, hitTarget, null, this);
+  game.physics.arcade.overlap(bullets, enemyBullet, hitMug, null, this);
   game.physics.arcade.overlap(enemyBullets, player, hurt, null, this);
   game.physics.arcade.overlap(enemyBullets, playertwo, hurt, null, this);
 
   function hitTarget(bart, bullet) {
     bullet.kill();
   }
+
+function hitMug(bullet, enemyBullet){
+  enemyBullet.kill();
+}
+
 
   function hurt(player, enemyBullet) {
     enemyBullet.kill();
@@ -261,6 +267,8 @@ function collisionHandler (bullet, bottle) {
   bullet.kill();
   bottle.destroy();
 }
+
+
 
 
 
