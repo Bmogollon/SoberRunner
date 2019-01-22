@@ -4,28 +4,23 @@ var game = new Phaser.Game(600, 400, Phaser.AUTO, 'game', { preload: preload, cr
 // LOADING IMAGES TO SCREEN
 function preload() {
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
-<<<<<<< HEAD
+
   game.load.image('background', '<%= image_path('background.png') %>');
   game.load.image('ground', '<%= image_path('barrel.png') %>');
-=======
->>>>>>> 47346278e20f38248e6137c14246bcf1842d9e0e
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
-<<<<<<< HEAD
+
   game.load.image('tiles', '<%= image_path('Tile_59.png') %>');
   game.load.image('tiles3', '<%= image_path('_Spritesheet_Objects.png')%>');
 
-=======
   game.load.image('tiles1', '<%= image_path('sheet.png')%>');
   game.load.image('barrel', '<%= image_path('barrel.png')%>');
 >>>>>>> ef78bdbfc4275a40ff59462037655f5bf61ca54b
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
-<<<<<<< HEAD
+
   game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
-=======
   //preloaded music audio
   game.load.audio('bigbs', '<%= asset_path('slatt.mp3') %>');
->>>>>>> 47346278e20f38248e6137c14246bcf1842d9e0e
   game.scale.pageAlignHorizontally = true;
   game.scale.pageAlignVertically = true;
 }
@@ -60,23 +55,21 @@ function create() {
   game.add.sprite(0, 0, 'background');
 
 
-<<<<<<< HEAD
-=======
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
-<<<<<<< HEAD
+
     game.map = game.add.tilemap('map');
 
     game.map.addTilesetImage('groundlayer','tiles');
     game.map.addTilesetImage('citytiles', 'tiles3');
 
 
-=======
-   
+
 >>>>>>> ef78bdbfc4275a40ff59462037655f5bf61ca54b
 
-   
 
-    
+
+
 
 
      platforms = game.add.group();
@@ -96,7 +89,6 @@ function create() {
 
 
     game.add.sprite(0, 0, 'Tile Layer 1');
->>>>>>> 47346278e20f38248e6137c14246bcf1842d9e0e
 
   platforms = game.add.group();
   platforms.enableBody = true;
@@ -104,22 +96,20 @@ function create() {
   var ground = platforms.create(0, game.world.height - 0, 'ground');
   ground.scale.setTo(0, 0);
 
-<<<<<<< HEAD
+
   ground.body.immovable = true;
   var ledge = platforms.create( 'ground');
   ledge.body.immovable = true;
 
   ledge = platforms.create( 'ground');
-=======
     platforms = game.add.group();
 
     platforms.enableBody = true;
->>>>>>> 47346278e20f38248e6137c14246bcf1842d9e0e
 
   ledge.body.immovable = true;
 
 
-<<<<<<< HEAD
+
   player = game.add.sprite(0, game.world.height - 0, 'dude');
   playertwo = game.add.sprite(0, game.world.height - 0, 'guy');
 
@@ -127,7 +117,6 @@ function create() {
   game.physics.arcade.enable(player);
   game.physics.arcade.enable(playertwo);
   game.camera.follow(player);
-=======
      var ground = platforms.create(0, game.world.height - 0, 'Tile Layer 1');
 
 
@@ -149,7 +138,6 @@ function create() {
     game.physics.arcade.enable(player);
     game.physics.arcade.enable(playertwo);
     game.camera.follow(player);
->>>>>>> 47346278e20f38248e6137c14246bcf1842d9e0e
 
   player.body.bounce.y = 0.2;
   player.body.gravity.y = 1100;
@@ -198,10 +186,9 @@ function create() {
   {
     var ledge = platforms.create(i * (Math.random()*105), Math.random()*500, 'ground');
 
-<<<<<<< HEAD
+
     ledge.body.immovable = true;
   }
-=======
 //  PLATFORMS ITEMS
      for (var i = 0; i < 20; i++)
      {
@@ -212,7 +199,6 @@ function create() {
          ground.body.bounce.y = 0.2 + Math.random() * 0.2;
     }
 
->>>>>>> 47346278e20f38248e6137c14246bcf1842d9e0e
 
 
 
@@ -241,7 +227,7 @@ function create() {
 // UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
 
 function update() {
-<<<<<<< HEAD
+
   var hitPlatform = game.physics.arcade.collide(player, platforms);
 
   game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
@@ -255,7 +241,6 @@ function update() {
 
 
   game.physics.arcade.collide(player, game.groundLayer);
-=======
     var hitPlatform = game.physics.arcade.collide(player, game.groundLayer);
 
     game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
@@ -269,22 +254,19 @@ function update() {
 
 
     game.physics.arcade.collide(player, layer);
->>>>>>> 47346278e20f38248e6137c14246bcf1842d9e0e
 
 
 
-<<<<<<< HEAD
+
   player.body.velocity.x = 0;
-=======
 
-   
 
-    
+
+
 
     if (cursors.left.isDown)
     {
         player.body.velocity.x = -150;
->>>>>>> 47346278e20f38248e6137c14246bcf1842d9e0e
 
   cursors = game.input.keyboard.createCursorKeys();
 
@@ -292,18 +274,16 @@ function update() {
   {
     player.body.velocity.x = -150;
 
-<<<<<<< HEAD
+
     player.animations.play('left');
   }
   else if (cursors.right.isDown)
   {
     player.body.velocity.x = 150;
-=======
         player.frame = 1;
     }
 
-    
->>>>>>> 47346278e20f38248e6137c14246bcf1842d9e0e
+
 
     player.animations.play('right');
   }
@@ -314,15 +294,13 @@ function update() {
     player.frame = 1;
   }
 
-<<<<<<< HEAD
+
   if (cursors.up.isDown && player.body.touching.down && hitPlatform)
   {
     player.body.velocity.y = -350;
   }
-=======
     var hitPlatform = game.physics.arcade.collide(playertwo, game.groundLayer);
     game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this)
->>>>>>> 47346278e20f38248e6137c14246bcf1842d9e0e
 
 
 
