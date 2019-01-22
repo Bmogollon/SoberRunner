@@ -4,7 +4,7 @@ var game = new Phaser.Game(300, 500, Phaser.AUTO, 'game', { preload: preload, cr
 // LOADING IMAGES TO SCREEN
 function preload() {
   game.load.image('coffee', '<%= image_path('firstaid.png') %>');
-<<<<<<< HEAD
+
   game.load.image('background', '<%= image_path('background.png') %>');
   game.load.image('ground', '<%= image_path('barrel.png') %>');
   game.load.image('bottle', '<%= image_path('vodka.png') %>');
@@ -14,6 +14,11 @@ function preload() {
   game.load.spritesheet('bart', '<%= image_path('bart.png') %>',500,500);
   game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
   game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
+  game.load.spritesheet('dude', '<%= image_path('baddie.png') %>', 45, 48.5);
+  game.load.spritesheet('guy', '<%= image_path('dude.png') %>', 45, 48);
+
+  game.load.tilemap('map', '<%= asset_path('main.json')%>', null, Phaser.Tilemap.TILED_JSON);
+>>>>>>> dd2fe0f76447892f3cdb1d7ceb387488bfb3f2cc
   //preloaded music audio
   game.load.audio('bigbs', '<%= asset_path('slatt.mp3') %>');
   game.scale.pageAlignHorizontally = true;
@@ -56,20 +61,13 @@ function create() {
   game.add.sprite(0, 0, 'background');
 
 
-<<<<<<< HEAD
-=======
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
-<<<<<<< HEAD
+
     game.map = game.add.tilemap('map');
 
     game.map.addTilesetImage('groundlayer','tiles');
     game.map.addTilesetImage('citytiles', 'tiles3');
-
-
-=======
-
-
-
 
 
 
@@ -91,7 +89,6 @@ function create() {
 
 
     game.add.sprite(0, 0, 'Tile Layer 1');
->>>>>>> 47346278e20f38248e6137c14246bcf1842d9e0e
 
   platforms = game.add.group();
   platforms.enableBody = true;
@@ -99,6 +96,12 @@ function create() {
   var ground = platforms.create(0, game.world.height - 0, 'ground');
   ground.scale.setTo(0, 0);
 
+
+  ground.body.immovable = true;
+  var ledge = platforms.create( 'ground');
+  ledge.body.immovable = true;
+
+  ledge = platforms.create( 'ground');
     platforms = game.add.group();
 
     platforms.enableBody = true;
@@ -106,6 +109,14 @@ function create() {
   ledge.body.immovable = true;
 
 
+
+  player = game.add.sprite(0, game.world.height - 0, 'dude');
+  playertwo = game.add.sprite(0, game.world.height - 0, 'guy');
+
+
+  game.physics.arcade.enable(player);
+  game.physics.arcade.enable(playertwo);
+  game.camera.follow(player);
      var ground = platforms.create(0, game.world.height - 0, 'Tile Layer 1');
 
 
@@ -167,6 +178,11 @@ function create() {
   }
   for (var i = 0; i < 8; i++)
   {
+    var ledge = platforms.create(i * (Math.random()*105), Math.random()*500, 'ground');
+
+
+    ledge.body.immovable = true;
+  }
 //  PLATFORMS ITEMS
      for (var i = 0; i < 20; i++)
      {
@@ -186,7 +202,6 @@ function create() {
   game.physics.arcade.enable(player);
   game.physics.arcade.enable(playertwo);
 
->>>>>>> e9298a013a75f718ad483377a59a97e7bb38de1c
 
   playertwo.body.collideWorldBounds = true;
   playertwo.animations.add('left', [3,4,5], 10, true);
@@ -219,7 +234,7 @@ function create() {
 // UPDATING MOVEMENT AND GRAVITY WITH SCORE ADDED
 
 function update() {
-<<<<<<< HEAD
+
   var hitPlatform = game.physics.arcade.collide(player, platforms);
 
   game.physics.arcade.overlap(bullets, bottles, destroyBottle, null, this);
@@ -233,7 +248,6 @@ function update() {
   }
 
   game.physics.arcade.collide(player, game.groundLayer);
-=======
     var hitPlatform = game.physics.arcade.collide(player, game.groundLayer);
 
     game.physics.arcade.overlap(player, bottles, collectDiamond, null, this)
@@ -251,6 +265,8 @@ function update() {
 
 
 
+  player.body.velocity.x = 0;
+
 
 
 
@@ -258,7 +274,6 @@ function update() {
     if (cursors.left.isDown)
     {
         player.body.velocity.x = -150;
->>>>>>> e9298a013a75f718ad483377a59a97e7bb38de1c
 
   player.body.velocity.x = 0;
   cursors = game.input.keyboard.createCursorKeys();
@@ -266,18 +281,16 @@ function update() {
   {
     player.body.velocity.x = -150;
 
-<<<<<<< HEAD
+
     player.animations.play('left');
   }
   else if (cursors.right.isDown)
   {
     player.body.velocity.x = 150;
-=======
         player.frame = 1;
     }
 
 
->>>>>>> e9298a013a75f718ad483377a59a97e7bb38de1c
 
     player.animations.play('right');
   }
@@ -287,12 +300,11 @@ function update() {
     player.frame = 1;
   }
 
-<<<<<<< HEAD
+
   if (cursors.up.isDown && player.body.touching.down && hitPlatform)
   {
     player.body.velocity.y = -350;
   }
-=======
     var hitPlatform = game.physics.arcade.collide(playertwo, game.groundLayer);
     game.physics.arcade.overlap(playertwo, bottles, collectDiamond, null, this)
 
@@ -306,7 +318,6 @@ function update() {
   game.physics.arcade.overlap(playertwo, coffees, collectCoffee, null, this)
 
 
->>>>>>> e9298a013a75f718ad483377a59a97e7bb38de1c
   playertwo.body.velocity.x = 0;
   if (this.keys.left.isDown) {
     playertwo.body.velocity.x = -150;
@@ -340,3 +351,27 @@ function fireBullet () {
     }
   }
 }
+
+
+
+
+// alert('game over!! Your are way too drunk');
+
+
+
+
+
+function collectCoffee (player, coffee) {
+  coffee.kill()
+  score -= 1
+  game.camera.resetFX();
+
+  energy.value += 5;
+  scoreText.text = 'Drinks: ' + score;
+
+  // scoreText.text = 'Drinks: ' + score
+}
+
+// ************************************
+
+// POP UP
