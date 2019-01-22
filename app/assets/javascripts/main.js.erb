@@ -35,6 +35,7 @@ var playerLives;
 var fireButton;
 var bullets = 0;
 var bulletSpeed = 600;
+var bulletSpeed2 = 600;
 var bart;
 
 
@@ -130,7 +131,7 @@ function create() {
 
   cursors = game.input.keyboard.createCursorKeys();
 
-  this.keys = game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D } );
+  this.keys = game.input.keyboard.addKeys( { 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D } );
 
   // SCORE TEXT
 
@@ -140,7 +141,7 @@ function create() {
   fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 
-  fireButton2 = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+  fireButton2 = game.input.keyboard.addKey(Phaser.KeyCode.W);
 
 
 }
@@ -157,6 +158,7 @@ function update() {
   game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
   game.physics.arcade.overlap(bullets, bart, hitTarget, null, this);
   game.physics.arcade.overlap(enemyBullets, player, hurt, null, this);
+  game.physics.arcade.overlap(enemyBullets, playertwo, hurt, null, this);
 
   function hitTarget(bart, bullet) {
     bullet.kill();
@@ -170,6 +172,13 @@ function update() {
   if (player.children.length < 1) {
     player.kill();
     player.alive = false;
+  }
+  if (playertwo.children.length < 1) {
+    playertwo.kill();
+    playertwo.alive = false;
+  }
+  if (!player.alive && !playertwo.alive) {
+    game.state.restart();
   }
 
 
@@ -225,7 +234,11 @@ function update() {
 
   if (fireButton.isDown)
   {
-    fireBullet();
+    fireBullet(player);
+  }
+  if (fireButton2.isDown)
+  {
+    fireBullet2(playertwo);
   }
   if (game.time.now > firingTimer)
   {
@@ -254,14 +267,18 @@ function bartFires () {
   if (enemyBullet)
   {
     enemyBullet.reset(bart.x, bart.y+bart.height/2);
-
-    game.physics.arcade.moveToObject(enemyBullet,player,120);
-    firingTimer = game.time.now + 500;
+    if (Math.random() >= 0.5) {
+      game.physics.arcade.moveToObject(enemyBullet,player,120);
+      firingTimer = game.time.now + 500;
+    } else {
+      game.physics.arcade.moveToObject(enemyBullet,playertwo,120);
+      firingTimer = game.time.now + 500;
+    }
 
   }
 }
 
-function fireBullet () {
+function fireBullet (player) {
   if(player.alive) {
     if (game.time.now > bulletSpeed)
     {
@@ -270,9 +287,26 @@ function fireBullet () {
 
       if (bullet)
       {
-        bullet.reset(player.x, player.y + 8);
-        bullet.body.velocity.y = -400;
+        bullet.reset(player.x+(player.width/2), player.y + 8);
+        bullet.body.velocity.y = -300;
         bulletSpeed = game.time.now + 200;
+      }
+    }
+  }
+
+}
+function fireBullet2 (player) {
+  if(player.alive) {
+    if (game.time.now > bulletSpeed2)
+    {
+
+      bullet = bullets.getFirstExists(false);
+
+      if (bullet)
+      {
+        bullet.reset(player.x+(player.width/2), player.y + 8);
+        bullet.body.velocity.y = -300;
+        bulletSpeed2 = game.time.now + 200;
       }
     }
   }
