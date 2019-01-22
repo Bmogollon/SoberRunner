@@ -31,6 +31,7 @@ var bottles;
 var score = 0;
 var scoreText;
 var like;
+var playerLives;
 var fireButton;
 var bullets = 0;
 var bulletSpeed = 600;
@@ -113,7 +114,7 @@ function create() {
 
   for (var i = 0; i < 3; i++)
   {
-    var like  = game.add.image((i*20)-5,3,'like');
+    like  = game.add.image((i*20)-5,3,'like');
     player.addChild(like);
   }
 
@@ -163,9 +164,14 @@ function update() {
 
   function hurt(player, enemyBullet) {
     enemyBullet.kill();
+    player.children.pop();
+  }
+
+  if (player.children.length < 1) {
     player.kill();
     player.alive = false;
   }
+
 
   player.body.velocity.x = 0;
 
