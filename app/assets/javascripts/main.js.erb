@@ -178,6 +178,7 @@ function update() {
     playertwo.alive = false;
   }
   if (!player.alive && !playertwo.alive) {
+    alert('You died of alcoholism');
     game.state.restart();
   }
 
@@ -247,6 +248,7 @@ function update() {
 
   if (bottles.length == 0) {
     game.state.restart();
+    alert('You won! Please don\'t drink');
   }
 }
 
