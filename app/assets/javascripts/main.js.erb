@@ -22,7 +22,6 @@ function preload() {
 
 
 var bar;
-var bart;
 var player;
 var bottle;
 var playertwo;
@@ -32,9 +31,12 @@ var bottles;
 var score = 0;
 var scoreText;
 var like;
+var playerLives;
 var fireButton;
 var bullets = 0;
 var bulletSpeed = 600;
+var bulletSpeed2 = 600;
+var bart;
 
 
 var enemyBullet;
@@ -63,13 +65,13 @@ function create() {
 
 
   enemyBullets = game.add.group();
-    enemyBullets.enableBody = true;
-    enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
-    enemyBullets.createMultiple(30, 'enemyBullet');
-    enemyBullets.setAll('anchor.x', 0.5);
-    enemyBullets.setAll('anchor.y', 1);
-    enemyBullets.setAll('outOfBoundsKill', true);
-    enemyBullets.setAll('checkWorldBounds', true);
+  enemyBullets.enableBody = true;
+  enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
+  enemyBullets.createMultiple(30, 'enemyBullet');
+  enemyBullets.setAll('anchor.x', 0.5);
+  enemyBullets.setAll('anchor.y', 0.5);
+  enemyBullets.setAll('outOfBoundsKill', true);
+  enemyBullets.setAll('checkWorldBounds', true);
 
 
 
@@ -87,12 +89,11 @@ function create() {
     var bottle = bottles.create( (game.world.width/10)*i+22 , 108, 'bottle');
   }
 
-  var bart = game.add.sprite(50, 98, 'bart');
+  bart = game.add.sprite(50, 98, 'bart');
   bart.anchor.setTo(0.5, 0.5);
   bart.height = game.world.height*.25;
   bart.width = game.world.width*.3;
-  bart.physicsBodyType = Phaser.Physics.ARCADE;
-  bart.enableBody = true;
+	game.physics.arcade.enable(bart, Phaser.Physics.ARCADE);
   var tween = game.add.tween(bart).to( { x: 230 }, 800, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
   platforms = game.add.group();
@@ -114,16 +115,14 @@ function create() {
 
   for (var i = 0; i < 3; i++)
   {
-
-    var like  = game.add.image(-5,3,'like');
+    like  = game.add.image((i*20)-5,-15,'like');
     player.addChild(like);
-
   }
 
   for (var i = 0; i < 3; i++)
   {
 
-    var like  = game.add.image(-5,3,'like');
+    var like  = game.add.image((i*20)-5,-15,'like');
     playertwo.addChild(like);
 
   }
@@ -132,17 +131,17 @@ function create() {
 
   cursors = game.input.keyboard.createCursorKeys();
 
-  this.keys = game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D } );
+  this.keys = game.input.keyboard.addKeys( { 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D } );
 
   // SCORE TEXT
 
   scoreText = game.add.text(400, 0, 'Drinks: 0', { fontSize: '32px', fill: 'white' });
 
 
-  fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+  fireButton = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
 
-  fireButton2 = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+  fireButton2 = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 
 }
@@ -157,6 +156,32 @@ function update() {
   var hitPlatform = game.physics.arcade.collide(player, platforms);
 
   game.physics.arcade.overlap(bullets, bottles, collisionHandler, null, this);
+  game.physics.arcade.overlap(bullets, bart, hitTarget, null, this);
+  game.physics.arcade.overlap(enemyBullets, player, hurt, null, this);
+  game.physics.arcade.overlap(enemyBullets, playertwo, hurt, null, this);
+
+  function hitTarget(bart, bullet) {
+    bullet.kill();
+  }
+
+  function hurt(player, enemyBullet) {
+    enemyBullet.kill();
+    player.children.pop();
+  }
+
+  if (player.children.length < 1) {
+    player.kill();
+    player.alive = false;
+  }
+  if (playertwo.children.length < 1) {
+    playertwo.kill();
+    playertwo.alive = false;
+  }
+  if (!player.alive && !playertwo.alive) {
+    alert('You died of alcoholism');
+    game.state.restart();
+  }
+
 
   player.body.velocity.x = 0;
 
@@ -179,11 +204,6 @@ function update() {
     player.animations.stop();
 
     player.frame = 1;
-  }
-
-  if (cursors.up.isDown && player.body.touching.down && hitPlatform)
-  {
-    player.body.velocity.y = -350;
   }
 
 
@@ -213,54 +233,58 @@ function update() {
     playertwo.frame = 1;
   }
 
-  if (this.keys.up.isDown && playertwo.body.touching.down && hitPlatform)
-  {
-    playertwo.body.velocity.y = -350;
-  }
-
-
-
-
   if (fireButton.isDown)
   {
-    fireBullet();
+    fireBullet(player);
+  }
+  if (fireButton2.isDown)
+  {
+    fireBullet2(playertwo);
   }
   if (game.time.now > firingTimer)
-         {
-             bartFires();
-         }
-
+  {
+    bartFires();
   }
 
-
-
-
-
-
-  function collisionHandler (bullet, bottle) {
-    bullet.kill();
-    bottle.kill();
+  if (bottles.length == 0) {
+    game.state.restart();
+    alert('You won! Please don\'t drink');
   }
-
-
-
-  function bartFires () {
-
-      enemyBullet = enemyBullets.getFirstExists(false);
-
-
-      if (enemyBullet)
-      {
-        enemyBullet.reset(bart);
-
-                game.physics.arcade.moveToObject(enemyBullet,player,120);
-                firingTimer = game.time.now + 500;
-
-}
 }
 
-  function fireBullet () {
 
+
+
+
+
+function collisionHandler (bullet, bottle) {
+  bullet.kill();
+  bottle.destroy();
+}
+
+
+
+function bartFires () {
+
+  enemyBullet = enemyBullets.getFirstExists(false);
+
+
+  if (enemyBullet)
+  {
+    enemyBullet.reset(bart.x, bart.y+bart.height/2);
+    if (Math.random() >= 0.5) {
+      game.physics.arcade.moveToObject(enemyBullet,player,120);
+      firingTimer = game.time.now + 500;
+    } else {
+      game.physics.arcade.moveToObject(enemyBullet,playertwo,120);
+      firingTimer = game.time.now + 500;
+    }
+
+  }
+}
+
+function fireBullet (player) {
+  if(player.alive) {
     if (game.time.now > bulletSpeed)
     {
 
@@ -268,11 +292,28 @@ function update() {
 
       if (bullet)
       {
-        bullet.reset(player.x, player.y + 8);
-        bullet.body.velocity.y = -400;
+        bullet.reset(player.x+(player.width/2), player.y + 8);
+        bullet.body.velocity.y = -300;
         bulletSpeed = game.time.now + 200;
       }
     }
+  }
 
+}
+function fireBullet2 (player) {
+  if(player.alive) {
+    if (game.time.now > bulletSpeed2)
+    {
+
+      bullet = bullets.getFirstExists(false);
+
+      if (bullet)
+      {
+        bullet.reset(player.x+(player.width/2), player.y + 8);
+        bullet.body.velocity.y = -300;
+        bulletSpeed2 = game.time.now + 200;
+      }
+    }
+  }
 
 }
