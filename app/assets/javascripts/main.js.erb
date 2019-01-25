@@ -41,7 +41,7 @@ var bart;
 
 var enemyBullet;
 
-var firingTimer = 20;
+var firingTimer = 10;
 
 
 // ****************** CREATING PLAYER AND MOVEMENTS
@@ -67,7 +67,7 @@ function create() {
   enemyBullets = game.add.group();
   enemyBullets.enableBody = true;
   enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
-  enemyBullets.createMultiple(30, 'enemyBullet');
+  enemyBullets.createMultiple(430, 'enemyBullet');
   enemyBullets.setAll('anchor.x', 0.5);
   enemyBullets.setAll('anchor.y', 0.5);
   enemyBullets.setAll('outOfBoundsKill', true);
@@ -276,11 +276,11 @@ function bartFires () {
   {
     enemyBullet.reset(bart.x, bart.y+bart.height/2);
     if (Math.random() >= 0.5) {
-      game.physics.arcade.moveToObject(enemyBullet,player,120);
-      firingTimer = game.time.now + 100;
+      game.physics.arcade.moveToObject(enemyBullet,player,300);
+      firingTimer = game.time.now + 70;
     } else {
-      game.physics.arcade.moveToObject(enemyBullet,playertwo,120);
-      firingTimer = game.time.now + 100;
+      game.physics.arcade.moveToObject(enemyBullet,playertwo,300);
+      firingTimer = game.time.now + 70;
     }
 
   }
